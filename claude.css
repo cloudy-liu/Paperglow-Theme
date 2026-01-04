@@ -1,0 +1,1014 @@
+/*
+ * Claude Theme for Typora
+ * 
+ * 完全复刻 Claude 官网 (claude.ai) 的设计风格
+ * 包含温暖的米白色背景、清晰的排版和优雅的代码高亮
+ * 
+ * Author: Claude Theme
+ * Version: 1.0.0
+ */
+
+/* ========================================
+   CSS 变量定义 - Claude 配色方案
+   ======================================== */
+:root {
+    /* 背景色系 - 官网精确取色 */
+    --bg-color: #FDFDF7;
+    /* 主背景 - 温暖的米白色 #FDFDF7 */
+    --side-bar-bg-color: var(--bg-color);
+    /* 侧边栏背景与正文一致 */
+    --control-text-color: #73726C;
+    /* 控制文本 */
+
+    /* 文本色系 */
+    --text-color: #3E3E3E;
+    /* 主文本 - 官网灰黑色 */
+    --md-char-color: #B8B7B2;
+    /* Markdown 符号颜色 */
+    --meta-content-color: #73726C;
+    /* 元信息颜色 */
+
+    /* 强调色系 */
+    --primary-color: #D4A27F;
+    /* Claude 官网棕橙色 */
+    --primary-btn-border-color: #A85232;
+    --primary-btn-text-color: #FFFFFF;
+
+    /* 交互色系 */
+    --active-file-bg-color: rgba(212, 162, 127, 0.15);
+    /* 选中背景：淡橙色 */
+    --active-file-text-color: #141413;
+    --active-file-border-color: #D4A27F;
+    --item-hover-bg-color: rgba(212, 162, 127, 0.08);
+    /* 悬浮背景：极淡橙色 */
+    --item-hover-text-color: #141413;
+
+    /* 边框与分割线 */
+    --window-border: 1px solid #E5E7EB;
+    --border-color: #E5E7EB;
+
+    /* 字体定义 */
+    --font-family: "Anthropic Sans", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --monospace: "JetBrains Mono", "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    /* 代码块相关 */
+    --code-bg-color: #FFFFFF;
+    /* 官网代码块纯白背景 */
+    --code-text-color: #383A42;
+
+    /* 官网提示卡片颜色 (Note/Tip) */
+    --callout-bg: rgba(236, 253, 245, 0.5);
+    /* #ECFDF5 50% opacity */
+    --callout-border: rgba(16, 185, 129, 0.2);
+    /* #10B981 20% opacity */
+    --callout-text: #064E3B;
+}
+
+/* ========================================
+   基础排版
+   ======================================== */
+html {
+    font-size: 16px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 30px 60px 100px;
+    font-size: 0.9375rem;
+    /* 整体略小一号，更接近官网正文字号 */
+    line-height: 1.75;
+}
+
+#write>ul:first-child,
+#write>ol:first-child {
+    margin-top: 30px;
+}
+
+/* ========================================
+   标题样式 - Claude 风格
+   ======================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family);
+    font-weight: 600;
+    color: var(--text-color);
+    line-height: 1.4;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: 1.875rem;
+    /* 30px */
+    font-weight: 400;
+    padding-bottom: 0.4em;
+    border-bottom: none;
+    margin-top: 0;
+    letter-spacing: -0.03em;
+}
+
+h2 {
+    font-size: 1.5rem;
+    /* 24px */
+    font-weight: 600;
+    padding-bottom: 0.3em;
+    border-bottom: none;
+    letter-spacing: -0.02em;
+}
+
+/* 标题使用衬线字体，贴近官网「Getting started」风格 */
+h1,
+h2 {
+    font-family: "Georgia", "Times New Roman", "Times", serif;
+}
+
+h3 {
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 1.125rem;
+    /* 18px */
+    font-weight: 600;
+}
+
+h5 {
+    font-size: 1rem;
+    /* 16px */
+    font-weight: 600;
+    color: var(--meta-content-color);
+}
+
+h6 {
+    font-size: 0.875rem;
+    /* 14px */
+    font-weight: 600;
+    color: var(--meta-content-color);
+}
+
+/* 正文中当前聚焦的标题高亮 */
+#write h1.md-focus,
+#write h2.md-focus,
+#write h3.md-focus,
+#write h4.md-focus,
+#write h5.md-focus,
+#write h6.md-focus {
+    background-color: var(--active-file-bg-color);
+    border-radius: 8px;
+    padding-left: 8px;
+    margin-left: -8px;
+}
+
+/* ========================================
+   段落与文本
+   ======================================== */
+p {
+    margin: 0 0 1em 0;
+    line-height: 1.75;
+}
+
+#write>p:first-child {
+    margin-top: 0;
+}
+
+/* 加粗 */
+strong {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* 斜体 */
+em {
+    font-style: italic;
+}
+
+/* 删除线 */
+del {
+    color: var(--meta-content-color);
+    text-decoration: line-through;
+}
+
+/* 下划线 */
+u {
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+    text-underline-offset: 3px;
+}
+
+/* 高亮 */
+mark {
+    background-color: rgba(198, 97, 63, 0.15);
+    color: var(--text-color);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* ========================================
+   链接样式
+   ======================================== */
+a {
+    /* 官网风格：几乎黑色的粗体文字+下划线 */
+    color: #161922;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(22, 25, 34, 0.35);
+    text-underline-offset: 3px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+a:hover {
+    color: #161922;
+    border-bottom-color: #161922;
+    text-decoration: none;
+}
+
+#write a {
+    color: #161922;
+    /* 官网链接字更大一点 */
+    font-size: 1.05em;
+    border-bottom-width: 1px;
+}
+
+#write a:hover {
+    text-decoration: none;
+}
+
+/* ========================================
+   代码样式 - 内联代码
+   ======================================== */
+code {
+    font-family: var(--monospace);
+    font-size: 0.875em;
+    background-color: #EEEEEE;
+    color: #111827;
+    padding: 2px 8px;
+    /* 官网 padding */
+    border-radius: 6px;
+    border: none;
+}
+
+/* 行内代码（反引号 `...`）只作用在正文内容，避免影响代码块内的 code */
+#write p code,
+#write li code,
+#write td code,
+#write th code {
+    font-family: var(--monospace);
+    font-size: 0.875em;
+    /* 这里也统一一下 */
+    background-color: #EEEEEE;
+    color: #111827;
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: none;
+}
+
+/* 引用/提示卡片中的行内代码也跟随深绿色正文 */
+blockquote code,
+.md-alert code {
+    background-color: rgba(236, 253, 245, 0.45);
+    border-color: rgba(16, 185, 129, 0.18);
+    color: var(--callout-text);
+}
+
+/* ========================================
+   代码块样式
+   ======================================== */
+pre {
+    font-family: var(--monospace);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    background-color: var(--code-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    /* 官网大圆角 */
+    padding: 16px 20px;
+    overflow-x: auto;
+    margin: 1em 0;
+}
+
+pre code {
+    font-family: var(--monospace);
+    font-size: 0.875rem;
+    background: transparent;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    color: var(--code-text-color);
+}
+
+/* Typora 代码块 */
+.md-fences {
+    font-family: var(--monospace);
+    font-size: 0.875rem;
+    background-color: var(--code-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    /* 官网大圆角 */
+    padding: 16px 20px;
+    margin: 1em 0;
+}
+
+.md-fences.mock-cm {
+    font-family: var(--monospace);
+}
+
+/* 代码块语言标签 */
+.md-fences .code-tooltip {
+    background-color: var(--side-bar-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--meta-content-color);
+    font-size: 0.75rem;
+}
+
+/* ========================================
+   代码高亮 - CodeMirror 主题
+   ======================================== */
+.cm-s-inner {
+    font-family: var(--monospace);
+    color: var(--code-text-color);
+    background-color: var(--code-bg-color);
+}
+
+.cm-s-inner .CodeMirror-gutters {
+    background-color: var(--code-bg-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.cm-s-inner .CodeMirror-linenumber {
+    color: #B8B7B2;
+}
+
+/* 代码高亮颜色 - 基于 Claude 风格 */
+.cm-s-inner .cm-keyword {
+    color: #A626A4;
+    /* 关键字 - 紫色 */
+}
+
+.cm-s-inner .cm-atom {
+    color: #986801;
+    /* 原子值 - 橙色 */
+}
+
+.cm-s-inner .cm-number {
+    color: #986801;
+    /* 数字 - 橙色 */
+}
+
+.cm-s-inner .cm-def {
+    color: #4078F2;
+    /* 定义 - 蓝色 */
+}
+
+.cm-s-inner .cm-variable {
+    color: #383A42;
+    /* 变量 */
+}
+
+.cm-s-inner .cm-variable-2 {
+    color: #C6613F;
+    /* 变量2 - Claude 橙棕 */
+}
+
+.cm-s-inner .cm-variable-3 {
+    color: #C18401;
+    /* 变量3 */
+}
+
+.cm-s-inner .cm-property {
+    color: #C6613F;
+    /* 属性 - Claude 橙棕 */
+}
+
+.cm-s-inner .cm-operator {
+    color: #383A42;
+    /* 运算符 */
+}
+
+.cm-s-inner .cm-comment {
+    color: #A0A1A7;
+    /* 注释 - 灰色 */
+    font-style: italic;
+}
+
+.cm-s-inner .cm-string {
+    color: #50A14F;
+    /* 字符串 - 绿色 */
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #50A14F;
+}
+
+.cm-s-inner .cm-meta {
+    color: #383A42;
+}
+
+.cm-s-inner .cm-qualifier {
+    color: #4078F2;
+}
+
+.cm-s-inner .cm-builtin {
+    color: #C18401;
+    /* 内置 - 橙黄 */
+}
+
+.cm-s-inner .cm-bracket {
+    color: #383A42;
+}
+
+.cm-s-inner .cm-tag {
+    color: #E45649;
+    /* HTML 标签 - 红色 */
+}
+
+.cm-s-inner .cm-attribute {
+    color: #986801;
+    /* HTML 属性 - 橙色 */
+}
+
+.cm-s-inner .cm-header {
+    color: #C6613F;
+    /* 标题 - Claude 橙棕 */
+    font-weight: bold;
+}
+
+.cm-s-inner .cm-quote {
+    color: #50A14F;
+    /* 引用 - 绿色 */
+}
+
+.cm-s-inner .cm-hr {
+    color: #B8B7B2;
+}
+
+.cm-s-inner .cm-link {
+    color: #4078F2;
+    /* 链接 - 蓝色 */
+}
+
+.cm-s-inner .cm-error {
+    color: #E45649;
+    /* 错误 - 红色 */
+}
+
+/* 选中文本 */
+.cm-s-inner .CodeMirror-selected {
+    background-color: rgba(198, 97, 63, 0.15);
+}
+
+.cm-s-inner .CodeMirror-selectedtext {
+    background-color: rgba(198, 97, 63, 0.2);
+}
+
+/* ========================================
+   引用块样式
+   ======================================== */
+blockquote {
+    margin: 1em 0;
+    padding: 18px 22px;
+    border: 1px solid var(--callout-border);
+    background-color: var(--callout-bg);
+    border-radius: 16px;
+    color: var(--callout-text);
+}
+
+blockquote p {
+    margin: 0;
+}
+
+blockquote blockquote {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+/* 引用块内所有文字/强调/链接都保持“同一套深绿”视觉（不被全局 strong/a 规则覆盖） */
+blockquote,
+blockquote p,
+blockquote span,
+blockquote strong,
+blockquote em,
+blockquote li {
+    color: var(--callout-text) !important;
+}
+
+blockquote strong {
+    font-weight: 700;
+}
+
+blockquote a {
+    color: var(--callout-text) !important;
+    border-bottom-color: rgba(6, 78, 59, 0.35) !important;
+}
+
+blockquote a:hover {
+    color: var(--callout-text) !important;
+    border-bottom-color: rgba(6, 78, 59, 0.85) !important;
+}
+
+/* ========================================
+   列表样式
+   ======================================== */
+ul,
+ol {
+    padding-left: 2em;
+    margin: 0.5em 0 1em 0;
+}
+
+li {
+    margin: 0.3em 0;
+    line-height: 1.75;
+}
+
+li>ul,
+li>ol {
+    margin: 0.3em 0;
+}
+
+/* 无序列表标记 */
+ul {
+    list-style-type: disc;
+}
+
+ul ul {
+    list-style-type: circle;
+}
+
+ul ul ul {
+    list-style-type: square;
+}
+
+/* 有序列表 */
+ol {
+    list-style-type: decimal;
+}
+
+/* 任务列表 */
+.task-list-item {
+    list-style-type: none;
+    margin-left: -1.5em;
+}
+
+.task-list-item input[type="checkbox"] {
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+
+/* 复选框样式 */
+.task-list-item input[type="checkbox"]:checked::before {
+    background-color: var(--primary-color);
+}
+
+/* ========================================
+   表格样式
+   ======================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 0.9375rem;
+}
+
+thead tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+th,
+td {
+    padding: 10px 16px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #3D3D3A;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tr:nth-child(2n) {
+    background-color: transparent;
+}
+
+tr:hover {
+    background-color: rgba(22, 25, 34, 0.02);
+}
+
+/* 表格中 code 像官网一样是浅灰色胶囊标签 */
+table code {
+    background-color: #F3F2EC;
+    border-radius: 999px;
+    border: 1px solid #E4E2D8;
+    padding: 2px 10px;
+    font-size: 0.85em;
+}
+
+/* ========================================
+   水平线
+   ======================================== */
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2em 0;
+}
+
+/* ========================================
+   图片样式
+   ======================================== */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1em 0;
+}
+
+/* 图片标题 */
+.md-image>.md-meta {
+    color: var(--meta-content-color);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+/* ========================================
+   脚注
+   ======================================== */
+sup.md-footnote {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+sup.md-footnote:hover {
+    background-color: #A85232;
+}
+
+.md-def-footnote {
+    font-size: 0.875rem;
+    color: var(--meta-content-color);
+    padding-left: 1em;
+    border-left: 3px solid var(--border-color);
+    margin: 0.5em 0;
+}
+
+/* ========================================
+   目录 (TOC)
+   ======================================== */
+.md-toc {
+    font-size: 0.9375rem;
+    background-color: var(--side-bar-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin: 1em 0;
+}
+
+.md-toc-content {
+    margin-left: 0;
+}
+
+.md-toc-item {
+    color: var(--text-color);
+}
+
+.md-toc-h1 {
+    font-weight: 600;
+}
+
+.md-toc-h2 {
+    padding-left: 1em;
+}
+
+.md-toc-h3,
+.md-toc-h4,
+.md-toc-h5,
+.md-toc-h6 {
+    padding-left: 2em;
+    font-size: 0.875rem;
+}
+
+/* ========================================
+   YAML Front Matter
+   ======================================== */
+pre.md-meta-block {
+    background-color: var(--code-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 0.875rem;
+    color: var(--meta-content-color);
+    margin-bottom: 2em;
+}
+
+/* ========================================
+   数学公式
+   ======================================== */
+.MathJax_Display {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.md-math-block {
+    font-size: 1.1em;
+}
+
+/* ========================================
+   提示框/Callout 样式
+   ======================================== */
+.md-alert {
+    /* 统一成官网图三浅绿色圆角卡片风格 */
+    padding: 18px 22px;
+    margin: 1em 0;
+    border-radius: 16px;
+    border: 1px solid var(--callout-border);
+    background-color: var(--callout-bg);
+    color: var(--callout-text);
+}
+
+.md-alert-note {
+    background-color: var(--callout-bg);
+    border-left-color: transparent;
+}
+
+.md-alert-tip {
+    background-color: var(--callout-bg);
+    border-left-color: transparent;
+}
+
+.md-alert-important {
+    background-color: var(--callout-bg);
+    border-left-color: transparent;
+}
+
+.md-alert-warning {
+    background-color: var(--callout-bg);
+    border-left-color: transparent;
+}
+
+.md-alert-caution {
+    background-color: var(--callout-bg);
+    border-left-color: transparent;
+}
+
+.md-alert,
+.md-alert p,
+.md-alert span,
+.md-alert strong,
+.md-alert em,
+.md-alert li {
+    color: var(--callout-text) !important;
+}
+
+.md-alert a {
+    color: var(--callout-text) !important;
+    border-bottom-color: rgba(6, 78, 59, 0.35) !important;
+}
+
+.md-alert a:hover {
+    border-bottom-color: rgba(6, 78, 59, 0.85) !important;
+}
+
+/* ========================================
+   侧边栏样式
+   ======================================== */
+#typora-sidebar {
+    background-color: var(--side-bar-bg-color);
+    border-right: 1px solid var(--border-color);
+}
+
+#typora-sidebar .sidebar-content {
+    background-color: var(--side-bar-bg-color);
+}
+
+.file-list-item {
+    /* 官网侧边栏是“胶囊按钮”列表：去掉分隔线，增加圆角与内边距 */
+    border-bottom: none;
+    border-radius: 14px;
+    margin: 6px 10px;
+    padding: 10px 14px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.file-list-item.active {
+    background-color: var(--active-file-bg-color);
+    /* 选中：圆角+轻阴影（图一） */
+    border-left: none;
+    box-shadow:
+        0 1px 0 rgba(22, 25, 34, 0.06),
+        0 10px 30px rgba(22, 25, 34, 0.06);
+}
+
+.file-list-item:hover {
+    background-color: var(--item-hover-bg-color);
+    box-shadow: 0 8px 24px rgba(22, 25, 34, 0.05);
+}
+
+/* 补充大纲视图 (Outline) 样式 */
+.outline-item:hover {
+    background-color: var(--item-hover-bg-color);
+    border-radius: 8px;
+}
+
+/* 大纲当前选中项（滚动时高亮） */
+.outline-item.select,
+.outline-item.active {
+    background-color: var(--active-file-bg-color);
+    border-radius: 8px;
+}
+
+/* ========================================
+   搜索面板
+   ======================================== */
+#md-searchpanel {
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+#md-searchpanel input {
+    background-color: var(--side-bar-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+}
+
+#md-searchpanel input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(198, 97, 63, 0.2);
+}
+
+/* ========================================
+   滚动条样式
+   ======================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #D4D3CE;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #B8B7B2;
+}
+
+/* ========================================
+   选中文本
+   ======================================== */
+::selection {
+    background-color: rgba(198, 97, 63, 0.2);
+    color: var(--text-color);
+}
+
+/* ========================================
+   聚焦模式
+   ======================================== */
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) {
+    opacity: 0.5;
+}
+
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) * {
+    color: inherit !important;
+}
+
+/* ========================================
+   打印样式
+   ======================================== */
+@media print {
+
+    html,
+    body {
+        background-color: white;
+    }
+
+    #write {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    pre,
+    .md-fences {
+        page-break-inside: avoid;
+        border: 1px solid #E8E6DE;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+}
+
+/* ========================================
+   源代码模式
+   ======================================== */
+.cm-s-typora-default {
+    font-family: var(--monospace);
+    color: var(--code-text-color);
+    background-color: var(--bg-color);
+}
+
+.cm-s-typora-default .cm-header {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.cm-s-typora-default .cm-link {
+    color: #4078F2;
+}
+
+.cm-s-typora-default .cm-string {
+    color: #50A14F;
+}
+
+.cm-s-typora-default .cm-comment {
+    color: #A0A1A7;
+    font-style: italic;
+}
+
+/* ========================================
+   Mermaid 图表样式
+   ======================================== */
+.md-diagram-panel {
+    background-color: var(--side-bar-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+/* ========================================
+   Windows/Linux 特定样式
+   ======================================== */
+#md-notification {
+    background-color: var(--side-bar-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.megamenu-menu {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+}
+
+.megamenu-menu-header {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.megamenu-menu-list li a:hover {
+    background-color: var(--item-hover-bg-color);
+}
+
+/* ========================================
+   标题锚点
+   ======================================== */
+.md-heading:hover .md-header-anchor {
+    opacity: 1;
+}
+
+.md-header-anchor {
+    color: var(--primary-color);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
