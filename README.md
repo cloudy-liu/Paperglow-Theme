@@ -2,6 +2,8 @@
 
 一个完全复刻 [Claude Code 官方文档](https://code.claude.com/docs) 设计风格的 Typora Markdown 主题。
 
+![Preview](demo.png)
+
 ## ✨ 特性
 
 - 🎨 **官网精准配色** - 使用官网暖白背景 `#FDFDF7` 与深调衬底 `#f0eee6`
