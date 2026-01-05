@@ -13,7 +13,7 @@
    ======================================== */
 :root {
     /* 背景色系 - 官网精确取色 */
-    --bg-color: #FDFDF7;
+    --bg-color: #f0eee6;
     /* 主背景 - 温暖的米白色 #FDFDF7 */
     --side-bar-bg-color: var(--bg-color);
     /* 侧边栏背景与正文一致 */
@@ -56,12 +56,13 @@
     /* 官网代码块纯白背景 */
     --code-text-color: #383A42;
 
-    /* 官网提示卡片颜色 (Note/Tip) */
-    --callout-bg: rgba(236, 253, 245, 0.5);
-    /* #ECFDF5 50% opacity */
-    --callout-border: rgba(16, 185, 129, 0.2);
-    /* #10B981 20% opacity */
-    --callout-text: #064E3B;
+    /* 官网提示卡片颜色 (Note/Tip) - 调整为温和的暖色调以协调主题 */
+    --callout-bg: rgba(212, 162, 127, 0.08);
+    /* 极淡的橙棕色背景 */
+    --callout-border: rgba(212, 162, 127, 0.25);
+    /* 柔和的橙色边框 */
+    --callout-text: #5C4632;
+    /* 深暖棕色文本 */
 }
 
 /* ========================================
@@ -83,9 +84,18 @@ body {
 }
 
 #write {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 30px 60px 100px;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 60px 80px 100px;
+    background-color: #FDFDF7;
+    /* 恢复温暖的米白色背景，取代刺眼的纯白 */
+    border-radius: 12px;
+    /* 卡片圆角 */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    /* 柔和阴影 */
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    /* 极其微弱的边框增加质感 */
+
     font-size: 0.9375rem;
     /* 整体略小一号，更接近官网正文字号 */
     line-height: 1.75;
@@ -516,12 +526,12 @@ blockquote strong {
 
 blockquote a {
     color: var(--callout-text) !important;
-    border-bottom-color: rgba(6, 78, 59, 0.35) !important;
+    border-bottom-color: rgba(92, 70, 50, 0.35) !important;
 }
 
 blockquote a:hover {
     color: var(--callout-text) !important;
-    border-bottom-color: rgba(6, 78, 59, 0.85) !important;
+    border-bottom-color: rgba(92, 70, 50, 0.85) !important;
 }
 
 /* ========================================
@@ -790,11 +800,11 @@ pre.md-meta-block {
 
 .md-alert a {
     color: var(--callout-text) !important;
-    border-bottom-color: rgba(6, 78, 59, 0.35) !important;
+    border-bottom-color: rgba(92, 70, 50, 0.35) !important;
 }
 
 .md-alert a:hover {
-    border-bottom-color: rgba(6, 78, 59, 0.85) !important;
+    border-bottom-color: rgba(92, 70, 50, 0.85) !important;
 }
 
 /* ========================================
