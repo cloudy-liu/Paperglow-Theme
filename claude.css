@@ -334,19 +334,73 @@ pre code {
     /* 官网大圆角 */
     padding: 16px 20px;
     margin: 1em 0;
+    position: relative;
+    /* 为语言标签定位提供参考 */
 }
 
 .md-fences.mock-cm {
     font-family: var(--monospace);
 }
 
-/* 代码块语言标签 */
+/* 代码块语言标签 - 紧凑样式 */
 .md-fences .code-tooltip {
-    background-color: var(--side-bar-bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--meta-content-color);
-    font-size: 0.75rem;
+    background-color: var(--side-bar-bg-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 6px !important;
+    color: var(--meta-content-color) !important;
+    font-size: 0.75rem !important;
+    position: absolute !important;
+    top: 8px !important;
+    right: 12px !important;
+    left: auto !important;
+    bottom: auto !important;
+    padding: 0 8px !important;
+    z-index: 10;
+    width: auto !important;
+    min-width: 40px !important;
+    max-width: 100px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+}
+
+/* 代码块语言选择器 - 所有内部元素 */
+.md-fences .code-tooltip *,
+.md-fences .code-tooltip input,
+.md-fences .code-tooltip .ty-input {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 0.75rem !important;
+    line-height: 24px !important;
+    border: none !important;
+    background: transparent !important;
+    text-align: center !important;
+    /* 强制文字居中 */
+    color: inherit !important;
+    cursor: pointer !important;
+}
+
+/* 强制限制语言选择面板尺寸 */
+.md-fences .md-lang-selection,
+.md-fences .ty-cm-lang-input,
+.md-fences [class*="lang"] {
+    width: auto !important;
+    max-width: 100px !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 隐藏不需要的元素 */
+.md-fences .ty-cm-lang,
+.md-fences .cm-lang-tag,
+.md-fences .CodeMirror-code .cm-lang {
+    display: none !important;
 }
 
 /* ========================================
