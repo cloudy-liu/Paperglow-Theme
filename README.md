@@ -1,19 +1,19 @@
 # Claude Theme for Typora
 
-一个完全复刻 [Claude Code 官方文档](https://code.claude.com/docs) 设计风格的 Typora Markdown 主题。
+基于 [Anthropic 官方品牌指南](https://github.com/anthropics/skills/blob/main/skills/brand-guidelines/SKILL.md) 设计的 Typora Markdown 主题。
 
 ![Preview](demo.png)
 
 ## ✨ 特性
 
-- 🎨 **官网精准配色** - 使用官网暖白背景 `#FDFDF7` 与深调衬底 `#f0eee6`
+- 🎨 **官方品牌配色** - 严格遵循 Anthropic 官方品牌指南的配色方案
+- 🔶 **三色强调系统** - Orange `#d97757` / Blue `#6a9bcc` / Green `#788c5d`
 - 🃏 **卡片式布局** - 优雅的悬浮卡片设计，配合柔和阴影
-- 🔶 **标志性橙色强调** - Claude 品牌色 `#D4A27F` 用于侧边栏高亮
-- 📝 **清晰的排版** - 优化的标题层级、段落间距和行高
-- 💻 **现代代码风格** - 纯白背景 + 16px 大圆角代码块
+- 🔤 **官方字体规范** - Poppins (标题) + Lora (正文)，自动从 Google Fonts 加载
+- 💻 **现代代码风格** - 纯白背景 + 16px 大圆角代码块 + 三色代码高亮
 - 📊 **简洁表格** - 底部分隔线风格
-- 💬 **提示卡片样式** - 暖棕色圆角卡片（Note/Tip），与主色调完美融合
-- ✅ **侧边栏橙色高亮** - 大纲悬浮/选中时显示品牌橙色
+- 💬 **温暖提示卡片** - Orange 色调圆角卡片（Note/Tip）
+- ✅ **侧边栏高亮** - 大纲悬浮/选中时显示品牌 Orange 色
 
 ## 📦 安装方法
 
@@ -40,30 +40,39 @@
 4. 重启 Typora
 5. 选择 Claude 主题
 
-## 🎨 颜色方案
+## 🎨 Anthropic 官方配色方案
+
+基于 [官方品牌指南](https://github.com/anthropics/skills/blob/main/skills/brand-guidelines/SKILL.md)：
+
+### 主色系
 
 | 用途 | 颜色值 | 说明 |
 |------|--------|------|
-| 全局衬底 | `#f0eee6` | 深米色背景 |
-| 内容卡片 | `#FDFDF7` | 温暖亮白 |
-| 代码块背景 | `#FFFFFF` | 纯白 |
-| 内联代码背景 | `#EEEEEE` | 浅灰 |
-| 主文本 | `#3E3E3E` | 官网灰黑色 |
-| 次要文本 | `#73726C` | 中灰色 |
-| 强调色 | `#D4A27F` | Claude 棕橙色 |
-| 边框 | `#E5E7EB` | 浅灰色 |
-| 提示卡片 | `rgba(212, 162, 127, 0.08)` | 暖棕色 |
+| Dark | `#141413` | 主文本色 |
+| Light | `#faf9f5` | 浅色背景 |
+| Mid Gray | `#b0aea5` | 次要元素 |
+| Light Gray | `#e8e6dc` | 边框/内联代码背景 |
 
-## 🔤 字体
+### 强调色系
 
-- **正文字体**: Anthropic Sans / System UI
+| 用途 | 颜色值 | 应用场景 |
+|------|--------|----------|
+| Orange | `#d97757` | 主强调色、关键字、链接悬停、高亮 |
+| Blue | `#6a9bcc` | 次要强调、函数定义、内置函数 |
+| Green | `#788c5d` | 第三强调、字符串 |
+
+## 🔤 字体规范
+
+主题使用 Google Fonts 自动在线加载，**无需手动安装字体**。
+
+- **标题字体**: Poppins (无衬线)
   ```
-  "Anthropic Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
+  "Poppins", "Arial", system-ui, sans-serif
   ```
 
-- **标题字体**: Georgia (衬线)
+- **正文字体**: Lora (衬线)
   ```
-  "Georgia", "Times New Roman", serif
+  "Lora", "Georgia", "Times New Roman", serif
   ```
 
 - **代码字体**: JetBrains Mono
@@ -71,22 +80,24 @@
   "JetBrains Mono", "SF Mono", Menlo, Monaco, Consolas, monospace
   ```
 
+> 💡 **离线使用**：如需离线使用，可从 [Google Fonts](https://fonts.google.com) 下载并安装 Poppins 和 Lora 字体。
+
 ## 📁 文件说明
 
-```
-typroa-copy-theme/
+```shell
+Typora-claude-theme/
 ├── claude.css             # 主题文件（安装此文件）
-├── test-claude-theme.md    # 测试用 Markdown 文件
-├── preview.html            # 浏览器预览文件
-└── README.md               # 说明文档
+├── test-claude-theme.md   # 测试用 Markdown 文件
+├── README.md              # 说明文档
+└── demo.png               # 预览图片
 ```
 
 ## 🖼️ 支持的元素
 
 - 六级标题 (H1-H6)
 - 段落和文本格式（加粗、斜体、删除线、下划线、高亮）
-- 链接（细下划线样式）
-- 代码（无边框内联代码 + 大圆角代码块）
+- 链接（悬停显示 Orange 强调色）
+- 代码（Light Gray 内联代码 + 大圆角代码块）
 - 引用块 / 提示卡片
 - 有序/无序列表
 - 任务列表
@@ -100,16 +111,16 @@ typroa-copy-theme/
 
 ## 🌈 代码高亮
 
-基于 One Light 配色方案：
+基于 Anthropic 官方三色系统：
 
-| 类型 | 颜色 |
-|------|------|
-| 关键字 | `#A626A4` 紫色 |
-| 字符串 | `#50A14F` 绿色 |
-| 数字 | `#986801` 橙色 |
-| 注释 | `#A0A1A7` 灰色 |
-| 函数 | `#4078F2` 蓝色 |
-| 属性 | `#D4A27F` 棕橙色 |
+| 类型 | 颜色 | 说明 |
+|------|------|------|
+| 关键字/标签 | `#d97757` | Orange |
+| 字符串/引用 | `#788c5d` | Green |
+| 函数定义/链接 | `#6a9bcc` | Blue |
+| 数字/原子值 | `#c45a3a` | Orange 变体 |
+| 注释 | `#b0aea5` | Mid Gray |
+| 变量/运算符 | `#141413` | Dark |
 
 ## 📜 许可证
 
@@ -117,9 +128,12 @@ MIT License
 
 ## 🙏 致谢
 
-- 设计灵感来自 [Claude Code 官方文档](https://code.claude.com/docs)
+- 设计规范来自 [Anthropic 官方品牌指南](https://github.com/anthropics/skills/blob/main/skills/brand-guidelines/SKILL.md)
 - 感谢 [Typora](https://typora.io) 提供优秀的 Markdown 编辑器
+- 字体由 [Google Fonts](https://fonts.google.com) 提供
 
 ---
 
 *Made with ❤️ for Claude fans*
+
+**Version 2.0.0** | 基于 Anthropic 官方品牌指南
