@@ -2,6 +2,12 @@
 
 各类 Markdown 编辑器 / 笔记应用的自定义主题合集。
 
+## 效果预览
+
+### Typora - Claude
+
+![Typora Claude Theme Preview](typora/claude/demo.png)
+
 ## 主题列表
 
 | 应用 | 主题名 | 风格 | 路径 |
