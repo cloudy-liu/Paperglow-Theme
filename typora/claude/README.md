@@ -134,6 +134,13 @@ MIT License
 - 感谢 [Typora](https://typora.io) 提供优秀的 Markdown 编辑器
 - 字体由 [Google Fonts](https://fonts.google.com) 提供
 
+## Windows 顶栏 / 菜单栏说明
+
+- Typora 主题 CSS 可以稳定覆盖正文区、侧栏、搜索面板和部分 HTML UI。
+- Windows 默认窗口样式下，最上方菜单栏是系统原生控件，不会被主题 CSS 改色。
+- 如果希望顶部区域也跟随 Claude 主题，请在 Typora 的 `Settings / 偏好设置 -> Appearance / 外观 -> Window Style` 中切换到 `Unibody`，然后重启 Typora。
+- 本主题从 `3.1.0` 开始补充了 `Unibody` 顶栏样式，标题栏、窗口标题和顶部按钮会与正文背景统一。
+
 ---
 
-**Version 3.0.0** | Claude artifact amber palette + Montserrat typography
+**Version 3.1.0** | Claude artifact amber palette + Montserrat typography + Windows Unibody title bar support

@@ -5,7 +5,7 @@
  * Typography: Strict copy from laper.ai (Montserrat + Noto Sans SC + PingFang SC)
  * 
  * Author: Claude Theme
- * Version: 3.0.0
+ * Version: 3.1.0
  */
 
 /* ========================================
@@ -1011,6 +1011,48 @@ pre.md-meta-block {
 
 .megamenu-menu-list li a:hover {
     background-color: var(--item-hover-bg-color);
+}
+
+/* ========================================
+   Windows Unibody Title Bar
+   Native Windows menu bars are not themeable through CSS.
+   These rules style the HTML-powered title bar when Typora
+   is configured to use the "Unibody" window style.
+   ======================================== */
+header,
+#top-titlebar {
+    background-color: var(--bg-color);
+    background-image: none;
+}
+
+.megamenu-opened header {
+    background-color: var(--bg-color);
+    background-image: none;
+}
+
+#top-titlebar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.45);
+}
+
+#top-titlebar .ty-app-title,
+#top-titlebar .window-title {
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+#top-titlebar .toolbar-icon.btn {
+    color: var(--text-secondary);
+    border-radius: 10px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#top-titlebar .toolbar-icon.btn:hover,
+#top-titlebar .toolbar-icon.btn.hover {
+    background-color: var(--item-hover-bg-color);
+    color: var(--text-color);
 }
 
 /* ========================================
