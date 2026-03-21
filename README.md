@@ -21,7 +21,7 @@
 
 ### Typora - Claude 主题
 
-将 `typora/claude/claude.css` 复制到 Typora 主题目录。详见 [typora/claude/README.md](typora/claude/README.md)。
+将 `typora/claude/claude.css` 和 `typora/claude/claude-dark.css` 复制到 Typora 主题目录。详见 [typora/claude/README.md](typora/claude/README.md)。
 
 ### Obsidian - WizNote 主题
 
@@ -34,8 +34,11 @@ markdown-themes/
 ├── typora/
 │   └── claude/          # Typora Claude 主题
 │       ├── claude.css
+│       ├── claude-dark.css
 │       ├── demo.png
-│       ├── test-layout.md
+│       ├── test/
+│       │   ├── test-layout.md
+│       │   └── test_theme.py
 │       └── README.md
 ├── obsidian/
 │   └── wiznote/         # Obsidian WizNote 主题

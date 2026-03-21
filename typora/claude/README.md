@@ -1,72 +1,86 @@
 # Claude Theme for Typora
 
-基于 Claude artifact 风格设计的 Typora Markdown 主题，采用 amber 暖色调配色与 Montserrat 几何无衬线字体。
+基于 Claude artifact 的结构语言设计，并吸收 Claude-Like Theme 的暖纸面 light 配色；保留 Montserrat 几何无衬线排版，同时新增一份更耐看的 dark 版本。
 
 ![Preview](demo.png)
 
 ## ✨ 特性
 
-- **Amber 暖色调配色** - 源自 Claude artifact 的 amber-50/amber-100 色板
+- **暖纸面 / 陶土色配色** - 吸收 Claude-Like Theme 的 light 场景色板，改成更像纸张与编辑稿的暖中性色
 - **卡片式布局** - 16px 大圆角悬浮卡片，配合柔和阴影
 - **Montserrat 字体** - 标题与正文统一使用 Montserrat，中文回退 Noto Sans SC / PingFang SC
 - **现代代码风格** - 纯白背景 + 16px 大圆角代码块
-- **Amber 引用卡片** - 左边框 + 阴影卡片风格的引用块
+- **编辑感引用卡片** - 陶土边框 + 米白底色 + 更克制的阴影层次
 - **简洁表格** - 大写表头 + 底部分隔线风格
-- **侧边栏高亮** - 大纲悬浮/选中时显示品牌 amber 色
+- **侧边栏高亮** - 大纲悬浮/选中时显示 terracotta 强调色
+- **独立 dark 版本** - 新增 `claude-dark.css`，延续同一套结构与交互语义
 
 ## 📦 安装方法
 
 ### 方法一：手动安装
 
-1. 下载 `claude.css` 文件
+1. 下载 `claude.css` 和 `claude-dark.css` 文件
 
 2. 打开 Typora 的主题文件夹：
    - **Windows**: `%APPDATA%\Typora\themes\`
    - **macOS**: `~/Library/Application Support/abnerworks.Typora/themes/`
    - **Linux**: `~/.config/Typora/themes/`
 
-3. 将 `claude.css` 复制到主题文件夹
+3. 将两个文件都复制到主题文件夹
+
+   - `claude.css` 是 light 主题
+   - `claude-dark.css` 是 dark 主题，并且 imports ./claude.css，所以需要与 `claude.css` 一起复制
 
 4. 重启 Typora
 
-5. 在 `主题` 菜单中选择 **"Claude"**
+5. 在 `主题` 菜单中选择 **"Claude"** 或 **"claude-dark"**
 
 ### 方法二：通过 Typora 打开主题文件夹
 
 1. 打开 Typora
 2. 进入 `文件` → `偏好设置` → `外观` → `打开主题文件夹`
-3. 将 `claude.css` 复制到打开的文件夹中
+3. 将 `claude.css` 和 `claude-dark.css` 一起复制到打开的文件夹中
 4. 重启 Typora
-5. 选择 Claude 主题
+5. 选择 Claude 或 claude-dark 主题
 
 ## 🎨 配色方案
 
-源自 Claude artifact 的 Tailwind amber / stone 色板。
+以 Claude artifact 的版式语气为骨架，light 模式吸收 Claude-Like Theme 的暖纸面与陶土强调色，dark 模式则延续同一语义关系。
 
-### 表面色系
-
-| 用途 | 颜色值 | 说明 |
-|------|--------|------|
-| 背景 | `#FFFBEB` | amber-50 |
-| 卡片 | `#FFFBEB` | amber-50 |
-| 边框 | `#D6D3D1` | stone-300 |
-
-### 文本色系
+### Light 表面色系
 
 | 用途 | 颜色值 | 说明 |
 |------|--------|------|
-| 主文本 | `#292524` | stone-800 |
-| 次要文本 | `#57534E` | stone-600 |
-| 元信息 | `#78716C` | stone-500 |
+| 背景 | `#F7F2EB` | 暖纸面背景 |
+| 卡片 | `#FCFAF6` | 更亮一点的正文卡片 |
+| 侧栏 | `#EFE7DC` | 比正文略深的 UI 面板 |
+| 边框 | `#DDD5CA` | 低对比暖灰边框 |
 
-### 强调色
+### Light 文本色系
 
 | 用途 | 颜色值 | 说明 |
 |------|--------|------|
-| 主强调 | `#D97706` | amber-600 |
-| 按钮边框 | `#B45309` | amber-700 |
-| 引用背景 | `#FEF3C7` | amber-100 |
-| 引用文本 | `#78350F` | amber-900 |
+| 主文本 | `#2B2621` | 深褐正文 |
+| 次要文本 | `#61574F` | 次级说明 |
+| 元信息 | `#7B6F64` | 辅助信息 / 注释 |
+
+### Light 强调色
+
+| 用途 | 颜色值 | 说明 |
+|------|--------|------|
+| 主强调 | `#BC6A3A` | terracotta 主色 |
+| 链接 | `#8F4B28` | 深陶土链接色 |
+| 引用背景 | `#F3EDE5` | 米白引用底色 |
+| 引用文本 | `#625950` | 暖灰褐引用文本 |
+
+### Dark 核心色系
+
+| 用途 | 颜色值 | 说明 |
+|------|--------|------|
+| 背景 | `#151210` | 深墨纸面背景 |
+| 卡片 | `#1B1714` | 正文卡片 |
+| 主文本 | `#DDD4CA` | 暖米白正文 |
+| 主强调 | `#D59567` | 夜间 terracotta 强调色 |
 
 ## 🔤 字体规范
 
@@ -88,11 +102,29 @@
 
 ```
 typora/claude/
-├── claude.css         # 主题文件（安装此文件）
-├── test-layout.md     # 测试用 Markdown 文件
+├── claude.css         # light 主题
+├── claude-dark.css    # dark 主题（imports ./claude.css）
+├── test/
+│   ├── test-layout.md # 测试用 Markdown 文件
+│   └── test_theme.py  # 主题静态自检脚本
 ├── README.md          # 说明文档
 └── demo.png           # 预览图片
 ```
+
+## 🧪 测试
+
+运行合并后的测试脚本：
+
+```bash
+python typora/claude/test/test_theme.py
+```
+
+脚本会检查：
+
+- `claude.css` 中的核心语义 token 是否存在
+- Windows Unibody 顶栏相关 selector 是否仍然保留
+- `claude-dark.css` 是否正确导入 `claude.css` 并覆盖暗色 token
+- `README.md` 是否包含 dark 主题与 Unibody 的安装说明
 
 ## 🖼️ 支持的元素
 
@@ -115,13 +147,13 @@ typora/claude/
 
 | 类型 | 颜色 | 色值 |
 |------|------|------|
-| 关键字 | 紫色 | `#A626A4` |
-| 字符串/引用 | 绿色 | `#50A14F` |
-| 函数定义/链接 | 蓝色 | `#4078F2` |
-| 数字/原子值 | 橙黄 | `#986801` |
-| 属性/变量2 | 橙棕 | `#C6613F` |
-| 注释 | 灰色 | `#A0A1A7` |
-| 变量/运算符 | 深灰 | `#383A42` |
+| 关键字 | 紫色 | `#7B47C2` |
+| 字符串/引用 | 绿色 | `#2F8F2F` |
+| 函数定义/链接 | 蓝色 | `#2C5EC6` |
+| 数字/原子值 | 橙黄 | `#C06A2A` |
+| 属性/变量2 | 橙棕 | `#B26147` |
+| 注释 | 灰褐 | `#9B8F83` |
+| 变量/运算符 | 深褐 | `#342D27` |
 
 ## 📜 许可证
 
@@ -129,7 +161,7 @@ MIT License
 
 ## 🙏 致谢
 
-- 配色方案源自 Claude artifact 的 Tailwind amber/stone 色板
+- 配色方案延续 Claude artifact 的结构感，并吸收 Typora Claude-Like Theme 的 light/dark 氛围
 - 字体方案参考 laper.ai (Montserrat + Noto Sans SC)
 - 感谢 [Typora](https://typora.io) 提供优秀的 Markdown 编辑器
 - 字体由 [Google Fonts](https://fonts.google.com) 提供
@@ -143,4 +175,4 @@ MIT License
 
 ---
 
-**Version 3.1.0** | Claude artifact amber palette + Montserrat typography + Windows Unibody title bar support
+**Version 3.2.0** | Claude editorial paper palette + dark variant + Windows Unibody title bar support
