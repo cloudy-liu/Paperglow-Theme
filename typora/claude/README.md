@@ -17,7 +17,26 @@
 
 ## 📦 安装方法
 
-### 方法一：手动安装
+### 方法一：一键安装脚本
+
+在仓库根目录运行：
+
+```bash
+python typora/claude/install_theme.py
+```
+
+脚本会自动识别当前系统的 Typora 主题目录，并复制：
+
+- `claude.css`
+- `claude-dark.css`
+
+如果你想安装到自定义目录，可以显式传入目标路径：
+
+```bash
+python typora/claude/install_theme.py --target-dir "C:\path\to\Typora\themes"
+```
+
+### 方法二：手动安装
 
 1. 下载 `claude.css` 和 `claude-dark.css` 文件
 
@@ -35,7 +54,7 @@
 
 5. 在 `主题` 菜单中选择 **"Claude"** 或 **"claude-dark"**
 
-### 方法二：通过 Typora 打开主题文件夹
+### 方法三：通过 Typora 打开主题文件夹
 
 1. 打开 Typora
 2. 进入 `文件` → `偏好设置` → `外观` → `打开主题文件夹`
@@ -104,8 +123,9 @@
 typora/claude/
 ├── claude.css         # light 主题
 ├── claude-dark.css    # dark 主题（imports ./claude.css）
+├── install_theme.py   # 一键复制主题到 Typora 目录
 ├── test/
-│   ├── test-layout.md # 测试用 Markdown 文件
+│   ├── test-theme.md  # Markdown 全样式测试文档
 │   └── test_theme.py  # 主题静态自检脚本
 ├── README.md          # 说明文档
 └── demo.png           # 预览图片
@@ -124,6 +144,7 @@ python typora/claude/test/test_theme.py
 - `claude.css` 中的核心语义 token 是否存在
 - Windows Unibody 顶栏相关 selector 是否仍然保留
 - `claude-dark.css` 是否正确导入 `claude.css` 并覆盖暗色 token
+- `install_theme.py` 是否存在并能复制主题文件到目标目录
 - `README.md` 是否包含 dark 主题与 Unibody 的安装说明
 
 ## 🖼️ 支持的元素

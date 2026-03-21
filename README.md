@@ -35,9 +35,10 @@ markdown-themes/
 │   └── claude/          # Typora Claude 主题
 │       ├── claude.css
 │       ├── claude-dark.css
+│       ├── install_theme.py
 │       ├── demo.png
 │       ├── test/
-│       │   ├── test-layout.md
+│       │   ├── test-theme.md
 │       │   └── test_theme.py
 │       └── README.md
 ├── obsidian/

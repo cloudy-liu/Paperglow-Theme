@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import sys
+import subprocess
+import tempfile
 from pathlib import Path
 
 
@@ -17,8 +19,9 @@ def collect_missing_items() -> list[str]:
 
     theme_path = THEME_DIR / "claude.css"
     dark_theme_path = THEME_DIR / "claude-dark.css"
+    installer_path = THEME_DIR / "install_theme.py"
     readme_path = THEME_DIR / "README.md"
-    layout_path = TEST_DIR / "test-layout.md"
+    sample_path = TEST_DIR / "test-theme.md"
 
     css = read_text(theme_path)
     readme = read_text(readme_path)
@@ -56,6 +59,9 @@ def collect_missing_items() -> list[str]:
     if "imports ./claude.css" not in readme:
         missing.append("README is missing dark theme dependency guidance")
 
+    if "install_theme.py" not in readme:
+        missing.append("README is missing install_theme.py guidance")
+
     if not dark_theme_path.exists():
         missing.append(f"Dark theme file missing: {dark_theme_path}")
     else:
@@ -72,8 +78,53 @@ def collect_missing_items() -> list[str]:
             if token not in dark_css:
                 missing.append(f"Dark theme token missing: {token}")
 
-    if not layout_path.exists():
-        missing.append(f"Layout test file missing: {layout_path}")
+    if not installer_path.exists():
+        missing.append(f"Theme installer missing: {installer_path}")
+    else:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(installer_path),
+                    "--target-dir",
+                    temp_dir,
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if result.returncode != 0:
+                missing.append(
+                    "Theme installer failed against a temporary target "
+                    f"directory: {result.stderr.strip() or result.stdout.strip()}"
+                )
+            else:
+                expected_files = [
+                    Path(temp_dir) / "claude.css",
+                    Path(temp_dir) / "claude-dark.css",
+                ]
+                for copied_file in expected_files:
+                    if not copied_file.exists():
+                        missing.append(
+                            f"Theme installer did not copy file: {copied_file}"
+                        )
+
+    if not sample_path.exists():
+        missing.append(f"Theme sample file missing: {sample_path}")
+    else:
+        sample = read_text(sample_path)
+        required_sample_markers = [
+            "[TOC]",
+            "> [!NOTE]",
+            "```python",
+            "```mermaid",
+            "[^theme-note]",
+            "$$",
+            "![Claude Theme Preview](../demo.png)",
+        ]
+        for marker in required_sample_markers:
+            if marker not in sample:
+                missing.append(f"Theme sample marker missing: {marker}")
 
     return missing
 
