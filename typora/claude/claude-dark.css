@@ -13,14 +13,13 @@
     /* --- Surface palette --- */
     --bg-color: #151210;
     --window-bg-color: #120f0d;
-    --side-bar-bg-color: #171411;
+    --side-bar-bg-color: var(--bg-color);
     --card-bg: #1b1714;
-    --card-border-color: rgba(242, 233, 223, 0.05);
+    --card-border-color: rgba(242, 233, 223, 0.07);
     --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.02),
-        0 22px 60px rgba(0, 0, 0, 0.32);
-    --active-item-shadow: 0 1px 0 rgba(255, 255, 255, 0.03),
-        0 16px 36px rgba(0, 0, 0, 0.24);
-    --hover-item-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+        0 12px 28px rgba(0, 0, 0, 0.2);
+    --active-item-shadow: none;
+    --hover-item-shadow: none;
 
     /* --- Text palette --- */
     --text-color: #ddd4ca;
@@ -54,7 +53,7 @@
     --window-border: 1px solid #2f2924;
     --border-color: #2f2924;
     --code-border-color: #352d27;
-    --sidebar-divider-color: rgba(242, 233, 223, 0.06);
+    --sidebar-divider-color: rgba(242, 233, 223, 0.05);
     --top-titlebar-border-color: rgba(242, 233, 223, 0.06);
     --top-titlebar-highlight: rgba(255, 255, 255, 0.04);
 

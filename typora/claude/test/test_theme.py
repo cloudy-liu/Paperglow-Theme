@@ -14,6 +14,24 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def extract_block(css: str, selector: str) -> str:
+    marker = f"{selector} {{"
+    start = css.find(marker)
+    if start == -1:
+        return ""
+
+    index = start + len(marker)
+    depth = 1
+    while index < len(css) and depth > 0:
+        if css[index] == "{":
+            depth += 1
+        elif css[index] == "}":
+            depth -= 1
+        index += 1
+
+    return css[start:index]
+
+
 def collect_missing_items() -> list[str]:
     missing: list[str] = []
 
@@ -24,6 +42,7 @@ def collect_missing_items() -> list[str]:
     sample_path = TEST_DIR / "test-theme.md"
 
     css = read_text(theme_path)
+    dark_css = read_text(dark_theme_path) if dark_theme_path.exists() else ""
     readme = read_text(readme_path)
 
     required_base_tokens = [
@@ -50,6 +69,22 @@ def collect_missing_items() -> list[str]:
         if token not in css:
             missing.append(f"Unibody selector missing: {token}")
 
+    if "--side-bar-bg-color: var(--bg-color);" not in css:
+        missing.append("Light theme sidebar should match the editor paper background")
+
+    if "--side-bar-bg-color: var(--bg-color);" not in dark_css:
+        missing.append("Dark theme sidebar should match the editor paper background")
+
+    if "#md-searchpanel {\n    background-color: var(--side-bar-bg-color);" not in css:
+        missing.append("Search panel should share the sidebar paper background")
+
+    file_list_active = extract_block(css, ".file-list-item.active")
+    file_list_hover = extract_block(css, ".file-list-item:hover")
+    if "box-shadow: none;" not in file_list_active:
+        missing.append("Active file item should no longer use raised shadows")
+    if "box-shadow: none;" not in file_list_hover:
+        missing.append("Hovered file item should no longer use raised shadows")
+
     if "Unibody" not in readme:
         missing.append("README is missing Windows Unibody guidance")
 
@@ -65,7 +100,6 @@ def collect_missing_items() -> list[str]:
     if not dark_theme_path.exists():
         missing.append(f"Dark theme file missing: {dark_theme_path}")
     else:
-        dark_css = read_text(dark_theme_path)
         required_dark_tokens = [
             '@import url("./claude.css");',
             "--bg-color:",

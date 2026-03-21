@@ -20,14 +20,13 @@
     /* --- Surface palette (warm paper + soft clay) --- */
     --bg-color: #f7f2eb;
     --window-bg-color: #f3ede5;
-    --side-bar-bg-color: #efe7dc;
+    --side-bar-bg-color: var(--bg-color);
     --card-bg: #fcfaf6;
-    --card-border-color: rgba(96, 78, 63, 0.08);
-    --card-shadow: 0 1px 2px rgba(70, 52, 38, 0.04),
-        0 18px 42px rgba(70, 52, 38, 0.08);
-    --active-item-shadow: 0 1px 0 rgba(70, 52, 38, 0.04),
-        0 12px 28px rgba(70, 52, 38, 0.08);
-    --hover-item-shadow: 0 10px 24px rgba(70, 52, 38, 0.05);
+    --card-border-color: rgba(96, 78, 63, 0.1);
+    --card-shadow: 0 1px 0 rgba(70, 52, 38, 0.05),
+        0 10px 22px rgba(70, 52, 38, 0.05);
+    --active-item-shadow: none;
+    --hover-item-shadow: none;
 
     /* --- Text palette (editorial ink neutrals) --- */
     --text-color: #2b2621;
@@ -61,7 +60,7 @@
     --window-border: 1px solid #ddd5ca;
     --border-color: #ddd5ca;
     --code-border-color: #e7ddd2;
-    --sidebar-divider-color: rgba(67, 53, 42, 0.08);
+    --sidebar-divider-color: rgba(67, 53, 42, 0.05);
     --top-titlebar-border-color: rgba(67, 53, 42, 0.08);
     --top-titlebar-highlight: rgba(255, 255, 255, 0.55);
 
@@ -871,22 +870,25 @@ pre.md-meta-block {
 
 .file-list-item {
     border-bottom: none;
+    border: 1px solid transparent;
     border-radius: 12px;
     margin: 4px 10px;
     padding: 10px 14px;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     font-family: var(--font-body);
 }
 
 .file-list-item.active {
     background-color: var(--active-file-bg-color);
+    border-color: var(--active-file-border-color);
     border-left: none;
-    box-shadow: var(--active-item-shadow);
+    box-shadow: none;
 }
 
 .file-list-item:hover {
     background-color: var(--item-hover-bg-color);
-    box-shadow: var(--hover-item-shadow);
+    border-color: rgba(var(--primary-rgb), 0.12);
+    box-shadow: none;
 }
 
 /* Outline */
@@ -905,12 +907,12 @@ pre.md-meta-block {
    Search Panel
    ======================================== */
 #md-searchpanel {
-    background-color: var(--window-bg-color);
+    background-color: var(--side-bar-bg-color);
     border-bottom: 1px solid var(--border-color);
 }
 
 #md-searchpanel input {
-    background-color: var(--side-bar-bg-color);
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     color: var(--text-color);
