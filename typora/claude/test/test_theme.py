@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import sys
 import subprocess
 import tempfile
@@ -32,6 +33,13 @@ def extract_block(css: str, selector: str) -> str:
     return css[start:index]
 
 
+def extract_rule_with_flexible_selector(css: str, selector_pattern: str) -> str:
+    match = re.search(rf"({selector_pattern})\s*\{{(?P<body>.*?)\}}", css, re.S)
+    if not match:
+        return ""
+    return match.group("body")
+
+
 def collect_missing_items() -> list[str]:
     missing: list[str] = []
 
@@ -53,6 +61,8 @@ def collect_missing_items() -> list[str]:
         "--card-shadow",
         "--table-hover-bg-color",
         "--syntax-keyword-color",
+        "--sidebar-divider-highlight",
+        "--sidebar-divider-shadow",
     ]
     required_unibody_tokens = [
         "#top-titlebar",
@@ -80,10 +90,33 @@ def collect_missing_items() -> list[str]:
 
     file_list_active = extract_block(css, ".file-list-item.active")
     file_list_hover = extract_block(css, ".file-list-item:hover")
+    sidebar_block = extract_block(css, "#typora-sidebar")
+    sidebar_after_block = extract_block(css, "#typora-sidebar::after")
+    checkbox_block = extract_block(css, '.task-list-item input[type="checkbox"]')
+    checked_task_block = extract_rule_with_flexible_selector(
+        css,
+        r'\.task-list-item input\[type="checkbox"\]:checked \+ p,\s*'
+        r'\.task-list-item\.task-list-done p,\s*'
+        r'\.task-list-item\.task-list-done',
+    )
     if "box-shadow: none;" not in file_list_active:
         missing.append("Active file item should no longer use raised shadows")
     if "box-shadow: none;" not in file_list_hover:
         missing.append("Hovered file item should no longer use raised shadows")
+    if "position: relative;" not in sidebar_block:
+        missing.append("Sidebar should establish a positioning context for the divider")
+    if "box-shadow: inset -1px 0 0 var(--sidebar-divider-highlight);" not in sidebar_block:
+        missing.append("Sidebar should keep a subtle inset highlight on the divider edge")
+    if "background: var(--sidebar-divider-color);" not in sidebar_after_block:
+        missing.append("Sidebar divider should use an explicit separator line")
+    if "box-shadow: 1px 0 0 var(--sidebar-divider-highlight)," not in sidebar_after_block:
+        missing.append("Sidebar divider should include a highlight edge")
+    if "12px 0 18px var(--sidebar-divider-shadow);" not in sidebar_after_block:
+        missing.append("Sidebar divider should cast a soft separation shadow")
+    if "text-decoration: line-through;" not in checked_task_block:
+        missing.append("Checked task items should render with a strikethrough")
+    if "accent-color: var(--primary-color);" not in checkbox_block:
+        missing.append("Checkbox should use the theme accent color instead of browser default blue")
 
     if "Unibody" not in readme:
         missing.append("README is missing Windows Unibody guidance")

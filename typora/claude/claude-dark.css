@@ -53,7 +53,9 @@
     --window-border: 1px solid #2f2924;
     --border-color: #2f2924;
     --code-border-color: #352d27;
-    --sidebar-divider-color: rgba(242, 233, 223, 0.05);
+    --sidebar-divider-color: rgba(242, 233, 223, 0.08);
+    --sidebar-divider-highlight: rgba(255, 255, 255, 0.03);
+    --sidebar-divider-shadow: rgba(0, 0, 0, 0.28);
     --top-titlebar-border-color: rgba(242, 233, 223, 0.06);
     --top-titlebar-highlight: rgba(255, 255, 255, 0.04);
 

@@ -60,7 +60,9 @@
     --window-border: 1px solid #ddd5ca;
     --border-color: #ddd5ca;
     --code-border-color: #e7ddd2;
-    --sidebar-divider-color: rgba(67, 53, 42, 0.05);
+    --sidebar-divider-color: rgba(86, 67, 52, 0.11);
+    --sidebar-divider-highlight: rgba(255, 255, 255, 0.6);
+    --sidebar-divider-shadow: rgba(86, 67, 52, 0.08);
     --top-titlebar-border-color: rgba(67, 53, 42, 0.08);
     --top-titlebar-highlight: rgba(255, 255, 255, 0.55);
 
@@ -643,10 +645,16 @@ ol {
 .task-list-item input[type="checkbox"] {
     margin-right: 0.5em;
     vertical-align: middle;
+    accent-color: var(--primary-color);
 }
 
-.task-list-item input[type="checkbox"]:checked::before {
-    background-color: var(--primary-color);
+.task-list-item input[type="checkbox"]:checked + p,
+.task-list-item.task-list-done p,
+.task-list-item.task-list-done {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    text-decoration-color: rgba(var(--primary-rgb), 0.4);
+    text-decoration-thickness: 1.5px;
 }
 
 /* ========================================
@@ -861,11 +869,26 @@ pre.md-meta-block {
    ======================================== */
 #typora-sidebar {
     background-color: var(--side-bar-bg-color);
-    border-right: 1px solid var(--sidebar-divider-color);
+    position: relative;
+    border-right: none;
+    box-shadow: inset -1px 0 0 var(--sidebar-divider-highlight);
 }
 
 #typora-sidebar .sidebar-content {
     background-color: var(--side-bar-bg-color);
+}
+
+#typora-sidebar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--sidebar-divider-color);
+    box-shadow: 1px 0 0 var(--sidebar-divider-highlight),
+        12px 0 18px var(--sidebar-divider-shadow);
+    pointer-events: none;
 }
 
 .file-list-item {
