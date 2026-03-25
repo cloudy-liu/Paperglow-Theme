@@ -2,13 +2,12 @@ from __future__ import annotations
 
 import re
 import sys
-import subprocess
-import tempfile
 from pathlib import Path
 
 
 THEME_DIR = Path(__file__).resolve().parent.parent
 TEST_DIR = Path(__file__).resolve().parent
+ROOT_DIR = THEME_DIR.parent.parent.parent
 
 
 def read_text(path: Path) -> str:
@@ -45,13 +44,14 @@ def collect_missing_items() -> list[str]:
 
     theme_path = THEME_DIR / "claude.css"
     dark_theme_path = THEME_DIR / "claude-dark.css"
-    installer_path = THEME_DIR / "install_theme.py"
     readme_path = THEME_DIR / "README.md"
+    root_readme_path = ROOT_DIR / "README.md"
     sample_path = TEST_DIR / "test-theme.md"
 
     css = read_text(theme_path)
     dark_css = read_text(dark_theme_path) if dark_theme_path.exists() else ""
     readme = read_text(readme_path)
+    root_readme = read_text(root_readme_path) if root_readme_path.exists() else ""
 
     required_base_tokens = [
         "--link-color",
@@ -124,11 +124,23 @@ def collect_missing_items() -> list[str]:
     if "claude-dark.css" not in readme:
         missing.append("README is missing claude-dark.css installation guidance")
 
-    if "imports ./claude.css" not in readme:
+    if "@import" not in readme or "claude.css" not in readme:
         missing.append("README is missing dark theme dependency guidance")
 
-    if "install_theme.py" not in readme:
-        missing.append("README is missing install_theme.py guidance")
+    if "python install.py typora" not in readme:
+        missing.append("README is missing Python installer guidance")
+
+    if "install_theme.py" in readme:
+        missing.append("README should not mention the removed install_theme.py script")
+
+    if "Apache License 2.0" not in readme:
+        missing.append("README should align with the repository Apache 2.0 license")
+
+    if "Claude Style Themes" not in root_readme:
+        missing.append("Root README should present the new Claude Style Themes project name")
+
+    if "themes/typora/claude/" not in root_readme:
+        missing.append("Root README should document the new Typora theme path")
 
     if not dark_theme_path.exists():
         missing.append(f"Dark theme file missing: {dark_theme_path}")
@@ -145,37 +157,6 @@ def collect_missing_items() -> list[str]:
             if token not in dark_css:
                 missing.append(f"Dark theme token missing: {token}")
 
-    if not installer_path.exists():
-        missing.append(f"Theme installer missing: {installer_path}")
-    else:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            result = subprocess.run(
-                [
-                    sys.executable,
-                    str(installer_path),
-                    "--target-dir",
-                    temp_dir,
-                ],
-                capture_output=True,
-                text=True,
-                check=False,
-            )
-            if result.returncode != 0:
-                missing.append(
-                    "Theme installer failed against a temporary target "
-                    f"directory: {result.stderr.strip() or result.stdout.strip()}"
-                )
-            else:
-                expected_files = [
-                    Path(temp_dir) / "claude.css",
-                    Path(temp_dir) / "claude-dark.css",
-                ]
-                for copied_file in expected_files:
-                    if not copied_file.exists():
-                        missing.append(
-                            f"Theme installer did not copy file: {copied_file}"
-                        )
-
     if not sample_path.exists():
         missing.append(f"Theme sample file missing: {sample_path}")
     else:
@@ -188,6 +169,7 @@ def collect_missing_items() -> list[str]:
             "[^theme-note]",
             "$$",
             "![Claude Theme Preview](../demo.png)",
+            "themes/typora/claude/claude.css",
         ]
         for marker in required_sample_markers:
             if marker not in sample:

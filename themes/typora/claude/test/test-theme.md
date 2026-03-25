@@ -27,7 +27,7 @@ tags:
 
 普通段落用于检查正文排版、行高、段距与卡片宽度。这里混合展示 **粗体**、*斜体*、***粗斜体***、~~删除线~~、<u>下划线</u>、==高亮==、`inline code` 和 [外部链接](https://example.com)。
 
-也可以测试混排文本，例如中文、English, numbers `12345`, email `hello@example.com`, and a short path `typora/claude/claude.css`。
+也可以测试混排文本，例如中文、English, numbers `12345`, email `hello@example.com`, and a short path `themes/typora/claude/claude.css`。
 
 ## Lists
 

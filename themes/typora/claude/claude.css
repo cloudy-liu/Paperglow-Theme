@@ -87,10 +87,12 @@
     --callout-link-hover-border-color: rgba(95, 85, 75, 0.8);
     --quote-bg-color: #f3ede5;
     --quote-border-color: #c58c64;
-    --quote-text-color: #625950;
+    --quote-text-color: #4a4039;
+    --quote-nested-bg-color: #ede5da;
+    --quote-nested-border-color: #d4b89e;
     --quote-credit-color: #a0623b;
-    --quote-shadow: 0 10px 24px rgba(83, 61, 43, 0.08);
-    --quote-nested-bg-color: rgba(var(--primary-rgb), 0.08);
+    --quote-nested-bg-color: #ede5da;
+    --quote-nested-border-color: #d4b89e;
     --quote-inline-code-bg-color: rgba(var(--primary-rgb), 0.12);
     --quote-inline-code-color: #8c4d31;
     --quote-link-color: #625950;
@@ -527,65 +529,49 @@ pre code {
 }
 
 /* ========================================
-   Blockquote - editorial paper quote card
+   Blockquote - clean left-bar indicator
    ======================================== */
 blockquote {
-    margin: 2em 1em;
-    padding: 24px;
+    margin: 1.5em 0;
+    padding: 16px 20px;
     border: none;
     border-left: 3px solid var(--quote-border-color);
     background-color: var(--quote-bg-color);
     border-radius: 0 8px 8px 0;
     color: var(--quote-text-color);
     font-style: normal;
-    box-shadow: var(--quote-shadow);
 }
 
 blockquote p {
-    margin: 0;
-    font-style: italic;
+    margin: 0 0 0.6em 0;
     color: var(--quote-text-color);
-    font-size: 1.125rem;
-    line-height: 1.625;
+    line-height: 1.5;
 }
 
-blockquote p:last-child:not(:first-child) {
-    font-style: normal;
-    text-align: right;
-    color: var(--quote-credit-color);
-    font-weight: 500;
-    font-size: 1rem;
-    margin-top: 12px;
-}
-
-blockquote blockquote {
-    margin-top: 0.5em;
+blockquote p:last-child {
     margin-bottom: 0;
-    background-color: var(--quote-nested-bg-color);
-    box-shadow: none;
 }
 
-blockquote,
-blockquote span,
-blockquote strong,
-blockquote em,
-blockquote li {
-    color: var(--quote-text-color) !important;
+/* Nested blockquote: deeper bg + thinner border */
+blockquote blockquote {
+    margin: 0.6em 0 0 0;
+    background-color: var(--quote-nested-bg-color);
+    border-left: 2px solid var(--quote-nested-border-color);
 }
 
 blockquote strong {
     font-weight: 700;
-    font-style: normal;
+    color: var(--heading-color);
 }
 
 blockquote a {
-    color: var(--quote-link-color) !important;
-    border-bottom-color: var(--quote-link-border-color) !important;
+    color: var(--quote-link-color);
+    border-bottom-color: var(--quote-link-border-color);
 }
 
 blockquote a:hover {
-    color: var(--quote-link-color) !important;
-    border-bottom-color: var(--quote-link-hover-border-color) !important;
+    color: var(--quote-link-color);
+    border-bottom-color: var(--quote-link-hover-border-color);
 }
 
 /* ========================================
