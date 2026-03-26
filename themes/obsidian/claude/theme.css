@@ -36,6 +36,9 @@ body {
   --bold-weight: 700;
 }
 
+/* ========================================
+   Light Theme Tokens
+   ======================================== */
 .theme-light {
   --accent-rgb: 188, 106, 58;
   --background-primary: #fcfaf6;
@@ -99,6 +102,10 @@ body {
   --inline-code-background: #f2ede7;
   --inline-code-border: #d8cec3;
   --inline-code-color: #a3493f;
+  --quote-inline-code-bg: rgba(var(--accent-rgb), 0.12);
+  --quote-inline-code-color: #8c4d31;
+  --table-inline-code-bg: #f5efe8;
+  --table-inline-code-border: #dbcbbb;
   --window-bg-color: #f7f2eb;
   --panel-bg-color: #efe7dc;
   --card-border-color: rgba(96, 78, 63, 0.1);
@@ -106,6 +113,9 @@ body {
   --link-border-color: rgba(143, 75, 40, 0.28);
 }
 
+/* ========================================
+   Dark Theme Tokens
+   ======================================== */
 .theme-dark {
   --accent-rgb: 213, 149, 103;
   --background-primary: #2b2926;
@@ -120,9 +130,9 @@ body {
   --background-modifier-hover: rgba(var(--accent-rgb), 0.1);
   --background-modifier-active-hover: rgba(var(--accent-rgb), 0.14);
   --background-modifier-message: #2c2926;
-  --text-normal: #f4f1ec;
-  --text-muted: #d0c8bc;
-  --text-faint: #aea295;
+  --text-normal: #faf8f3;
+  --text-muted: #d5cdc0;
+  --text-faint: #b3a799;
   --text-on-accent: #1e1c18;
   --text-accent: #e3a57a;
   --text-accent-hover: #efbb95;
@@ -135,7 +145,7 @@ body {
   --nav-item-background-hover: rgba(var(--accent-rgb), 0.1);
   --nav-item-background-active: rgba(var(--accent-rgb), 0.14);
   --nav-item-background-selected: rgba(var(--accent-rgb), 0.18);
-  --nav-item-color: #f4f1ec;
+  --nav-item-color: #faf8f3;
   --nav-item-color-hover: #faf8f3;
   --nav-item-color-active: #efbb95;
   --icon-color: #b8aca0;
@@ -154,7 +164,7 @@ body {
   --scrollbar-thumb-bg: #675c52;
   --scrollbar-active-thumb-bg: #877a6e;
   --code-background: #2a2725;
-  --code-normal: #f0eae2;
+  --code-normal: #f5efe6;
   --code-comment: #ab9d90;
   --code-keyword: #b899ff;
   --code-function: #89b1ea;
@@ -169,6 +179,10 @@ body {
   --inline-code-background: #332e2b;
   --inline-code-border: #4a413b;
   --inline-code-color: #e1a092;
+  --quote-inline-code-bg: rgba(var(--accent-rgb), 0.16);
+  --quote-inline-code-color: #efbb95;
+  --table-inline-code-bg: #312c29;
+  --table-inline-code-border: #4a413b;
   --window-bg-color: #222120;
   --panel-bg-color: #1e1d1b;
   --card-border-color: rgba(242, 233, 223, 0.08);
@@ -176,6 +190,9 @@ body {
   --link-border-color: rgba(227, 165, 122, 0.32);
 }
 
+/* ========================================
+   Shell - Workspace & Panels
+   ======================================== */
 body,
 .app-container,
 .workspace,
@@ -237,6 +254,31 @@ button.mod-cta,
   border-color: var(--divider-color);
 }
 
+.view-header-title-container-after,
+.view-header .clickable-icon {
+  color: var(--text-muted);
+}
+
+.view-header .clickable-icon:hover {
+  color: var(--text-normal);
+}
+
+/* ========================================
+   Tooltip
+   ======================================== */
+.tooltip {
+  background: var(--interactive-accent) !important;
+  color: var(--text-on-accent) !important;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   Content Card - editorial reading panel
+   ======================================== */
 .workspace-leaf-content[data-type="markdown"] .view-content {
   background:
     linear-gradient(180deg, rgba(var(--accent-rgb), 0.04), transparent 220px),
@@ -258,6 +300,13 @@ button.mod-cta,
   padding: 48px 56px 72px !important;
 }
 
+body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content {
+  padding: 12px 18px 36px;
+}
+
+/* ========================================
+   Typography
+   ======================================== */
 .markdown-rendered,
 .markdown-source-view.mod-cm6 .cm-content {
   letter-spacing: 0.01em;
@@ -310,6 +359,9 @@ button.mod-cta,
   padding: 2px 6px;
 }
 
+/* ========================================
+   Links
+   ======================================== */
 .markdown-rendered a,
 .cm-link,
 .external-link,
@@ -327,42 +379,130 @@ button.mod-cta,
   border-bottom-color: currentColor;
 }
 
-.markdown-rendered code,
-.cm-inline-code {
-  background: var(--inline-code-background);
-  border: 1px solid var(--inline-code-border);
+/* ========================================
+   Inline Code
+   ======================================== */
+
+/* Reading view — single <code> element, matches Typora exactly */
+.markdown-rendered code {
+  background: var(--inline-code-background) !important;
+  border: 1px solid var(--inline-code-border) !important;
   border-radius: 6px;
-  color: var(--inline-code-color);
+  color: var(--inline-code-color) !important;
   font-family: var(--font-monospace-theme);
+  font-size: 0.85em;
   padding: 2px 8px;
 }
 
-.markdown-rendered pre,
-.markdown-source-view.mod-cm6 .HyperMD-codeblock,
-.markdown-source-view.mod-cm6 .cm-active.HyperMD-codeblock {
-  background: var(--code-background) !important;
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 16px;
+/* Exclude code inside pre blocks */
+.markdown-rendered pre code {
+  background: transparent !important;
+  border: none !important;
+  color: var(--code-normal) !important;
+  padding: 0;
+  font-size: inherit;
 }
 
+/* Source / Live Preview — CM6 splits inline code into multiple <span>.
+   Border per-span will break, so only apply background + color here. */
+.cm-inline-code {
+  background: var(--inline-code-background) !important;
+  color: var(--inline-code-color) !important;
+  font-family: var(--font-monospace-theme);
+  font-size: 0.85em;
+  padding: 2px 4px;
+}
+
+/* Live preview (formatting marks hidden) — content is a single span,
+   safe to apply full border + radius like Typora */
+.is-live-preview .cm-inline-code:not(.cm-formatting) {
+  border: 1px solid var(--inline-code-border) !important;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+/* When cursor enters inline code, formatting marks appear —
+   make the backtick marks blend into the background strip */
+.cm-inline-code.cm-formatting {
+  opacity: 0.5;
+  padding: 2px 2px;
+}
+
+.markdown-rendered blockquote code {
+  background: var(--quote-inline-code-bg);
+  color: var(--quote-inline-code-color);
+  border-color: transparent;
+}
+
+.markdown-rendered table code {
+  background: var(--table-inline-code-bg);
+  border-color: var(--table-inline-code-border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.85em;
+}
+
+/* ========================================
+   Code Blocks - Reading View
+   ======================================== */
 .markdown-rendered pre {
+  font-family: var(--font-monospace-theme);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  background: var(--code-background);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 16px;
   padding: 16px 20px;
+  overflow-x: auto;
+  margin: 1em 0;
 }
 
 .markdown-rendered pre code {
   background: transparent !important;
   border: none !important;
-  color: var(--code-normal);
+  color: var(--code-normal) !important;
+  font-size: 0.875rem;
   padding: 0;
+  border-radius: 0;
 }
 
-.HyperMD-codeblock,
-.HyperMD-codeblock-begin,
-.HyperMD-codeblock-end {
+/* ========================================
+   Code Blocks - Source / Live Preview
+   ======================================== */
+.markdown-source-view.mod-cm6 .HyperMD-codeblock {
+  background: var(--code-background) !important;
   color: var(--code-normal);
   font-family: var(--font-monospace-theme);
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin {
+  border-top: 1px solid var(--background-modifier-border);
+  border-left: 1px solid var(--background-modifier-border);
+  border-right: 1px solid var(--background-modifier-border);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding-top: 8px;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-end {
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-left: 1px solid var(--background-modifier-border);
+  border-right: 1px solid var(--background-modifier-border);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding-bottom: 8px;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end) {
+  border-left: 1px solid var(--background-modifier-border);
+  border-right: 1px solid var(--background-modifier-border);
+}
+
+/* ========================================
+   Blockquote
+   ======================================== */
 .markdown-rendered blockquote {
   background: var(--blockquote-background-color);
   border-left: 4px solid var(--blockquote-border-color);
@@ -376,65 +516,147 @@ button.mod-cta,
   margin-bottom: 0;
 }
 
+/* ========================================
+   Callout — uniform warm card style (matches Typora)
+   ======================================== */
 .callout {
-  background: var(--blockquote-background-color);
-  border: 1px solid var(--background-modifier-border);
-  border-left: 4px solid var(--blockquote-border-color);
+  --callout-blend-mode: normal;
+  background: var(--blockquote-background-color) !important;
+  border: 1px solid var(--blockquote-border-color) !important;
+  border-left-width: 1px !important;
   border-radius: 16px;
   box-shadow: none;
-  padding: 14px 16px;
+  padding: 20px 24px;
+  margin: 1em 0;
+  mix-blend-mode: normal;
 }
 
 .callout-title {
   color: var(--text-normal);
   font-weight: 600;
+  gap: 8px;
 }
 
+.callout-title-inner {
+  color: var(--text-normal);
+}
+
+.callout-icon .svg-icon,
 .callout-icon svg {
-  color: var(--interactive-accent);
+  color: var(--interactive-accent) !important;
 }
 
+.callout-content,
+.callout-content p,
+.callout-content li {
+  color: var(--text-muted);
+}
+
+.callout-content a {
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--link-border-color);
+}
+
+.callout-content a:hover {
+  border-bottom-color: var(--text-normal);
+}
+
+/* Override Obsidian's per-type callout colors & icons to match Typora/GitHub */
+.callout[data-callout="note"],
+.callout[data-callout="tip"],
+.callout[data-callout="important"],
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="info"],
+.callout[data-callout="todo"],
+.callout[data-callout="success"],
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="failure"],
+.callout[data-callout="danger"],
+.callout[data-callout="bug"],
+.callout[data-callout="example"],
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] {
+  --callout-color: 197, 140, 100;
+  background: var(--blockquote-background-color) !important;
+  border-color: var(--blockquote-border-color) !important;
+}
+
+
+/* ========================================
+   Horizontal Rule
+   ======================================== */
 .markdown-rendered hr {
   border: none;
   border-top: 1px solid var(--table-border-color);
   margin: 2rem 0;
 }
 
-.markdown-rendered table {
-  border-collapse: separate;
-  border-spacing: 0;
-  margin: 1.5rem 0;
-  width: 100%;
+/* ========================================
+   Tables — clean horizontal lines (matches Typora)
+   ======================================== */
+/* Force table wrapper to fill parent */
+.markdown-preview-view div:has(> table),
+.markdown-rendered div:has(> table),
+.table-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+.markdown-rendered table,
+.markdown-preview-view table {
+  border-collapse: collapse !important;
+  margin: 1.5em 0;
+  width: 100% !important;
+  min-width: 100% !important;
+  table-layout: auto;
+  font-size: 0.9375rem;
+  display: table !important;
 }
 
 .markdown-rendered table th,
 .markdown-rendered table td {
-  border-bottom: 1px solid var(--table-border-color);
-  padding: 12px 14px;
+  padding: 8px 16px 8px 1px;
+  text-align: left;
+  vertical-align: top;
+  font-size: inherit;
+  line-height: 1.7;
+  color: var(--text-normal);
+  border: none !important;
+  border-bottom: 0.5px solid rgba(var(--accent-rgb), 0.3) !important;
 }
 
 .markdown-rendered table th {
-  color: var(--text-muted);
-  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  border-bottom-color: rgba(var(--accent-rgb), 0.6) !important;
 }
 
-.markdown-rendered table tbody tr:nth-child(even) {
-  background: var(--table-row-alt-background);
+.markdown-rendered table thead tr,
+.markdown-rendered table tbody tr {
+  border: none !important;
+  background: transparent !important;
 }
 
-.markdown-rendered table code {
-  background: var(--background-secondary);
+.markdown-rendered table tbody tr:nth-child(2n) {
+  background: transparent !important;
 }
 
+/* ========================================
+   Images
+   ======================================== */
 .markdown-rendered img,
 .markdown-preview-view img {
   border-radius: 16px;
   box-shadow: var(--card-shadow);
 }
 
+/* ========================================
+   Task List
+   ======================================== */
 .markdown-rendered input[type="checkbox"],
 .task-list-item-checkbox {
   accent-color: var(--interactive-accent);
@@ -446,19 +668,58 @@ button.mod-cta,
   text-decoration: line-through;
 }
 
+/* ========================================
+   Tags
+   ======================================== */
 .tag,
 .cm-hashtag {
   background: var(--tag-background);
   border-radius: 999px;
   color: var(--tag-color);
   padding: 2px 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
+.tag:hover,
+.cm-hashtag:hover {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+/* ========================================
+   Metadata / Properties
+   ======================================== */
+.metadata-container {
+  border-bottom: 1px solid var(--divider-color);
+}
+
+.metadata-container .metadata-add-button,
+.metadata-container .metadata-properties-heading {
+  color: var(--text-muted);
+}
+
+.metadata-container .metadata-add-button:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.metadata-property-key-input,
+.metadata-property-value-input,
+.metadata-input-longtext {
+  color: var(--text-normal);
+}
+
+/* ========================================
+   Unresolved Links
+   ======================================== */
 .is-unresolved {
   color: #bb5a49;
   opacity: 0.88;
 }
 
+/* ========================================
+   Syntax Highlighting - CodeMirror
+   ======================================== */
 .cm-s-obsidian span.cm-formatting-link,
 .cm-s-obsidian span.cm-url,
 .cm-s-obsidian span.cm-string.cm-url {
@@ -497,16 +758,33 @@ button.mod-cta,
   color: var(--code-tag);
 }
 
+/* ========================================
+   Text Selection
+   ======================================== */
+::selection {
+  background-color: var(--text-selection);
+  color: var(--text-normal);
+}
+
+pre::selection,
+pre *::selection,
+code::selection,
+code *::selection {
+  background-color: var(--text-selection) !important;
+}
+
+/* ========================================
+   Scrollbar
+   ======================================== */
 .nav-files-container,
 .workspace-tab-container,
 .workspace-tab-header-container-inner {
   scrollbar-color: var(--scrollbar-thumb-bg) transparent;
 }
 
-body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content {
-  padding: 12px 18px 36px;
-}
-
+/* ========================================
+   Responsive
+   ======================================== */
 @media (max-width: 960px) {
   .workspace-leaf-content[data-type="markdown"] .markdown-preview-sizer,
   .workspace-leaf-content[data-type="markdown"] .cm-sizer {

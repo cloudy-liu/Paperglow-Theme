@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import platform
 import shutil
@@ -9,6 +10,7 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parent
+OBSIDIAN_THEME_NAME = "Claude"
 THEME_FILES = {
     "typora": [
         ROOT_DIR / "themes" / "typora" / "claude" / "claude.css",
@@ -49,21 +51,172 @@ def detect_default_typora_target_dir(
     return resolved_home_dir / ".config" / "Typora" / "themes"
 
 
-def resolve_obsidian_theme_dir(vault_dir: Path) -> Path:
-    resolved_vault_dir = vault_dir.expanduser().resolve()
-    if not resolved_vault_dir.exists() or not resolved_vault_dir.is_dir():
-        raise RuntimeError(f"Vault directory does not exist: {resolved_vault_dir}")
+def detect_default_obsidian_config_dir(
+    system_name: str | None = None,
+    home_dir: Path | None = None,
+    appdata_dir: Path | None = None,
+) -> Path:
+    resolved_system_name = system_name or platform.system()
+    resolved_home_dir = home_dir or Path.home()
 
-    obsidian_dir = resolved_vault_dir / ".obsidian"
-    if not obsidian_dir.exists() or not obsidian_dir.is_dir():
+    if resolved_system_name == "Windows":
+        resolved_appdata_dir = appdata_dir or (
+            Path(os.environ["APPDATA"]) if os.environ.get("APPDATA") else None
+        )
+        if resolved_appdata_dir is None:
+            raise RuntimeError("APPDATA is not set; cannot locate Obsidian config.")
+        return resolved_appdata_dir / "obsidian"
+
+    if resolved_system_name == "Darwin":
+        return resolved_home_dir / "Library" / "Application Support" / "obsidian"
+
+    return resolved_home_dir / ".config" / "obsidian"
+
+
+def find_obsidian_vault_dir(start_dir: Path, *, required: bool) -> Path | None:
+    resolved_start_dir = start_dir.expanduser().resolve()
+    if not resolved_start_dir.exists() or not resolved_start_dir.is_dir():
+        if required:
+            raise RuntimeError(f"Vault directory does not exist: {resolved_start_dir}")
+        return None
+
+    for candidate_dir in (resolved_start_dir, *resolved_start_dir.parents):
+        if (candidate_dir / ".obsidian").is_dir():
+            return candidate_dir
+
+    if required:
         raise RuntimeError(
-            f"Vault does not contain a .obsidian directory: {resolved_vault_dir}"
+            f"Vault does not contain a .obsidian directory: {resolved_start_dir}"
         )
 
-    return obsidian_dir / "themes" / "Claude"
+    return None
 
 
-def copy_theme_files(source_files: list[Path], target_dir: Path, force: bool) -> list[str]:
+def detect_configured_obsidian_vault_dirs(config_dir: Path) -> list[Path]:
+    config_file = config_dir / "obsidian.json"
+    if not config_file.exists():
+        raise RuntimeError(f"Obsidian config file does not exist: {config_file}")
+
+    try:
+        config_data = json.loads(config_file.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"Obsidian config is invalid JSON: {config_file}") from exc
+
+    raw_vaults = config_data.get("vaults")
+    if not isinstance(raw_vaults, dict) or not raw_vaults:
+        raise RuntimeError(f"Obsidian config does not contain any vaults: {config_file}")
+
+    sorted_vaults = sorted(
+        raw_vaults.values(),
+        key=lambda vault: (
+            bool(vault.get("open")),
+            int(vault.get("ts", 0)),
+        ),
+        reverse=True,
+    )
+    configured_vault_dirs: list[Path] = []
+    for candidate_vault in sorted_vaults:
+        raw_path = candidate_vault.get("path")
+        if not isinstance(raw_path, str) or not raw_path.strip():
+            continue
+
+        candidate_dir = Path(raw_path).expanduser().resolve()
+        if candidate_dir.is_dir() and (candidate_dir / ".obsidian").is_dir():
+            configured_vault_dirs.append(candidate_dir)
+
+    if not configured_vault_dirs:
+        raise RuntimeError(
+            "Obsidian config does not point to any accessible vaults with a .obsidian directory."
+        )
+
+    return configured_vault_dirs
+
+
+def detect_default_obsidian_vault_dirs(
+    start_dir: Path | None = None,
+    config_dir: Path | None = None,
+) -> list[Path]:
+    detected_vault_dirs: list[Path] = []
+    current_vault_dir = find_obsidian_vault_dir(start_dir or Path.cwd(), required=False)
+    if current_vault_dir is not None:
+        detected_vault_dirs.append(current_vault_dir)
+
+    try:
+        configured_vault_dirs = detect_configured_obsidian_vault_dirs(
+            config_dir or detect_default_obsidian_config_dir()
+        )
+    except RuntimeError as exc:
+        if not detected_vault_dirs:
+            raise RuntimeError(
+                "Could not detect any Obsidian vaults. "
+                "Open a vault in Obsidian first, run this command from inside a vault, or pass --vault."
+            ) from exc
+        configured_vault_dirs = []
+
+    for configured_vault_dir in configured_vault_dirs:
+        if configured_vault_dir not in detected_vault_dirs:
+            detected_vault_dirs.append(configured_vault_dir)
+
+    return detected_vault_dirs
+
+
+def resolve_obsidian_vault_dir(vault_dir: Path) -> Path:
+    resolved_vault_dir = find_obsidian_vault_dir(vault_dir, required=True)
+    if resolved_vault_dir is None:
+        raise RuntimeError(f"Vault does not contain a .obsidian directory: {vault_dir}")
+    return resolved_vault_dir
+
+
+def resolve_obsidian_theme_dir(vault_dir: Path) -> Path:
+    return (
+        resolve_obsidian_vault_dir(vault_dir)
+        / ".obsidian"
+        / "themes"
+        / OBSIDIAN_THEME_NAME
+    )
+
+
+def activate_obsidian_theme(vault_dir: Path) -> None:
+    appearance_file = (
+        resolve_obsidian_vault_dir(vault_dir) / ".obsidian" / "appearance.json"
+    )
+    if appearance_file.exists():
+        try:
+            appearance_data = json.loads(appearance_file.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(
+                f"Obsidian appearance config is invalid JSON: {appearance_file}"
+            ) from exc
+        if not isinstance(appearance_data, dict):
+            raise RuntimeError(
+                f"Obsidian appearance config must be a JSON object: {appearance_file}"
+            )
+    else:
+        appearance_data = {}
+
+    appearance_data["cssTheme"] = OBSIDIAN_THEME_NAME
+    appearance_file.write_text(
+        json.dumps(appearance_data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def install_obsidian_theme(
+    vault_dir: Path,
+    force: bool = True,
+) -> tuple[Path, list[str]]:
+    resolved_vault_dir = resolve_obsidian_vault_dir(vault_dir)
+    target_dir = resolve_obsidian_theme_dir(resolved_vault_dir)
+    copied_files = install_theme_files("obsidian", target_dir, force)
+    activate_obsidian_theme(resolved_vault_dir)
+    return target_dir, copied_files
+
+
+def copy_theme_files(
+    source_files: list[Path],
+    target_dir: Path,
+    force: bool = True,
+) -> list[str]:
     target_dir.mkdir(parents=True, exist_ok=True)
     copied_files: list[str] = []
 
@@ -73,9 +226,7 @@ def copy_theme_files(source_files: list[Path], target_dir: Path, force: bool) ->
 
         destination = target_dir / source_file.name
         if destination.exists() and not force:
-            raise FileExistsError(
-                f"Destination already exists: {destination} (re-run with --force)"
-            )
+            raise FileExistsError(f"Destination already exists: {destination}")
 
         shutil.copy2(source_file, destination)
         copied_files.append(source_file.name)
@@ -83,7 +234,11 @@ def copy_theme_files(source_files: list[Path], target_dir: Path, force: bool) ->
     return copied_files
 
 
-def install_theme_files(app_name: str, target_dir: Path, force: bool) -> list[str]:
+def install_theme_files(
+    app_name: str,
+    target_dir: Path,
+    force: bool = True,
+) -> list[str]:
     if app_name not in THEME_FILES:
         supported_apps = ", ".join(sorted(THEME_FILES))
         raise ValueError(f"Unsupported app: {app_name}. Supported apps: {supported_apps}")
@@ -109,23 +264,24 @@ def build_parser() -> argparse.ArgumentParser:
     typora_parser.add_argument(
         "--force",
         action="store_true",
-        help="Overwrite existing theme files.",
+        default=True,
+        help=argparse.SUPPRESS,
     )
 
     obsidian_parser = subparsers.add_parser(
         "obsidian",
-        help="Install the Claude theme into an Obsidian vault.",
+        help="Install the Claude theme into one vault or all detected Obsidian vaults.",
     )
     obsidian_parser.add_argument(
         "--vault",
         type=Path,
-        required=True,
         help="Path to the target Obsidian vault root.",
     )
     obsidian_parser.add_argument(
         "--force",
         action="store_true",
-        help="Overwrite existing theme files.",
+        default=True,
+        help=argparse.SUPPRESS,
     )
 
     return parser
@@ -140,16 +296,22 @@ def main(argv: list[str] | None = None) -> int:
             target_dir = args.target_dir or detect_default_typora_target_dir()
             copied_files = install_theme_files("typora", target_dir, args.force)
             print(f"Installed Typora Claude theme to: {target_dir.resolve()}")
+            for file_name in copied_files:
+                print(f"- {file_name}")
         else:
-            target_dir = resolve_obsidian_theme_dir(args.vault)
-            copied_files = install_theme_files("obsidian", target_dir, args.force)
-            print(f"Installed Obsidian Claude theme to: {target_dir.resolve()}")
+            vault_dirs = (
+                [resolve_obsidian_vault_dir(args.vault)]
+                if args.vault
+                else detect_default_obsidian_vault_dirs()
+            )
+            for vault_dir in vault_dirs:
+                target_dir, copied_files = install_obsidian_theme(vault_dir, args.force)
+                print(f"Installed Obsidian Claude theme to: {target_dir.resolve()}")
+                for file_name in copied_files:
+                    print(f"- {file_name}")
     except Exception as exc:  # pragma: no cover - CLI error path
         print(f"Failed to install theme: {exc}", file=sys.stderr)
         return 1
-
-    for file_name in copied_files:
-        print(f"- {file_name}")
 
     return 0
 

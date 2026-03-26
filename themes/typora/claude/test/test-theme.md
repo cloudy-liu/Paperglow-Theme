@@ -71,10 +71,8 @@ tags:
 ```python
 from pathlib import Path
 
-
 def greet(name: str) -> str:
     return f"Hello, {name}!"
-
 
 print(greet("Claude Theme"))
 ```

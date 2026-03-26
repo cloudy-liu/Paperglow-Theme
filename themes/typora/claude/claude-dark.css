@@ -26,12 +26,12 @@
     --hover-item-shadow: none;
 
     /* --- Text palette (lifted toward official #FAF9F5) --- */
-    --text-color: #f4f1ec;
+    --text-color: #faf8f3;
     --heading-color: #faf8f3;
-    --text-secondary: #d0c8bc;
-    --control-text-color: #b8aca0;
-    --md-char-color: #9c9186;
-    --meta-content-color: #aea295;
+    --text-secondary: #d5cdc0;
+    --control-text-color: #bdb1a4;
+    --md-char-color: #a09589;
+    --meta-content-color: #b3a799;
 
     /* --- Accent palette --- */
     --primary-color: #d59567;
@@ -65,7 +65,7 @@
 
     /* --- Code --- */
     --code-bg-color: #2a2725;
-    --code-text-color: #f0eae2;
+    --code-text-color: #f5efe6;
     --inline-code-bg-color: #332e2b;
     --inline-code-text-color: #e1a092;
     --inline-code-border-color: #4a413b;

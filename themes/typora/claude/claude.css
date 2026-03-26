@@ -520,12 +520,18 @@ pre code {
     color: var(--syntax-tag-color);
 }
 
-.cm-s-inner .CodeMirror-selected {
-    background-color: var(--selection-bg-color);
+.cm-s-inner .CodeMirror-selected,
+.CodeMirror-focused .CodeMirror-selected,
+.md-fences .CodeMirror-selected,
+.md-fences .CodeMirror-line::selection,
+.md-fences .CodeMirror-line > span::selection,
+.md-fences .CodeMirror-line > span > span::selection {
+    background-color: var(--selection-bg-color) !important;
 }
 
-.cm-s-inner .CodeMirror-selectedtext {
-    background-color: rgba(var(--primary-rgb), 0.24);
+.cm-s-inner .CodeMirror-selectedtext,
+.md-fences .CodeMirror-selectedtext {
+    background-color: rgba(var(--primary-rgb), 0.24) !important;
 }
 
 /* ========================================
@@ -631,49 +637,39 @@ ol {
 }
 
 /* ========================================
-   Tables
+   Tables — Claude.ai style
    ======================================== */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 1.5em 0;
-    font-size: 0.9375rem;
+    table-layout: auto;
 }
 
-thead tr {
-    border-bottom: 2px solid var(--border-color);
-}
-
+thead tr,
 tbody tr {
-    border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.15s ease;
+    border: none;
+    background: transparent;
 }
 
 th,
 td {
-    padding: 10px 16px;
+    padding: 8px 16px 8px 1px;
     text-align: left;
     vertical-align: top;
+    font-size: inherit;
+    line-height: 1.7;
+    color: var(--text-color);
+    border-bottom: 0.5px solid rgba(var(--primary-rgb), 0.3);
 }
 
 th {
     font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-tbody tr:last-child {
-    border-bottom: none;
+    border-bottom-color: rgba(var(--primary-rgb), 0.6);
 }
 
 tr:nth-child(2n) {
     background-color: transparent;
-}
-
-tr:hover {
-    background-color: var(--table-hover-bg-color);
 }
 
 table code {
@@ -947,6 +943,16 @@ pre.md-meta-block {
 ::selection {
     background-color: var(--selection-bg-color);
     color: var(--text-color);
+}
+
+pre::selection,
+pre *::selection,
+code::selection,
+code *::selection,
+.md-fences::selection,
+.md-fences *::selection {
+    background-color: var(--selection-bg-color) !important;
+    color: var(--code-text-color) !important;
 }
 
 /* ========================================
