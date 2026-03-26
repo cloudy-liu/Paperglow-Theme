@@ -26,6 +26,30 @@ def load_install_module(test_case: unittest.TestCase):
     return module
 
 
+def create_obsidian_vault(
+    root_dir: Path,
+    name: str,
+    *,
+    appearance_data: dict[str, object] | None = None,
+) -> Path:
+    vault_dir = root_dir / name
+    (vault_dir / ".obsidian").mkdir(parents=True)
+    if appearance_data is not None:
+        (vault_dir / ".obsidian" / "appearance.json").write_text(
+            json.dumps(appearance_data),
+            encoding="utf-8",
+        )
+    return vault_dir
+
+
+def obsidian_theme_dir(vault_dir: Path) -> Path:
+    return vault_dir / ".obsidian" / "themes" / "Claude"
+
+
+def read_json_object(json_file: Path) -> dict[str, object]:
+    return json.loads(json_file.read_text(encoding="utf-8"))
+
+
 class InstallScriptTest(unittest.TestCase):
     def test_detect_default_typora_target_dir(self) -> None:
         installer = load_install_module(self)
@@ -67,15 +91,13 @@ class InstallScriptTest(unittest.TestCase):
         installer = load_install_module(self)
 
         with tempfile.TemporaryDirectory() as temp_dir:
-            vault_dir = Path(temp_dir)
+            vault_dir = create_obsidian_vault(Path(temp_dir), "vault")
             with self.assertRaises(RuntimeError):
-                installer.resolve_obsidian_theme_dir(vault_dir)
-
-            (vault_dir / ".obsidian").mkdir()
+                installer.resolve_obsidian_theme_dir(vault_dir.parent)
 
             self.assertEqual(
                 installer.resolve_obsidian_theme_dir(vault_dir),
-                vault_dir / ".obsidian" / "themes" / "Claude",
+                obsidian_theme_dir(vault_dir),
             )
 
     def test_main_obsidian_installs_and_activates_theme_for_all_detected_vaults(
@@ -85,22 +107,20 @@ class InstallScriptTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
-            current_vault_dir = temp_path / "current-vault"
-            other_vault_dir = temp_path / "other-vault"
+            current_vault_dir = create_obsidian_vault(
+                temp_path,
+                "current-vault",
+                appearance_data={"cssTheme": "Primary", "baseFontSize": 16},
+            )
+            other_vault_dir = create_obsidian_vault(
+                temp_path,
+                "other-vault",
+                appearance_data={"cssTheme": "Minimal"},
+            )
             nested_dir = current_vault_dir / "notes" / "daily"
             config_dir = temp_path / "config"
-            (current_vault_dir / ".obsidian").mkdir(parents=True)
-            (other_vault_dir / ".obsidian").mkdir(parents=True)
             nested_dir.mkdir(parents=True)
             config_dir.mkdir()
-            (current_vault_dir / ".obsidian" / "appearance.json").write_text(
-                json.dumps({"cssTheme": "Primary", "baseFontSize": 16}),
-                encoding="utf-8",
-            )
-            (other_vault_dir / ".obsidian" / "appearance.json").write_text(
-                json.dumps({"cssTheme": "Minimal"}),
-                encoding="utf-8",
-            )
             (config_dir / "obsidian.json").write_text(
                 json.dumps(
                     {
@@ -140,35 +160,17 @@ class InstallScriptTest(unittest.TestCase):
                 )
 
             for vault_dir in (current_vault_dir, other_vault_dir):
+                self.assertTrue((obsidian_theme_dir(vault_dir) / "theme.css").exists())
                 self.assertTrue(
-                    (
-                        vault_dir
-                        / ".obsidian"
-                        / "themes"
-                        / "Claude"
-                        / "theme.css"
-                    ).exists()
+                    (obsidian_theme_dir(vault_dir) / "manifest.json").exists()
                 )
-                self.assertTrue(
-                    (
-                        vault_dir
-                        / ".obsidian"
-                        / "themes"
-                        / "Claude"
-                        / "manifest.json"
-                    ).exists()
-                )
-                appearance_data = json.loads(
-                    (vault_dir / ".obsidian" / "appearance.json").read_text(
-                        encoding="utf-8"
-                    )
+                appearance_data = read_json_object(
+                    vault_dir / ".obsidian" / "appearance.json"
                 )
                 self.assertEqual(appearance_data["cssTheme"], "Claude")
 
-            current_appearance = json.loads(
-                (current_vault_dir / ".obsidian" / "appearance.json").read_text(
-                    encoding="utf-8"
-                )
+            current_appearance = read_json_object(
+                current_vault_dir / ".obsidian" / "appearance.json"
             )
             self.assertEqual(current_appearance["baseFontSize"], 16)
             self.assertEqual(
@@ -182,13 +184,11 @@ class InstallScriptTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
-            target_vault_dir = temp_path / "target-vault"
-            other_vault_dir = temp_path / "other-vault"
-            (target_vault_dir / ".obsidian").mkdir(parents=True)
-            (other_vault_dir / ".obsidian").mkdir(parents=True)
-            (other_vault_dir / ".obsidian" / "appearance.json").write_text(
-                json.dumps({"cssTheme": "WizNote"}),
-                encoding="utf-8",
+            target_vault_dir = create_obsidian_vault(temp_path, "target-vault")
+            other_vault_dir = create_obsidian_vault(
+                temp_path,
+                "other-vault",
+                appearance_data={"cssTheme": "WizNote"},
             )
 
             stdout = io.StringIO()
@@ -200,38 +200,18 @@ class InstallScriptTest(unittest.TestCase):
                     0,
                 )
 
-            self.assertTrue(
-                (
-                    target_vault_dir
-                    / ".obsidian"
-                    / "themes"
-                    / "Claude"
-                    / "theme.css"
-                ).exists()
-            )
+            self.assertTrue((obsidian_theme_dir(target_vault_dir) / "theme.css").exists())
             self.assertEqual(
-                json.loads(
-                    (target_vault_dir / ".obsidian" / "appearance.json").read_text(
-                        encoding="utf-8"
-                    )
-                )["cssTheme"],
+                read_json_object(target_vault_dir / ".obsidian" / "appearance.json")[
+                    "cssTheme"
+                ],
                 "Claude",
             )
-            self.assertFalse(
-                (
-                    other_vault_dir
-                    / ".obsidian"
-                    / "themes"
-                    / "Claude"
-                    / "theme.css"
-                ).exists()
-            )
+            self.assertFalse((obsidian_theme_dir(other_vault_dir) / "theme.css").exists())
             self.assertEqual(
-                json.loads(
-                    (other_vault_dir / ".obsidian" / "appearance.json").read_text(
-                        encoding="utf-8"
-                    )
-                )["cssTheme"],
+                read_json_object(other_vault_dir / ".obsidian" / "appearance.json")[
+                    "cssTheme"
+                ],
                 "WizNote",
             )
             self.assertEqual(stderr.getvalue(), "")
