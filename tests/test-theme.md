@@ -128,7 +128,7 @@ $$
 
 ## Image
 
-![Paperglow Theme Preview](../docs/typora/demo-1.png)
+![Paperglow Theme Preview](../docs/typora/light-1.png)
 
 ## Mermaid
 

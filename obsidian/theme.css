@@ -287,11 +287,7 @@ button.mod-cta,
 
 .workspace-leaf-content[data-type="markdown"] .markdown-preview-view,
 .workspace-leaf-content[data-type="markdown"] .cm-editor.mod-cm6 {
-  background: var(--background-primary);
-  border: 1px solid var(--card-border-color);
-  border-radius: 18px;
-  box-shadow: var(--card-shadow);
-  margin: 24px auto;
+  background: transparent;
 }
 
 .workspace-leaf-content[data-type="markdown"] .markdown-preview-sizer,

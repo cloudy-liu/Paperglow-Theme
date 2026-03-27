@@ -173,7 +173,7 @@ def collect_missing_items() -> list[str]:
             "```mermaid",
             "[^theme-note]",
             "$$",
-            "![Paperglow Theme Preview](../docs/typora/demo-1.png)",
+            "![Paperglow Theme Preview](../docs/typora/light-1.png)",
             "typora/paperglow.css",
         ]
         for marker in required_sample_markers:

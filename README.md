@@ -1,4 +1,4 @@
-# 📜 Paperglow
+# 📜 Paperglow-Theme
 
 > 雨在窗外洗出一帧泛黄的过场 你拧亮桌角　铜锈里酿出的昏黄
 >
@@ -32,22 +32,39 @@
 
 ## 🎨 预览
 
+### Typora
+
+#### Light theme
+
 <table>
   <tr>
-    <td><img src="docs/typora/demo-1.png" alt="标题 · 段落 · 行内样式" width="480"/></td>
-    <td><img src="docs/typora/demo-2.png" alt="引用块 · Alerts" width="480"/></td>
+    <td><img src="docs/typora/light-1.png" alt="标题 · 段落 · 行内样式" width="480"/></td>
+    <td><img src="docs/typora/light-2.png" alt="引用块 · Alerts" width="480"/></td>
   </tr>
   <tr>
     <td><em>标题层级 · 段落 · 行内样式 · 列表</em></td>
     <td><em>引用块 · 嵌套引用 · Note / Tip / Warning</em></td>
   </tr>
   <tr>
-    <td><img src="docs/typora/demo-3.png" alt="代码块 · 表格" width="480"/></td>
-    <td><img src="docs/typora/demo-4.png" alt="Mermaid · HTML · 收尾" width="480"/></td>
+    <td><img src="docs/typora/light-3.png" alt="代码块 · 表格" width="480"/></td>
+    <td><img src="docs/typora/light-4.png" alt="Mermaid · HTML · 收尾" width="480"/></td>
   </tr>
   <tr>
     <td><em>代码块（Python / Shell / JSON / CSS）· 表格</em></td>
     <td><em>Mermaid 流程图 · 快捷键 · 上下标</em></td>
+  </tr>
+</table>
+
+#### Dark theme
+
+<table>
+  <tr>
+    <td><img src="docs/typora/dark-1.png" alt="Dark · 标题 · 段落 · 行内样式" width="480"/></td>
+    <td><img src="docs/typora/dark-2.png" alt="Dark · 引用块 · Alerts" width="480"/></td>
+  </tr>
+  <tr>
+    <td><em>标题层级 · 段落 · 行内样式 · 列表</em></td>
+    <td><em>引用块 · 嵌套引用 · Note / Tip / Warning</em></td>
   </tr>
 </table>
 
