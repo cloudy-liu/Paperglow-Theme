@@ -1,5 +1,5 @@
 ---
-title: Claude Theme Test Document
+title: Paperglow Theme Test Document
 description: A comprehensive Markdown sample for verifying theme coverage
 tags:
   - typora
@@ -9,9 +9,9 @@ tags:
 
 [TOC]
 
-# Claude Theme Test
+# Paperglow Theme Test
 
-这份文档用于集中检查 Claude 主题在 Typora 中的常规 Markdown 样式覆盖，包括标题、段落、列表、表格、代码块、引用、脚注、数学公式、图片和扩展块元素。
+这份文档用于集中检查 Paperglow 主题在 Typora 中的常规 Markdown 样式覆盖，包括标题、段落、列表、表格、代码块、引用、脚注、数学公式、图片和扩展块元素。
 
 ## Heading Scale
 
@@ -27,7 +27,7 @@ tags:
 
 普通段落用于检查正文排版、行高、段距与卡片宽度。这里混合展示 **粗体**、*斜体*、***粗斜体***、~~删除线~~、<u>下划线</u>、==高亮==、`inline code` 和 [外部链接](https://example.com)。
 
-也可以测试混排文本，例如中文、English, numbers `12345`, email `hello@example.com`, and a short path `themes/typora/claude/claude.css`。
+也可以测试混排文本，例如中文、English, numbers `12345`, email `hello@example.com`, and a short path `typora/paperglow.css`。
 
 ## Lists
 
@@ -47,7 +47,7 @@ tags:
 
 ## Blockquotes
 
-> 这是一级引用块，用来检查引用边框、背景、阴影和正文颜色。
+> 这是一层引用块，用来检查引用边框、背景、阴影和正文颜色。
 >
 > 引用内也可以包含 **强调文本**、`inline code` 和 [引用链接](https://example.com/quote)。
 
@@ -74,17 +74,17 @@ from pathlib import Path
 def greet(name: str) -> str:
     return f"Hello, {name}!"
 
-print(greet("Claude Theme"))
+print(greet("Paperglow Theme"))
 ```
 
 ```bash
 git status --short
-python typora/claude/test/test_theme.py
+python -m unittest discover -s tests -v
 ```
 
 ```json
 {
-  "theme": "claude",
+  "theme": "paperglow",
   "variant": "light",
   "tokens": ["--bg-color", "--primary-color", "--code-bg-color"]
 }
@@ -128,7 +128,7 @@ $$
 
 ## Image
 
-![Claude Theme Preview](../demo.png)
+![Paperglow Theme Preview](../docs/typora/demo-1.png)
 
 ## Mermaid
 
@@ -147,7 +147,4 @@ flowchart LR
 
 ## Closing Paragraph
 
-如果这份文档中的标题、正文、列表、引用、提示块、代码块、表格、图片、脚注、数学公式和 Mermaid 都显示正常，说明主题的常规 Markdown 样式覆盖已经比较完整。
-
-
-
+如果这份文档中的标题、正文、列表、引用、提示块、代码块、表格、图片、脚注、数学公式和 Mermaid 都显示正常，说明主题的常见 Markdown 样式覆盖已经比较完整。

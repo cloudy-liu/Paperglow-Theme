@@ -1,17 +1,17 @@
 /*
- * Claude Dark Theme for Typora
+ * Paperglow Dark Theme for Typora
  *
- * This file imports the base Claude theme and overrides
+ * This file imports the base Paperglow theme and overrides
  * the semantic design tokens for a dark reading surface.
  *
- * Reference: claude.ai official dark mode — bg rgb(38,38,36),
+ * Reference: dark reading palette — bg rgb(38,38,36),
  *            text rgb(250,249,245).  "Evening conversation,
  *            not cold terminal."
  *
- * Author: Claude Theme
+ * Author: Paperglow
  * Version: 3.3.0
  */
-@import url("./claude.css");
+@import url("./paperglow.css");
 
 :root {
     /* --- Surface palette (deeper than official #262624 for card elevation) --- */

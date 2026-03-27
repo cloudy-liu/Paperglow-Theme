@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import json
 import sys
+import unittest
 from pathlib import Path
 
 
-THEME_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve().parent.parent
+THEME_DIR = ROOT_DIR / "obsidian"
 
 
 def read_text(path: Path) -> str:
@@ -17,7 +19,7 @@ def collect_missing_items() -> list[str]:
 
     theme_path = THEME_DIR / "theme.css"
     manifest_path = THEME_DIR / "manifest.json"
-    readme_path = THEME_DIR / "README.md"
+    readme_path = ROOT_DIR / "README.md"
 
     if not theme_path.exists():
         missing.append(f"Theme file missing: {theme_path}")
@@ -33,10 +35,10 @@ def collect_missing_items() -> list[str]:
 
     css = read_text(theme_path)
     readme = read_text(readme_path)
-
     manifest = json.loads(read_text(manifest_path))
-    if manifest.get("name") != "Claude":
-        missing.append('Manifest "name" should be "Claude"')
+
+    if manifest.get("name") != "Paperglow":
+        missing.append('Manifest "name" should be "Paperglow"')
     if not manifest.get("version"):
         missing.append('Manifest "version" should not be empty')
     if not manifest.get("author"):
@@ -63,7 +65,7 @@ def collect_missing_items() -> list[str]:
 
     required_readme_markers = [
         "python install.py obsidian --vault",
-        ".obsidian/themes/Claude/",
+        ".obsidian/themes/Paperglow/",
         "theme.css",
         "manifest.json",
         "Apache License 2.0",
@@ -82,9 +84,15 @@ def main() -> int:
             print(item, file=sys.stderr)
         return 1
 
-    print("Obsidian Claude theme checks passed.")
+    print("Obsidian Paperglow theme checks passed.")
     return 0
 
 
+class ObsidianThemeTest(unittest.TestCase):
+    def test_obsidian_theme_assets(self) -> None:
+        missing = collect_missing_items()
+        self.assertEqual(missing, [], "\n".join(missing))
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    unittest.main()

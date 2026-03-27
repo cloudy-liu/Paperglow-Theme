@@ -43,7 +43,7 @@ def create_obsidian_vault(
 
 
 def obsidian_theme_dir(vault_dir: Path) -> Path:
-    return vault_dir / ".obsidian" / "themes" / "Claude"
+    return vault_dir / ".obsidian" / "themes" / "Paperglow"
 
 
 def read_json_object(json_file: Path) -> dict[str, object]:
@@ -167,14 +167,14 @@ class InstallScriptTest(unittest.TestCase):
                 appearance_data = read_json_object(
                     vault_dir / ".obsidian" / "appearance.json"
                 )
-                self.assertEqual(appearance_data["cssTheme"], "Claude")
+                self.assertEqual(appearance_data["cssTheme"], "Paperglow")
 
             current_appearance = read_json_object(
                 current_vault_dir / ".obsidian" / "appearance.json"
             )
             self.assertEqual(current_appearance["baseFontSize"], 16)
             self.assertEqual(
-                stdout.getvalue().count("Installed Obsidian Claude theme to:"),
+                stdout.getvalue().count("Installed Obsidian Paperglow theme to:"),
                 2,
             )
             self.assertEqual(stderr.getvalue(), "")
@@ -188,7 +188,7 @@ class InstallScriptTest(unittest.TestCase):
             other_vault_dir = create_obsidian_vault(
                 temp_path,
                 "other-vault",
-                appearance_data={"cssTheme": "WizNote"},
+                appearance_data={"cssTheme": "OtherTheme"},
             )
 
             stdout = io.StringIO()
@@ -205,14 +205,14 @@ class InstallScriptTest(unittest.TestCase):
                 read_json_object(target_vault_dir / ".obsidian" / "appearance.json")[
                     "cssTheme"
                 ],
-                "Claude",
+                "Paperglow",
             )
             self.assertFalse((obsidian_theme_dir(other_vault_dir) / "theme.css").exists())
             self.assertEqual(
                 read_json_object(other_vault_dir / ".obsidian" / "appearance.json")[
                     "cssTheme"
                 ],
-                "WizNote",
+                "OtherTheme",
             )
             self.assertEqual(stderr.getvalue(), "")
 
@@ -227,7 +227,7 @@ class InstallScriptTest(unittest.TestCase):
                 force=False,
             )
 
-            self.assertEqual(copied_files, ["claude.css", "claude-dark.css"])
+            self.assertEqual(copied_files, ["paperglow.css", "paperglow-dark.css"])
             for file_name in copied_files:
                 self.assertTrue((target_dir / file_name).exists())
 
@@ -248,7 +248,7 @@ class InstallScriptTest(unittest.TestCase):
                     0,
                 )
 
-            self.assertIn("Installed Typora Claude theme to:", stdout.getvalue())
+            self.assertIn("Installed Typora Paperglow theme to:", stdout.getvalue())
             self.assertEqual(stderr.getvalue(), "")
 
     def test_install_theme_files_respects_force(self) -> None:

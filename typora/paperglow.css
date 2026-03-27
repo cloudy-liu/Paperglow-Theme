@@ -1,10 +1,10 @@
 /*
- * Claude Theme for Typora
+ * Paperglow for Typora
  * 
- * Palette: Claude editorial paper tones inspired by Claude-Like Theme
+ * Palette: warm editorial paper tones with terracotta accents
  * Typography: Strict copy from laper.ai (Montserrat + Noto Sans SC + PingFang SC)
  * 
- * Author: Claude Theme
+ * Author: Paperglow
  * Version: 3.3.0
  */
 
@@ -36,7 +36,7 @@
     --md-char-color: #a79b8f;
     --meta-content-color: #716557;
 
-    /* --- Accent palette (terracotta, inspired by Claude-Like light theme) --- */
+    /* --- Accent palette (terracotta editorial warmth) --- */
     --primary-color: #bc6a3a;
     --primary-rgb: 188, 106, 58;
     --primary-btn-border-color: #9d552d;
@@ -91,8 +91,6 @@
     --quote-nested-bg-color: #ede5da;
     --quote-nested-border-color: #d4b89e;
     --quote-credit-color: #a0623b;
-    --quote-nested-bg-color: #ede5da;
-    --quote-nested-border-color: #d4b89e;
     --quote-inline-code-bg-color: rgba(var(--primary-rgb), 0.12);
     --quote-inline-code-color: #8c4d31;
     --quote-link-color: #625950;
@@ -114,6 +112,9 @@
     --syntax-comment-color: #847a6f;
     --syntax-string-color: #2f8f2f;
     --syntax-tag-color: #bb5a49;
+
+    /* --- Diagram --- */
+    --diagram-zoom: 1;
 }
 
 /* ========================================
@@ -409,6 +410,48 @@ pre code {
 }
 
 /* ========================================
+   Code Block - Copy Button
+   Covers both Typora built-in and community
+   plugin DOM patterns. Reveal on hover.
+   ======================================== */
+.md-fences .copy-btn,
+.fence-enhance .copy-code {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: var(--side-bar-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--control-text-color);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 2px 10px;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 0.2s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.md-fences:hover .copy-btn,
+.md-fences:hover .fence-enhance .copy-code {
+    opacity: 1;
+}
+
+.md-fences .copy-btn:hover,
+.fence-enhance .copy-code:hover {
+    background-color: var(--item-hover-bg-color);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    color: var(--text-color);
+}
+
+.md-fences .copy-btn:active,
+.fence-enhance .copy-code:active {
+    background-color: var(--active-file-bg-color);
+    color: var(--primary-color);
+}
+
+/* ========================================
    Syntax Highlighting - CodeMirror
    ======================================== */
 .cm-s-inner {
@@ -637,7 +680,7 @@ ol {
 }
 
 /* ========================================
-   Tables — Claude.ai style
+   Tables — editorial paper style
    ======================================== */
 table {
     width: 100%;
@@ -1048,12 +1091,28 @@ a:focus-visible {
 
 /* ========================================
    Mermaid Diagrams
+   Override --diagram-zoom in base.user.css
+   to scale all diagrams (e.g. 1.2, 1.5).
    ======================================== */
 .md-diagram-panel {
     background-color: var(--side-bar-bg-color);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 16px;
+    overflow: auto;
+    position: relative;
+}
+
+.md-diagram-panel-preview {
+    zoom: var(--diagram-zoom);
+    min-width: fit-content;
+    cursor: default;
+    transition: transform 0.3s ease;
+}
+
+.md-diagram-panel-preview:hover {
+    transform: scale(1.05);
+    transform-origin: top left;
 }
 
 /* ========================================

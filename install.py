@@ -10,15 +10,15 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parent
-OBSIDIAN_THEME_NAME = "Claude"
+THEME_NAME = "Paperglow"
 THEME_FILES = {
     "typora": [
-        ROOT_DIR / "themes" / "typora" / "claude" / "claude.css",
-        ROOT_DIR / "themes" / "typora" / "claude" / "claude-dark.css",
+        ROOT_DIR / "typora" / "paperglow.css",
+        ROOT_DIR / "typora" / "paperglow-dark.css",
     ],
     "obsidian": [
-        ROOT_DIR / "themes" / "obsidian" / "claude" / "theme.css",
-        ROOT_DIR / "themes" / "obsidian" / "claude" / "manifest.json",
+        ROOT_DIR / "obsidian" / "theme.css",
+        ROOT_DIR / "obsidian" / "manifest.json",
     ],
 }
 
@@ -106,7 +106,7 @@ def load_json_object(json_file: Path, *, description: str) -> dict[str, object]:
 
 
 def build_obsidian_theme_dir(vault_dir: Path) -> Path:
-    return vault_dir / ".obsidian" / "themes" / OBSIDIAN_THEME_NAME
+    return vault_dir / ".obsidian" / "themes" / THEME_NAME
 
 
 def find_obsidian_vault_dir(start_dir: Path, *, required: bool) -> Path | None:
@@ -215,7 +215,7 @@ def activate_obsidian_theme(vault_dir: Path) -> None:
     else:
         appearance_data = {}
 
-    appearance_data["cssTheme"] = OBSIDIAN_THEME_NAME
+    appearance_data["cssTheme"] = THEME_NAME
     appearance_file.write_text(
         json.dumps(appearance_data, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -272,20 +272,20 @@ def print_install_result(
     target_dir: Path,
     copied_files: list[str],
 ) -> None:
-    print(f"Installed {app_label} Claude theme to: {target_dir.resolve()}")
+    print(f"Installed {app_label} Paperglow theme to: {target_dir.resolve()}")
     for file_name in copied_files:
         print(f"- {file_name}")
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Install Claude themes for supported apps from this repository."
+        description="Install the Paperglow theme for supported apps from this repository."
     )
     subparsers = parser.add_subparsers(dest="app_name", required=True)
 
     typora_parser = subparsers.add_parser(
         "typora",
-        help="Install the Claude theme into Typora's themes directory.",
+        help="Install the Paperglow theme into Typora's themes directory.",
     )
     typora_parser.add_argument(
         "--target-dir",
@@ -301,7 +301,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     obsidian_parser = subparsers.add_parser(
         "obsidian",
-        help="Install the Claude theme into one vault or all detected Obsidian vaults.",
+        help="Install the Paperglow theme into one vault or all detected Obsidian vaults.",
     )
     obsidian_parser.add_argument(
         "--vault",

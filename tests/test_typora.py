@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import re
 import sys
+import unittest
 from pathlib import Path
 
 
-THEME_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve().parent.parent
+THEME_DIR = ROOT_DIR / "typora"
 TEST_DIR = Path(__file__).resolve().parent
-ROOT_DIR = THEME_DIR.parent.parent.parent
 
 
 def read_text(path: Path) -> str:
@@ -42,16 +43,14 @@ def extract_rule_with_flexible_selector(css: str, selector_pattern: str) -> str:
 def collect_missing_items() -> list[str]:
     missing: list[str] = []
 
-    theme_path = THEME_DIR / "claude.css"
-    dark_theme_path = THEME_DIR / "claude-dark.css"
-    readme_path = THEME_DIR / "README.md"
-    root_readme_path = ROOT_DIR / "README.md"
+    theme_path = THEME_DIR / "paperglow.css"
+    dark_theme_path = THEME_DIR / "paperglow-dark.css"
+    readme_path = ROOT_DIR / "README.md"
     sample_path = TEST_DIR / "test-theme.md"
 
     css = read_text(theme_path)
     dark_css = read_text(dark_theme_path) if dark_theme_path.exists() else ""
     readme = read_text(readme_path)
-    root_readme = read_text(root_readme_path) if root_readme_path.exists() else ""
 
     required_base_tokens = [
         "--link-color",
@@ -63,6 +62,7 @@ def collect_missing_items() -> list[str]:
         "--syntax-keyword-color",
         "--sidebar-divider-highlight",
         "--sidebar-divider-shadow",
+        "--diagram-zoom",
     ]
     required_unibody_tokens = [
         "#top-titlebar",
@@ -86,7 +86,8 @@ def collect_missing_items() -> list[str]:
         missing.append("Dark theme sidebar should match the editor paper background")
 
     if "#md-searchpanel {\n    background-color: var(--side-bar-bg-color);" not in css:
-        missing.append("Search panel should share the sidebar paper background")
+        if "#md-searchpanel {\r\n    background-color: var(--side-bar-bg-color);" not in css:
+            missing.append("Search panel should share the sidebar paper background")
 
     file_list_active = extract_block(css, ".file-list-item.active")
     file_list_hover = extract_block(css, ".file-list-item:hover")
@@ -99,6 +100,7 @@ def collect_missing_items() -> list[str]:
         r'\.task-list-item\.task-list-done p,\s*'
         r'\.task-list-item\.task-list-done',
     )
+
     if "box-shadow: none;" not in file_list_active:
         missing.append("Active file item should no longer use raised shadows")
     if "box-shadow: none;" not in file_list_hover:
@@ -118,35 +120,38 @@ def collect_missing_items() -> list[str]:
     if "accent-color: var(--primary-color);" not in checkbox_block:
         missing.append("Checkbox should use the theme accent color instead of browser default blue")
 
+    if ".copy-btn" not in css:
+        missing.append("Code block copy button selector missing (.copy-btn)")
+    if ".fence-enhance .copy-code" not in css:
+        missing.append("Community plugin copy button selector missing (.fence-enhance .copy-code)")
+
+    diagram_panel = extract_block(css, ".md-diagram-panel")
+    if "overflow" not in diagram_panel:
+        missing.append("Mermaid diagram panel should enable overflow scrolling")
+    if "zoom: var(--diagram-zoom)" not in css:
+        missing.append("Mermaid diagram preview should honour the --diagram-zoom token")
+
     if "Unibody" not in readme:
         missing.append("README is missing Windows Unibody guidance")
-
-    if "claude-dark.css" not in readme:
-        missing.append("README is missing claude-dark.css installation guidance")
-
-    if "@import" not in readme or "claude.css" not in readme:
+    if "paperglow-dark.css" not in readme:
+        missing.append("README is missing paperglow-dark.css installation guidance")
+    if "@import" not in readme or "paperglow.css" not in readme:
         missing.append("README is missing dark theme dependency guidance")
-
     if "python install.py typora" not in readme:
         missing.append("README is missing Python installer guidance")
-
-    if "install_theme.py" in readme:
-        missing.append("README should not mention the removed install_theme.py script")
-
     if "Apache License 2.0" not in readme:
         missing.append("README should align with the repository Apache 2.0 license")
 
-    if "Claude Style Themes" not in root_readme:
-        missing.append("Root README should present the new Claude Style Themes project name")
-
-    if "themes/typora/claude/" not in root_readme:
-        missing.append("Root README should document the new Typora theme path")
+    if "Paperglow" not in readme:
+        missing.append("Root README should present the Paperglow project name")
+    if "`typora/`" not in readme and "typora/" not in readme:
+        missing.append("Root README should document the Typora theme path")
 
     if not dark_theme_path.exists():
         missing.append(f"Dark theme file missing: {dark_theme_path}")
     else:
         required_dark_tokens = [
-            '@import url("./claude.css");',
+            '@import url("./paperglow.css");',
             "--bg-color:",
             "--card-bg:",
             "--text-color:",
@@ -168,8 +173,8 @@ def collect_missing_items() -> list[str]:
             "```mermaid",
             "[^theme-note]",
             "$$",
-            "![Claude Theme Preview](../demo.png)",
-            "themes/typora/claude/claude.css",
+            "![Paperglow Theme Preview](../docs/typora/demo-1.png)",
+            "typora/paperglow.css",
         ]
         for marker in required_sample_markers:
             if marker not in sample:
@@ -185,9 +190,15 @@ def main() -> int:
             print(item, file=sys.stderr)
         return 1
 
-    print("Claude theme checks passed.")
+    print("Paperglow theme checks passed.")
     return 0
 
 
+class TyporaThemeTest(unittest.TestCase):
+    def test_typora_theme_assets(self) -> None:
+        missing = collect_missing_items()
+        self.assertEqual(missing, [], "\n".join(missing))
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    unittest.main()
