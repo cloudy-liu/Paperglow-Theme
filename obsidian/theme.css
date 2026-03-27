@@ -42,9 +42,9 @@ body {
 .theme-light {
   --accent-rgb: 188, 106, 58;
   --background-primary: #fcfaf6;
-  --background-primary-alt: #f7f2eb;
-  --background-secondary: #efe7dc;
-  --background-secondary-alt: #e7ddd2;
+  --background-primary-alt: #f3ede5;
+  --background-secondary: #f7f2eb;
+  --background-secondary-alt: #efe7dc;
   --background-modifier-border: #ddd5ca;
   --background-modifier-border-hover: #d3b398;
   --background-modifier-border-focus: #bc6a3a;
@@ -107,8 +107,8 @@ body {
   --quote-inline-code-color: #8c4d31;
   --table-inline-code-bg: #f5efe8;
   --table-inline-code-border: #dbcbbb;
-  --window-bg-color: #f7f2eb;
-  --panel-bg-color: #efe7dc;
+  --window-bg-color: #f3ede5;
+  --panel-bg-color: #f7f2eb;
   --card-border-color: rgba(96, 78, 63, 0.1);
   --card-shadow: 0 1px 0 rgba(70, 52, 38, 0.05), 0 10px 22px rgba(70, 52, 38, 0.05);
   --link-border-color: rgba(143, 75, 40, 0.28);
@@ -120,9 +120,9 @@ body {
 .theme-dark {
   --accent-rgb: 213, 149, 103;
   --background-primary: #2b2926;
-  --background-primary-alt: #222120;
-  --background-secondary: #1e1d1b;
-  --background-secondary-alt: #1b1714;
+  --background-primary-alt: #262320;
+  --background-secondary: #222120;
+  --background-secondary-alt: #1e1d1b;
   --background-modifier-border: #3d3936;
   --background-modifier-border-hover: #584a3e;
   --background-modifier-border-focus: #d59567;
@@ -185,8 +185,8 @@ body {
   --quote-inline-code-color: #efbb95;
   --table-inline-code-bg: #312c29;
   --table-inline-code-border: #4a413b;
-  --window-bg-color: #222120;
-  --panel-bg-color: #1e1d1b;
+  --window-bg-color: #1e1d1b;
+  --panel-bg-color: #222120;
   --card-border-color: rgba(242, 233, 223, 0.08);
   --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 12px 28px rgba(0, 0, 0, 0.18);
   --link-border-color: rgba(227, 165, 122, 0.32);
