@@ -689,26 +689,27 @@ table {
     table-layout: auto;
 }
 
-thead tr,
-tbody tr {
-    border: none;
+#write thead tr,
+#write tbody tr {
+    border: none !important;
     background: transparent;
 }
 
-th,
-td {
+#write th,
+#write td {
     padding: 8px 16px 8px 1px;
     text-align: left;
     vertical-align: top;
     font-size: inherit;
     line-height: 1.7;
     color: var(--text-color);
-    border-bottom: 0.5px solid rgba(var(--primary-rgb), 0.3);
+    border: none !important;
+    border-bottom: 0.5px solid rgba(var(--primary-rgb), 0.3) !important;
 }
 
-th {
+#write th {
     font-weight: 600;
-    border-bottom-color: rgba(var(--primary-rgb), 0.6);
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.6) !important;
 }
 
 tr:nth-child(2n) {
@@ -721,6 +722,24 @@ table code {
     border: 1px solid var(--table-inline-code-border-color);
     padding: 2px 10px;
     font-size: 0.85em;
+}
+
+/* ========================================
+   Keyboard Keys (<kbd>)
+   ======================================== */
+kbd {
+    font-family: var(--monospace);
+    font-size: 0.8em;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background: var(--code-block-bg-color);
+    border: 1px solid var(--border-color);
+    border-bottom-width: 2.5px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    color: var(--text-color);
+    white-space: nowrap;
+    vertical-align: baseline;
+    line-height: 1;
 }
 
 /* ========================================

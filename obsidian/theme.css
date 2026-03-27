@@ -86,7 +86,8 @@ body {
   --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: #cbc0b3;
   --scrollbar-active-thumb-bg: #a99a8a;
-  --code-background: #fcfbf8;
+  --code-background: #f9f4ed;
+  --code-border-color: #e7ddd2;
   --code-normal: #1c1815;
   --code-comment: #847a6f;
   --code-keyword: #7b47c2;
@@ -164,6 +165,7 @@ body {
   --scrollbar-thumb-bg: #675c52;
   --scrollbar-active-thumb-bg: #877a6e;
   --code-background: #2a2725;
+  --code-border-color: #3d3936;
   --code-normal: #f5efe6;
   --code-comment: #ab9d90;
   --code-keyword: #b899ff;
@@ -439,6 +441,24 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 }
 
 /* ========================================
+   Keyboard Keys (<kbd>)
+   ======================================== */
+.markdown-rendered kbd {
+  font-family: var(--font-monospace-theme);
+  font-size: 0.8em;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: var(--inline-code-background);
+  border: 1px solid var(--inline-code-border);
+  border-bottom-width: 2.5px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  color: var(--text-normal);
+  white-space: nowrap;
+  vertical-align: baseline;
+  line-height: 1;
+}
+
+/* ========================================
    Code Blocks - Reading View
    ======================================== */
 .markdown-rendered pre {
@@ -446,7 +466,7 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
   font-size: 0.875rem;
   line-height: 1.6;
   background: var(--code-background);
-  border: 1px solid var(--background-modifier-border);
+  border: 1px solid var(--code-border-color);
   border-radius: 16px;
   padding: 16px 20px;
   overflow-x: auto;
@@ -460,6 +480,29 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
   font-size: 0.875rem;
   padding: 0;
   border-radius: 0;
+  counter-reset: codeblock-line;
+  display: block;
+}
+
+/* ========================================
+   Code Blocks - Line Numbers (Reading View)
+   ======================================== */
+.markdown-rendered pre code .code-block-line {
+  counter-increment: codeblock-line;
+  display: block;
+}
+
+.markdown-rendered pre code .code-block-line::before {
+  content: counter(codeblock-line);
+  display: inline-block;
+  width: 2.5em;
+  margin-right: 1em;
+  text-align: right;
+  color: var(--text-faint);
+  opacity: 0.6;
+  font-size: 0.8em;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* ========================================
@@ -473,27 +516,35 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
   line-height: 1.6;
 }
 
+.markdown-source-view.mod-cm6 .cm-lineNumbers .cm-gutterElement {
+  color: var(--text-faint);
+  opacity: 0.6;
+  font-size: 0.8em;
+  min-width: 2.5em;
+  text-align: right;
+}
+
 .markdown-source-view.mod-cm6 .HyperMD-codeblock-begin {
-  border-top: 1px solid var(--background-modifier-border);
-  border-left: 1px solid var(--background-modifier-border);
-  border-right: 1px solid var(--background-modifier-border);
+  border-top: 1px solid var(--code-border-color);
+  border-left: 1px solid var(--code-border-color);
+  border-right: 1px solid var(--code-border-color);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   padding-top: 8px;
 }
 
 .markdown-source-view.mod-cm6 .HyperMD-codeblock-end {
-  border-bottom: 1px solid var(--background-modifier-border);
-  border-left: 1px solid var(--background-modifier-border);
-  border-right: 1px solid var(--background-modifier-border);
+  border-bottom: 1px solid var(--code-border-color);
+  border-left: 1px solid var(--code-border-color);
+  border-right: 1px solid var(--code-border-color);
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   padding-bottom: 8px;
 }
 
 .markdown-source-view.mod-cm6 .HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end) {
-  border-left: 1px solid var(--background-modifier-border);
-  border-right: 1px solid var(--background-modifier-border);
+  border-left: 1px solid var(--code-border-color);
+  border-right: 1px solid var(--code-border-color);
 }
 
 /* ========================================
@@ -628,7 +679,7 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 
 .markdown-rendered table th {
   font-weight: 600;
-  border-bottom-color: rgba(var(--accent-rgb), 0.6) !important;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.6) !important;
 }
 
 .markdown-rendered table thead tr,
@@ -678,8 +729,8 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 
 .tag:hover,
 .cm-hashtag:hover {
-  background: var(--interactive-accent);
-  color: var(--text-on-accent);
+  background: rgba(var(--accent-rgb), 0.18);
+  color: var(--color-accent-2);
 }
 
 /* ========================================
@@ -703,6 +754,17 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 .metadata-property-value-input,
 .metadata-input-longtext {
   color: var(--text-normal);
+}
+
+.multi-select-pill {
+  background: var(--tag-background);
+  color: var(--tag-color);
+}
+
+.multi-select-pill:hover,
+.multi-select-pill.is-focused {
+  background: rgba(var(--accent-rgb), 0.18);
+  color: var(--color-accent-2);
 }
 
 /* ========================================
@@ -785,12 +847,5 @@ code *::selection {
   .workspace-leaf-content[data-type="markdown"] .markdown-preview-sizer,
   .workspace-leaf-content[data-type="markdown"] .cm-sizer {
     padding: 32px 24px 48px !important;
-  }
-
-  .workspace-leaf-content[data-type="markdown"] .markdown-preview-view,
-  .workspace-leaf-content[data-type="markdown"] .cm-editor.mod-cm6 {
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
   }
 }
