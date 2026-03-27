@@ -86,7 +86,7 @@ body {
   --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: #cbc0b3;
   --scrollbar-active-thumb-bg: #a99a8a;
-  --code-background: #f9f4ed;
+  --code-background: #fcfbf8;
   --code-border-color: #e7ddd2;
   --code-normal: #1c1815;
   --code-comment: #847a6f;
@@ -176,8 +176,8 @@ body {
   --code-operator: #f0eae2;
   --table-border-color: #3d3936;
   --table-row-alt-background: #262320;
-  --blockquote-border-color: #6b5d50;
-  --blockquote-background-color: #2c2926;
+  --blockquote-border-color: #8a7565;
+  --blockquote-background-color: #342f2b;
   --inline-code-background: #332e2b;
   --inline-code-border: #4a413b;
   --inline-code-color: #e1a092;
@@ -209,6 +209,8 @@ body,
 .workspace-sidedock-vault-profile,
 .workspace-tab-header-container,
 .workspace-tabs .workspace-leaf,
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split,
 .workspace-split.mod-left-split .workspace-leaf-content,
 .workspace-split.mod-right-split .workspace-leaf-content {
   background: var(--panel-bg-color);
@@ -284,7 +286,7 @@ button.mod-cta,
 .workspace-leaf-content[data-type="markdown"] .view-content {
   background:
     linear-gradient(180deg, rgba(var(--accent-rgb), 0.04), transparent 220px),
-    var(--window-bg-color);
+    var(--background-primary);
 }
 
 .workspace-leaf-content[data-type="markdown"] .markdown-preview-view,
@@ -485,27 +487,6 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 }
 
 /* ========================================
-   Code Blocks - Line Numbers (Reading View)
-   ======================================== */
-.markdown-rendered pre code .code-block-line {
-  counter-increment: codeblock-line;
-  display: block;
-}
-
-.markdown-rendered pre code .code-block-line::before {
-  content: counter(codeblock-line);
-  display: inline-block;
-  width: 2.5em;
-  margin-right: 1em;
-  text-align: right;
-  color: var(--text-faint);
-  opacity: 0.6;
-  font-size: 0.8em;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-/* ========================================
    Code Blocks - Source / Live Preview
    ======================================== */
 .markdown-source-view.mod-cm6 .HyperMD-codeblock {
@@ -552,15 +533,40 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
    ======================================== */
 .markdown-rendered blockquote {
   background: var(--blockquote-background-color);
-  border-left: 4px solid var(--blockquote-border-color);
-  border-radius: 12px;
+  border: none;
+  border-left: 3px solid var(--blockquote-border-color);
+  border-radius: 0 8px 8px 0;
   color: var(--text-muted);
-  margin: 1.4rem 0;
-  padding: 14px 18px;
+  margin: 1.5em 0;
+  padding: 16px 20px;
+  font-style: normal;
+}
+
+.markdown-rendered blockquote p {
+  margin: 0 0 0.6em 0;
+  line-height: 1.5;
 }
 
 .markdown-rendered blockquote p:last-child {
   margin-bottom: 0;
+}
+
+.markdown-rendered blockquote blockquote {
+  margin: 0.6em 0 0 0;
+  border-left: 2px solid var(--background-modifier-border-hover);
+}
+
+.theme-light .markdown-rendered blockquote blockquote {
+  background: #ede5da;
+}
+
+.theme-dark .markdown-rendered blockquote blockquote {
+  background: #262320;
+}
+
+.markdown-rendered blockquote strong {
+  font-weight: 700;
+  color: var(--text-normal);
 }
 
 /* ========================================
@@ -844,8 +850,63 @@ code *::selection {
    Responsive
    ======================================== */
 @media (max-width: 960px) {
+
   .workspace-leaf-content[data-type="markdown"] .markdown-preview-sizer,
   .workspace-leaf-content[data-type="markdown"] .cm-sizer {
     padding: 32px 24px 48px !important;
   }
+}
+
+/* ========================================
+   Mermaid Diagrams — dark warm override
+   ======================================== */
+.theme-dark .mermaid .node rect,
+.theme-dark .mermaid .node circle,
+.theme-dark .mermaid .node ellipse,
+.theme-dark .mermaid .node polygon {
+  fill: #3a3430 !important;
+  stroke: #d59567 !important;
+  stroke-width: 1.5px !important;
+}
+
+.theme-dark .mermaid .nodeLabel,
+.theme-dark .mermaid .label {
+  color: #faf8f3 !important;
+  fill: #faf8f3 !important;
+}
+
+.theme-dark .mermaid .edgePath path,
+.theme-dark .mermaid path.flowchart-link,
+.theme-dark .mermaid .edge-pattern-solid,
+.theme-dark .mermaid [class*="edgePath"] path,
+.theme-dark .mermaid line {
+  stroke: #b3a799 !important;
+  stroke-width: 1.5px !important;
+}
+
+.theme-dark .mermaid .arrowheadPath,
+.theme-dark .mermaid marker path,
+.theme-dark .mermaid [id*="arrowhead"] path,
+.theme-dark .mermaid defs marker path {
+  fill: #b3a799 !important;
+  stroke: #b3a799 !important;
+}
+
+.theme-dark .mermaid .edgeLabel {
+  background-color: #2b2926 !important;
+  color: #d5cdc0 !important;
+}
+
+.theme-dark .mermaid .edgeLabel rect {
+  fill: #2b2926 !important;
+  opacity: 1 !important;
+}
+
+.theme-dark .mermaid .cluster rect {
+  fill: #2e2a27 !important;
+  stroke: #584a3e !important;
+}
+
+.theme-dark .mermaid .cluster span {
+  color: #d5cdc0 !important;
 }

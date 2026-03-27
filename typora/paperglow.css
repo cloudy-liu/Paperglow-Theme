@@ -772,27 +772,57 @@ img {
 /* ========================================
    Footnotes
    ======================================== */
-sup.md-footnote {
-    background-color: var(--primary-color);
-    color: var(--primary-btn-text-color);
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
+#write {
+    counter-reset: footnote-ref footnote-def;
 }
 
-sup.md-footnote:hover {
-    background-color: var(--primary-btn-border-color);
+sup.md-footnote {
+    font-size: 0 !important;
+    line-height: 0;
+    vertical-align: super;
+    cursor: pointer;
+    counter-increment: footnote-ref;
+}
+
+sup.md-footnote::after {
+    content: counter(footnote-ref);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    vertical-align: super;
+    transition: color 0.15s ease;
+}
+
+sup.md-footnote:hover::after {
+    color: var(--primary-btn-border-color);
+    text-decoration: underline;
 }
 
 .md-def-footnote {
+    counter-increment: footnote-def;
+    position: relative;
     font-size: 0.875rem;
     color: var(--meta-content-color);
-    padding-left: 1em;
+    padding-left: 2.25em;
     border-left: 3px solid var(--border-color);
     margin: 0.5em 0;
+}
+
+.md-def-footnote::before {
+    content: counter(footnote-def) ".";
+    position: absolute;
+    left: 0.7em;
+    top: 0;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.md-def-footnote .md-def-name,
+.md-def-footnote .md-def-label,
+.md-def-footnote .footnote-label {
+    font-size: 0 !important;
+    margin: 0 !important;
 }
 
 /* ========================================
@@ -854,6 +884,15 @@ pre.md-meta-block {
 
 .md-math-block {
     font-size: 1.1em;
+}
+
+.md-inline-math script {
+    color: var(--primary-color);
+    font-size: 0.95em;
+}
+
+.md-inline-math .MathJax {
+    color: var(--text-color);
 }
 
 /* ========================================

@@ -105,3 +105,56 @@
     --syntax-string-color: #81cb82;
     --syntax-tag-color: #ea8c79;
 }
+
+/* ========================================
+   Mermaid Diagrams — dark warm override
+   ======================================== */
+.md-diagram-panel svg {
+    background: transparent;
+}
+
+.md-diagram-panel .node rect,
+.md-diagram-panel .node circle,
+.md-diagram-panel .node ellipse,
+.md-diagram-panel .node polygon {
+    fill: #3a3430 !important;
+    stroke: #d59567 !important;
+    stroke-width: 1.5px !important;
+}
+
+.md-diagram-panel .nodeLabel,
+.md-diagram-panel .label {
+    color: #faf8f3 !important;
+    fill: #faf8f3 !important;
+}
+
+.md-diagram-panel .edgePath .path,
+.md-diagram-panel .flowchart-link {
+    stroke: #b3a799 !important;
+    stroke-width: 1.5px !important;
+}
+
+.md-diagram-panel .arrowheadPath,
+.md-diagram-panel marker path {
+    fill: #b3a799 !important;
+    stroke: #b3a799 !important;
+}
+
+.md-diagram-panel .edgeLabel {
+    background-color: #2b2926 !important;
+    color: #d5cdc0 !important;
+}
+
+.md-diagram-panel .edgeLabel rect {
+    fill: #2b2926 !important;
+    opacity: 1 !important;
+}
+
+.md-diagram-panel .cluster rect {
+    fill: #2e2a27 !important;
+    stroke: #584a3e !important;
+}
+
+.md-diagram-panel .cluster span {
+    color: #d5cdc0 !important;
+}

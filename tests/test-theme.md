@@ -118,7 +118,7 @@ python -m unittest discover -s tests -v
 
 ## Math
 
-行内公式示例：$E = mc^2$。
+行内公式示例：$E = mc^2$
 
 块级公式示例：
 
