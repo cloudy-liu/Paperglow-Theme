@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "paperglow-v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build release packages
+        id: build
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          version="${TAG_NAME#paperglow-}"
+
+          mkdir -p dist/typora dist/obsidian
+
+          cp typora/paperglow.css typora/paperglow-dark.css dist/typora/
+          (
+            cd dist/typora
+            zip -q ../typora-paperglow.zip paperglow.css paperglow-dark.css
+          )
+
+          cp obsidian/theme.css obsidian/manifest.json dist/obsidian/
+          (
+            cd dist/obsidian
+            zip -q ../obsidian-paperglow.zip theme.css manifest.json
+          )
+
+          cat > dist/release-notes.md <<EOF
+          This release ships updated Paperglow theme packages for Typora and Obsidian.
+
+          - typora-paperglow.zip includes paperglow.css and paperglow-dark.css.
+          - obsidian-paperglow.zip includes theme.css and manifest.json.
+          - Updates in this release refine previews, code blocks, blockquotes,
+            Mermaid diagrams, footnotes, and surface colors.
+          EOF
+
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Paperglow ${{ steps.build.outputs.version }}
+          body_path: dist/release-notes.md
+          files: |
+            dist/typora-paperglow.zip
+            dist/obsidian-paperglow.zip
