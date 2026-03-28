@@ -1,4 +1,10 @@
-# 📜 Paperglow-Theme
+<p align="center">
+  <img src="docs/logo.svg" alt="Paperglow logo" width="560" />
+</p>
+
+简体中文 | [English](README.en.md)
+
+# Paperglow Theme
 
 > 雨在窗外洗出一帧泛黄的过场 你拧亮桌角　铜锈里酿出的昏黄
 >
@@ -144,10 +150,12 @@ paperglow/
 │   ├── theme.css
 │   └── manifest.json
 ├── docs/
+│   ├── logo.svg
 │   ├── typora/
 │   └── obsidian/
 ├── tests/
-└── README.md
+├── README.md
+└── README.en.md
 ```
 
 ## 🧪 验证
