@@ -53,6 +53,19 @@ Paperglow is a warm paper-inspired theme for Typora and Obsidian. It replaces fl
   </tr>
 </table>
 
+### Obsidian
+
+<table>
+  <tr>
+    <td><img src="docs/obsidian/light.png" alt="Obsidian light mode preview" width="480"/></td>
+    <td><img src="docs/obsidian/dark.png" alt="Obsidian dark mode preview" width="480"/></td>
+  </tr>
+  <tr>
+    <td><em>Light paper palette, properties, outline sidebar, and reading view</em></td>
+    <td><em>Deep-ink palette, properties, outline sidebar, and reading view</em></td>
+  </tr>
+</table>
+
 ## Supported Apps
 
 | App | Theme | Status | Path |

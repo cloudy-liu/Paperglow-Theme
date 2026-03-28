@@ -9,6 +9,8 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 README_ZH = ROOT_DIR / "README.md"
 README_EN = ROOT_DIR / "README.en.md"
 LOGO_PATH = ROOT_DIR / "docs" / "logo.svg"
+OBSIDIAN_LIGHT_PREVIEW = ROOT_DIR / "docs" / "obsidian" / "light.png"
+OBSIDIAN_DARK_PREVIEW = ROOT_DIR / "docs" / "obsidian" / "dark.png"
 
 
 def read_text(path: Path) -> str:
@@ -23,6 +25,16 @@ class ReadmeDocsTest(unittest.TestCase):
         self.assertIn("<svg", logo)
         self.assertIn("Paperglow", logo)
 
+    def test_obsidian_preview_assets_exist(self) -> None:
+        self.assertTrue(
+            OBSIDIAN_LIGHT_PREVIEW.exists(),
+            f"Missing Obsidian light preview: {OBSIDIAN_LIGHT_PREVIEW}",
+        )
+        self.assertTrue(
+            OBSIDIAN_DARK_PREVIEW.exists(),
+            f"Missing Obsidian dark preview: {OBSIDIAN_DARK_PREVIEW}",
+        )
+
     def test_chinese_readme_links_to_english_and_embeds_logo(self) -> None:
         self.assertTrue(README_ZH.exists(), f"Missing README: {README_ZH}")
         readme = read_text(README_ZH)
@@ -30,6 +42,9 @@ class ReadmeDocsTest(unittest.TestCase):
         self.assertIn("docs/logo.svg", readme)
         self.assertRegex(readme, r"\[English\]\((?:\./)?README\.en\.md\)")
         self.assertIn("简体中文", readme)
+        self.assertIn("docs/obsidian/light.png", readme)
+        self.assertIn("docs/obsidian/dark.png", readme)
+        self.assertIn("### Obsidian", readme)
 
     def test_english_readme_links_to_chinese_and_embeds_logo(self) -> None:
         self.assertTrue(README_EN.exists(), f"Missing README: {README_EN}")
@@ -38,6 +53,9 @@ class ReadmeDocsTest(unittest.TestCase):
         self.assertIn("docs/logo.svg", readme)
         self.assertRegex(readme, r"\[简体中文\]\((?:\./)?README\.md\)")
         self.assertIn("English", readme)
+        self.assertIn("docs/obsidian/light.png", readme)
+        self.assertIn("docs/obsidian/dark.png", readme)
+        self.assertIn("### Obsidian", readme)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 <p align="center">
-  <img src="docs/logo.svg" alt="Paperglow logo" width="560" />
+  <img src="docs/logo.svg" alt="Paperglow logo" width="680" />
 </p>
+
 
 简体中文 | [English](README.en.md)
 
@@ -71,6 +72,19 @@
   <tr>
     <td><em>标题层级 · 段落 · 行内样式 · 列表</em></td>
     <td><em>引用块 · 嵌套引用 · Note / Tip / Warning</em></td>
+  </tr>
+</table>
+
+### Obsidian
+
+<table>
+  <tr>
+    <td><img src="docs/obsidian/light.png" alt="Obsidian 亮色模式预览" width="480"/></td>
+    <td><img src="docs/obsidian/dark.png" alt="Obsidian 深色模式预览" width="480"/></td>
+  </tr>
+  <tr>
+    <td><em>亮色纸面 · 属性面板 · 大纲侧栏 · 阅读视图</em></td>
+    <td><em>深色墨面 · 属性面板 · 大纲侧栏 · 阅读视图</em></td>
   </tr>
 </table>
 
