@@ -34,7 +34,7 @@ jobs:
             zip -q ../typora-paperglow.zip paperglow.css paperglow-dark.css
           )
 
-          cp obsidian/theme.css obsidian/manifest.json dist/obsidian/
+          cp theme.css manifest.json dist/obsidian/
           (
             cd dist/obsidian
             zip -q ../obsidian-paperglow.zip theme.css manifest.json
