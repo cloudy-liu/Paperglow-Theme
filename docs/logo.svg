@@ -4,16 +4,21 @@
   <defs>
     <linearGradient id="badge-bg" x1="64" y1="22" x2="656" y2="198" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#fcfaf6"/>
-      <stop offset="1" stop-color="#f3ede5"/>
+      <stop offset="1" stop-color="#f1e7dc"/>
     </linearGradient>
-    <linearGradient id="badge-wash" x1="86" y1="18" x2="622" y2="202" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fffdf9" stop-opacity="0.9"/>
-      <stop offset="0.52" stop-color="#fcfaf6" stop-opacity="0"/>
-      <stop offset="1" stop-color="#e9dece" stop-opacity="0.35"/>
-    </linearGradient>
+    <radialGradient id="badge-ambient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(202 112) rotate(0) scale(246 126)">
+      <stop offset="0" stop-color="#fffdf9" stop-opacity="0.92"/>
+      <stop offset="0.48" stop-color="#fbf7f0" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#fbf7f0" stop-opacity="0"/>
+    </radialGradient>
     <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(143 112) rotate(90) scale(92)">
-      <stop offset="0" stop-color="#d59567" stop-opacity="0.72"/>
-      <stop offset="0.55" stop-color="#bc6a3a" stop-opacity="0.22"/>
+      <stop offset="0" stop-color="#d59567" stop-opacity="0.58"/>
+      <stop offset="0.55" stop-color="#bc6a3a" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#bc6a3a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="word-halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(498 98) rotate(0) scale(186 82)">
+      <stop offset="0" stop-color="#d59567" stop-opacity="0.18"/>
+      <stop offset="0.5" stop-color="#bc6a3a" stop-opacity="0.06"/>
       <stop offset="1" stop-color="#bc6a3a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="paper" x1="86" y1="40" x2="197" y2="174" gradientUnits="userSpaceOnUse">
@@ -26,31 +31,32 @@
     </linearGradient>
   </defs>
 
-  <rect x="4" y="4" width="712" height="212" rx="36" fill="url(#badge-bg)" stroke="#ddd5ca" stroke-width="2"/>
-  <rect x="18" y="18" width="684" height="184" rx="28" fill="url(#badge-wash)" opacity="0.95"/>
-  <path d="M34 164C92 183 157 190 220 174C276 159 323 129 389 129C455 129 505 165 571 172C619 177 659 171 689 159" fill="none" stroke="#d8ccbd" stroke-width="2" opacity="0.82"/>
+  <rect x="4" y="4" width="712" height="212" rx="36" fill="url(#badge-bg)" stroke="#d9cfbf" stroke-width="1.5"/>
+  <rect x="4" y="4" width="712" height="212" rx="36" fill="url(#badge-ambient)"/>
+  <circle cx="498" cy="98" r="186" fill="url(#word-halo)"/>
+  <path d="M34 176C96 194 159 196 224 182C281 170 334 153 392 153C452 153 501 178 568 184C621 189 663 185 690 173" fill="none" stroke="#d5c9ba" stroke-width="2" opacity="0.72"/>
 
   <circle cx="143" cy="112" r="92" fill="url(#halo)"/>
 
   <g transform="translate(56 28)">
-    <rect x="30" y="18" width="118" height="144" rx="22" fill="#8f4b28" opacity="0.12"/>
+    <rect x="30" y="18" width="118" height="144" rx="22" fill="#8f4b28" opacity="0.09"/>
     <path d="M42 6H118L154 42V148C154 159.046 145.046 168 134 168H42C30.954 168 22 159.046 22 148V26C22 14.954 30.954 6 42 6Z" fill="url(#paper)" stroke="#e7ddd2" stroke-width="2"/>
     <path d="M118 6V34C118 42.837 125.163 50 134 50H154" fill="#f7f2eb" stroke="#e7ddd2" stroke-width="2" stroke-linejoin="round"/>
     <rect x="42" y="28" width="10" height="92" rx="5" fill="#bc6a3a" opacity="0.86"/>
     <rect x="60" y="40" width="64" height="8" rx="4" fill="#c58c64" opacity="0.42"/>
-    <rect x="60" y="62" width="74" height="7" rx="3.5" fill="#9d8f82" opacity="0.65"/>
-    <rect x="60" y="80" width="58" height="7" rx="3.5" fill="#9d8f82" opacity="0.48"/>
-    <rect x="60" y="98" width="68" height="7" rx="3.5" fill="#9d8f82" opacity="0.48"/>
+    <rect x="60" y="62" width="74" height="7" rx="3.5" fill="#958779" opacity="0.68"/>
+    <rect x="60" y="80" width="58" height="7" rx="3.5" fill="#958779" opacity="0.5"/>
+    <rect x="60" y="98" width="68" height="7" rx="3.5" fill="#958779" opacity="0.5"/>
     <rect x="60" y="118" width="46" height="14" rx="7" fill="#bc6a3a" opacity="0.16"/>
     <rect x="60" y="144" width="78" height="6" rx="3" fill="#c58c64" opacity="0.28"/>
   </g>
 
-  <path d="M177 60C207 33 250 28 286 48" fill="none" stroke="#d59567" stroke-width="4" stroke-linecap="round" opacity="0.85"/>
-  <path d="M182 73C205 56 238 53 263 67" fill="none" stroke="#bc6a3a" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+  <path d="M177 60C207 33 250 28 286 48" fill="none" stroke="#d59567" stroke-width="4" stroke-linecap="round" opacity="0.78"/>
+  <path d="M182 73C205 56 238 53 263 67" fill="none" stroke="#bc6a3a" stroke-width="3" stroke-linecap="round" opacity="0.42"/>
 
   <text x="278" y="103" fill="#2b2926" font-family="Montserrat, 'Segoe UI', sans-serif" font-size="54" font-weight="600" letter-spacing="-1">Paper</text>
-  <text x="434" y="103" fill="#bc6a3a" font-family="Montserrat, 'Segoe UI', sans-serif" font-size="54" font-weight="600" letter-spacing="-1">glow</text>
-  <text x="280" y="140" fill="#7a6d61" font-family="Montserrat, 'Segoe UI', sans-serif" font-size="19" font-weight="500">warm paper light for Typora and Obsidian</text>
-  <rect x="280" y="154" width="140" height="6" rx="3" fill="url(#accent-rule)"/>
-  <circle cx="441" cy="157" r="5" fill="#bc6a3a"/>
+  <text x="426" y="103" fill="#bc6a3a" font-family="Montserrat, 'Segoe UI', sans-serif" font-size="54" font-weight="600" letter-spacing="-1">glow</text>
+  <text x="280" y="143" fill="#85786b" font-family="Montserrat, 'Segoe UI', sans-serif" font-size="17" font-weight="450">paper light for Typora and Obsidian</text>
+  <rect x="280" y="158" width="122" height="6" rx="3" fill="url(#accent-rule)"/>
+  <circle cx="421" cy="161" r="4.5" fill="#bc6a3a"/>
 </svg>
