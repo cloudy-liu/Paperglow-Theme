@@ -45,6 +45,8 @@ class ReadmeDocsTest(unittest.TestCase):
         self.assertIn("docs/obsidian/light.png", readme)
         self.assertIn("docs/obsidian/dark.png", readme)
         self.assertIn("### Obsidian", readme)
+        self.assertNotIn("obsidian/theme.css", readme)
+        self.assertNotIn("obsidian/manifest.json", readme)
 
     def test_english_readme_links_to_chinese_and_embeds_logo(self) -> None:
         self.assertTrue(README_EN.exists(), f"Missing README: {README_EN}")
@@ -56,6 +58,8 @@ class ReadmeDocsTest(unittest.TestCase):
         self.assertIn("docs/obsidian/light.png", readme)
         self.assertIn("docs/obsidian/dark.png", readme)
         self.assertIn("### Obsidian", readme)
+        self.assertNotIn("obsidian/theme.css", readme)
+        self.assertNotIn("obsidian/manifest.json", readme)
 
 
 if __name__ == "__main__":

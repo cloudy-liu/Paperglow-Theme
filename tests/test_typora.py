@@ -96,7 +96,7 @@ def collect_missing_items() -> list[str]:
     checkbox_block = extract_block(css, '.task-list-item input[type="checkbox"]')
     checked_task_block = extract_rule_with_flexible_selector(
         css,
-        r'\.task-list-item input\[type="checkbox"\]:checked \+ p,\s*'
+        r'\.task-list-item input\[type="checkbox"\]:checked\s*\+\s*p,\s*'
         r'\.task-list-item\.task-list-done p,\s*'
         r'\.task-list-item\.task-list-done',
     )

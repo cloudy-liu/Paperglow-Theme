@@ -7,7 +7,8 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-THEME_DIR = ROOT_DIR / "obsidian"
+THEME_PATH = ROOT_DIR / "theme.css"
+MANIFEST_PATH = ROOT_DIR / "manifest.json"
 
 
 def read_text(path: Path) -> str:
@@ -17,25 +18,23 @@ def read_text(path: Path) -> str:
 def collect_missing_items() -> list[str]:
     missing: list[str] = []
 
-    theme_path = THEME_DIR / "theme.css"
-    manifest_path = THEME_DIR / "manifest.json"
     readme_path = ROOT_DIR / "README.md"
 
-    if not theme_path.exists():
-        missing.append(f"Theme file missing: {theme_path}")
+    if not THEME_PATH.exists():
+        missing.append(f"Theme file missing: {THEME_PATH}")
         return missing
 
-    if not manifest_path.exists():
-        missing.append(f"Manifest file missing: {manifest_path}")
+    if not MANIFEST_PATH.exists():
+        missing.append(f"Manifest file missing: {MANIFEST_PATH}")
         return missing
 
     if not readme_path.exists():
         missing.append(f"README missing: {readme_path}")
         return missing
 
-    css = read_text(theme_path)
+    css = read_text(THEME_PATH)
     readme = read_text(readme_path)
-    manifest = json.loads(read_text(manifest_path))
+    manifest = json.loads(read_text(MANIFEST_PATH))
 
     if manifest.get("name") != "Paperglow":
         missing.append('Manifest "name" should be "Paperglow"')

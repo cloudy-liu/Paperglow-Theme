@@ -2,6 +2,12 @@
   <img src="docs/logo.svg" alt="Paperglow logo" width="560" />
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Apps-Obsidian%20%2B%20Typora-bc6a3a?style=flat-square" alt="Apps: Obsidian and Typora" />
+  <img src="https://img.shields.io/badge/Version-0.2.0-d59567?style=flat-square" alt="Version: 0.2.0" />
+  <img src="https://img.shields.io/badge/License-Apache%202.0-6f5b4b?style=flat-square" alt="License: Apache 2.0" />
+</p>
+
 [简体中文](README.md) | English
 
 # Paperglow Theme
@@ -17,52 +23,30 @@ Paperglow is a warm paper-inspired theme for Typora and Obsidian. It replaces fl
 
 ## Preview
 
-### Typora
-
-#### Light theme
-
-<table>
-  <tr>
-    <td><img src="docs/typora/light-1.png" alt="Headings, paragraphs, and inline styles" width="480"/></td>
-    <td><img src="docs/typora/light-2.png" alt="Blockquotes and alerts" width="480"/></td>
-  </tr>
-  <tr>
-    <td><em>Heading scale, body copy, inline styles, and lists</em></td>
-    <td><em>Blockquotes, nested quotes, and note / tip / warning blocks</em></td>
-  </tr>
-  <tr>
-    <td><img src="docs/typora/light-3.png" alt="Code blocks and tables" width="480"/></td>
-    <td><img src="docs/typora/light-4.png" alt="Mermaid, HTML, and finishing details" width="480"/></td>
-  </tr>
-  <tr>
-    <td><em>Code blocks for Python, Shell, JSON, and CSS plus table styling</em></td>
-    <td><em>Mermaid diagrams, shortcuts, and inline finishing details</em></td>
-  </tr>
-</table>
-
-#### Dark theme
-
-<table>
-  <tr>
-    <td><img src="docs/typora/dark-1.png" alt="Dark theme headings, paragraphs, and inline styles" width="480"/></td>
-    <td><img src="docs/typora/dark-2.png" alt="Dark theme blockquotes and alerts" width="480"/></td>
-  </tr>
-  <tr>
-    <td><em>Heading scale, body copy, inline styles, and lists</em></td>
-    <td><em>Blockquotes, nested quotes, and note / tip / warning blocks</em></td>
-  </tr>
-</table>
-
 ### Obsidian
 
+<p align="center">
+  <img src="docs/obsidian/light.png" alt="Obsidian light mode preview" width="900" />
+</p>
+
+<p align="center">
+  <img src="docs/obsidian/dark.png" alt="Obsidian dark mode preview" width="900" />
+</p>
+
+### Typora
+
 <table>
   <tr>
-    <td><img src="docs/obsidian/light.png" alt="Obsidian light mode preview" width="480"/></td>
-    <td><img src="docs/obsidian/dark.png" alt="Obsidian dark mode preview" width="480"/></td>
+    <td><img src="docs/typora/light-1.png" alt="Typora preview 1" width="480"/></td>
+    <td><img src="docs/typora/light-2.png" alt="Typora preview 2" width="480"/></td>
   </tr>
   <tr>
-    <td><em>Light paper palette, properties, outline sidebar, and reading view</em></td>
-    <td><em>Deep-ink palette, properties, outline sidebar, and reading view</em></td>
+    <td><img src="docs/typora/light-3.png" alt="Typora preview 3" width="480"/></td>
+    <td><img src="docs/typora/light-4.png" alt="Typora preview 4" width="480"/></td>
+  </tr>
+  <tr>
+    <td><img src="docs/typora/dark-1.png" alt="Typora preview 5" width="480"/></td>
+    <td><img src="docs/typora/dark-2.png" alt="Typora preview 6" width="480"/></td>
   </tr>
 </table>
 
@@ -70,24 +54,12 @@ Paperglow is a warm paper-inspired theme for Typora and Obsidian. It replaces fl
 
 | App | Theme | Status | Path |
 |-----|-------|--------|------|
+| Obsidian | Paperglow | ✅ Maintained | [`theme.css`](theme.css) + [`manifest.json`](manifest.json) |
 | Typora | Paperglow | ✅ Maintained | [`typora/`](typora/) |
-| Obsidian | Paperglow | ✅ Maintained | [`obsidian/`](obsidian/) |
 
 ## Install
 
 The repository ships with a lightweight installer script at [`install.py`](install.py), so you can install the theme directly without an extra packaging step.
-
-### Typora
-
-```bash
-python install.py typora
-```
-
-Install to a custom theme directory:
-
-```bash
-python install.py typora --target-dir "C:\path\to\Typora\themes"
-```
 
 ### Obsidian
 
@@ -101,7 +73,23 @@ The script can discover local vaults automatically. To target a single vault:
 python install.py obsidian --vault "/path/to/your/vault"
 ```
 
+### Typora
+
+```bash
+python install.py typora
+```
+
+Install to a custom theme directory:
+
+```bash
+python install.py typora --target-dir "C:\path\to\Typora\themes"
+```
+
 ## Manual Install
+
+### Obsidian
+
+Copy [`theme.css`](theme.css) and [`manifest.json`](manifest.json) into `<vault>/.obsidian/themes/Paperglow/`, then select **Paperglow** in **Settings → Appearance → Themes**.
 
 ### Typora
 
@@ -112,10 +100,6 @@ Copy [`paperglow.css`](typora/paperglow.css) and [`paperglow-dark.css`](typora/p
 | Windows | `%APPDATA%\Typora\themes\` |
 | macOS | `~/Library/Application Support/abnerworks.Typora/themes/` |
 | Linux | `~/.config/Typora/themes/` |
-
-### Obsidian
-
-Copy [`theme.css`](obsidian/theme.css) and [`manifest.json`](obsidian/manifest.json) into `<vault>/.obsidian/themes/Paperglow/`, then select **Paperglow** in **Settings → Appearance → Themes**.
 
 ## Notes
 

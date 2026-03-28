@@ -2,6 +2,12 @@
   <img src="docs/logo.svg" alt="Paperglow logo" width="680" />
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Apps-Obsidian%20%2B%20Typora-bc6a3a?style=flat-square" alt="支持应用：Obsidian 和 Typora" />
+  <img src="https://img.shields.io/badge/Version-0.2.0-d59567?style=flat-square" alt="版本：0.2.0" />
+  <img src="https://img.shields.io/badge/License-Apache%202.0-6f5b4b?style=flat-square" alt="许可证：Apache 2.0" />
+</p>
+
 
 简体中文 | [English](README.en.md)
 
@@ -39,52 +45,30 @@
 
 ## 🎨 预览
 
-### Typora
-
-#### Light theme
-
-<table>
-  <tr>
-    <td><img src="docs/typora/light-1.png" alt="标题 · 段落 · 行内样式" width="480"/></td>
-    <td><img src="docs/typora/light-2.png" alt="引用块 · Alerts" width="480"/></td>
-  </tr>
-  <tr>
-    <td><em>标题层级 · 段落 · 行内样式 · 列表</em></td>
-    <td><em>引用块 · 嵌套引用 · Note / Tip / Warning</em></td>
-  </tr>
-  <tr>
-    <td><img src="docs/typora/light-3.png" alt="代码块 · 表格" width="480"/></td>
-    <td><img src="docs/typora/light-4.png" alt="Mermaid · HTML · 收尾" width="480"/></td>
-  </tr>
-  <tr>
-    <td><em>代码块（Python / Shell / JSON / CSS）· 表格</em></td>
-    <td><em>Mermaid 流程图 · 快捷键 · 上下标</em></td>
-  </tr>
-</table>
-
-#### Dark theme
-
-<table>
-  <tr>
-    <td><img src="docs/typora/dark-1.png" alt="Dark · 标题 · 段落 · 行内样式" width="480"/></td>
-    <td><img src="docs/typora/dark-2.png" alt="Dark · 引用块 · Alerts" width="480"/></td>
-  </tr>
-  <tr>
-    <td><em>标题层级 · 段落 · 行内样式 · 列表</em></td>
-    <td><em>引用块 · 嵌套引用 · Note / Tip / Warning</em></td>
-  </tr>
-</table>
-
 ### Obsidian
 
+<p align="center">
+  <img src="docs/obsidian/light.png" alt="Obsidian 亮色模式预览" width="900" />
+</p>
+
+<p align="center">
+  <img src="docs/obsidian/dark.png" alt="Obsidian 深色模式预览" width="900" />
+</p>
+
+### Typora
+
 <table>
   <tr>
-    <td><img src="docs/obsidian/light.png" alt="Obsidian 亮色模式预览" width="480"/></td>
-    <td><img src="docs/obsidian/dark.png" alt="Obsidian 深色模式预览" width="480"/></td>
+    <td><img src="docs/typora/light-1.png" alt="Typora 预览 1" width="480"/></td>
+    <td><img src="docs/typora/light-2.png" alt="Typora 预览 2" width="480"/></td>
   </tr>
   <tr>
-    <td><em>亮色纸面 · 属性面板 · 大纲侧栏 · 阅读视图</em></td>
-    <td><em>深色墨面 · 属性面板 · 大纲侧栏 · 阅读视图</em></td>
+    <td><img src="docs/typora/light-3.png" alt="Typora 预览 3" width="480"/></td>
+    <td><img src="docs/typora/light-4.png" alt="Typora 预览 4" width="480"/></td>
+  </tr>
+  <tr>
+    <td><img src="docs/typora/dark-1.png" alt="Typora 预览 5" width="480"/></td>
+    <td><img src="docs/typora/dark-2.png" alt="Typora 预览 6" width="480"/></td>
   </tr>
 </table>
 
@@ -92,24 +76,12 @@
 
 | 应用 | 主题 | 状态 | 路径 |
 |------|------|------|------|
+| Obsidian | Paperglow | ✅ 主线维护 | [`theme.css`](theme.css) + [`manifest.json`](manifest.json) |
 | Typora | Paperglow | ✅ 主线维护 | [`typora/`](typora/) |
-| Obsidian | Paperglow | ✅ 主线维护 | [`obsidian/`](obsidian/) |
 
 ## 🚀 安装
 
 仓库根目录有一个轻量安装脚本 [`install.py`](install.py)，一行命令，不做额外打包。
-
-### Typora
-
-```bash
-python install.py typora
-```
-
-指定主题目录：
-
-```bash
-python install.py typora --target-dir "C:\path\to\Typora\themes"
-```
 
 ### Obsidian
 
@@ -123,7 +95,23 @@ python install.py obsidian
 python install.py obsidian --vault "/path/to/your/vault"
 ```
 
+### Typora
+
+```bash
+python install.py typora
+```
+
+指定主题目录：
+
+```bash
+python install.py typora --target-dir "C:\path\to\Typora\themes"
+```
+
 ## 🔧 手动安装
+
+### Obsidian
+
+将 [`theme.css`](theme.css) 和 [`manifest.json`](manifest.json) 复制到 `<vault>/.obsidian/themes/Paperglow/`，然后在 **设置 → 外观 → 主题** 中选择 **Paperglow**。
 
 ### Typora
 
@@ -134,10 +122,6 @@ python install.py obsidian --vault "/path/to/your/vault"
 | Windows | `%APPDATA%\Typora\themes\` |
 | macOS | `~/Library/Application Support/abnerworks.Typora/themes/` |
 | Linux | `~/.config/Typora/themes/` |
-
-### Obsidian
-
-将 [`theme.css`](obsidian/theme.css) 和 [`manifest.json`](obsidian/manifest.json) 复制到 `<vault>/.obsidian/themes/Paperglow/`，然后在 **设置 → 外观 → 主题** 中选择 **Paperglow**。
 
 ## 💡 补充说明
 
@@ -157,12 +141,13 @@ Typora 主题 CSS 可以覆盖正文区、侧栏、搜索面板和部分 HTML UI
 ```text
 paperglow/
 ├── install.py
+├── manifest.json
+├── screenshot.png
+├── theme.css
+├── versions.json
 ├── typora/
 │   ├── paperglow.css
 │   └── paperglow-dark.css
-├── obsidian/
-│   ├── theme.css
-│   └── manifest.json
 ├── docs/
 │   ├── logo.svg
 │   ├── typora/

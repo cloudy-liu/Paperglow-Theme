@@ -5,7 +5,7 @@
  * Typography: Strict copy from laper.ai (Montserrat + Noto Sans SC + PingFang SC)
  * 
  * Author: Paperglow
- * Version: 3.3.0
+ * Version: 0.2.0
  */
 
 /* ========================================
@@ -567,8 +567,8 @@ pre code {
 .CodeMirror-focused .CodeMirror-selected,
 .md-fences .CodeMirror-selected,
 .md-fences .CodeMirror-line::selection,
-.md-fences .CodeMirror-line > span::selection,
-.md-fences .CodeMirror-line > span > span::selection {
+.md-fences .CodeMirror-line>span::selection,
+.md-fences .CodeMirror-line>span>span::selection {
     background-color: var(--selection-bg-color) !important;
 }
 
@@ -670,7 +670,7 @@ ol {
     accent-color: var(--primary-color);
 }
 
-.task-list-item input[type="checkbox"]:checked + p,
+.task-list-item input[type="checkbox"]:checked+p,
 .task-list-item.task-list-done p,
 .task-list-item.task-list-done {
     color: var(--text-secondary);

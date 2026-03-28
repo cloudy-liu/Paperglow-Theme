@@ -17,8 +17,8 @@ THEME_FILES = {
         ROOT_DIR / "typora" / "paperglow-dark.css",
     ],
     "obsidian": [
-        ROOT_DIR / "obsidian" / "theme.css",
-        ROOT_DIR / "obsidian" / "manifest.json",
+        ROOT_DIR / "theme.css",
+        ROOT_DIR / "manifest.json",
     ],
 }
 

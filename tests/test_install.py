@@ -51,6 +51,17 @@ def read_json_object(json_file: Path) -> dict[str, object]:
 
 
 class InstallScriptTest(unittest.TestCase):
+    def test_obsidian_theme_files_are_loaded_from_repo_root(self) -> None:
+        installer = load_install_module(self)
+
+        self.assertEqual(
+            installer.THEME_FILES["obsidian"],
+            [
+                installer.ROOT_DIR / "theme.css",
+                installer.ROOT_DIR / "manifest.json",
+            ],
+        )
+
     def test_detect_default_typora_target_dir(self) -> None:
         installer = load_install_module(self)
 
@@ -230,6 +241,27 @@ class InstallScriptTest(unittest.TestCase):
             self.assertEqual(copied_files, ["paperglow.css", "paperglow-dark.css"])
             for file_name in copied_files:
                 self.assertTrue((target_dir / file_name).exists())
+
+    def test_install_theme_files_copies_root_obsidian_assets(self) -> None:
+        installer = load_install_module(self)
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            target_dir = Path(temp_dir)
+            copied_files = installer.install_theme_files(
+                app_name="obsidian",
+                target_dir=target_dir,
+                force=False,
+            )
+
+            self.assertEqual(copied_files, ["theme.css", "manifest.json"])
+            self.assertEqual(
+                (target_dir / "manifest.json").read_text(encoding="utf-8"),
+                (installer.ROOT_DIR / "manifest.json").read_text(encoding="utf-8"),
+            )
+            self.assertEqual(
+                (target_dir / "theme.css").read_text(encoding="utf-8"),
+                (installer.ROOT_DIR / "theme.css").read_text(encoding="utf-8"),
+            )
 
     def test_main_typora_overwrites_existing_files_by_default(self) -> None:
         installer = load_install_module(self)

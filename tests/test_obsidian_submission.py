@@ -6,7 +6,6 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-OBSIDIAN_DIR = ROOT_DIR / "obsidian"
 ROOT_THEME_PATH = ROOT_DIR / "theme.css"
 ROOT_MANIFEST_PATH = ROOT_DIR / "manifest.json"
 VERSIONS_PATH = ROOT_DIR / "versions.json"
@@ -41,16 +40,21 @@ class ObsidianSubmissionTest(unittest.TestCase):
         self.assertTrue(VERSIONS_PATH.exists(), f"Missing versions.json: {VERSIONS_PATH}")
         self.assertTrue(SCREENSHOT_PATH.exists(), f"Missing screenshot.png: {SCREENSHOT_PATH}")
 
-    def test_root_obsidian_files_match_repo_obsidian_sources(self) -> None:
-        self.assertEqual(
-            read_text(ROOT_THEME_PATH),
-            read_text(OBSIDIAN_DIR / "theme.css"),
-            "Root theme.css should stay identical to obsidian/theme.css",
-        )
-        self.assertEqual(
-            read_json(ROOT_MANIFEST_PATH),
-            read_json(OBSIDIAN_DIR / "manifest.json"),
-            "Root manifest.json should stay identical to obsidian/manifest.json",
+    def test_root_obsidian_files_are_the_canonical_source(self) -> None:
+        manifest = read_json(ROOT_MANIFEST_PATH)
+        css = read_text(ROOT_THEME_PATH)
+
+        self.assertEqual(manifest.get("name"), "Paperglow")
+        self.assertTrue(manifest.get("version"))
+        self.assertTrue(manifest.get("minAppVersion"))
+        self.assertTrue(manifest.get("author"))
+        self.assertIn(".theme-light", css)
+        self.assertIn(".theme-dark", css)
+
+    def test_duplicate_obsidian_source_directory_is_removed(self) -> None:
+        self.assertFalse(
+            (ROOT_DIR / "obsidian").exists(),
+            "Obsidian assets should live at the repository root instead of a duplicate obsidian/ directory",
         )
 
     def test_versions_json_maps_current_theme_version(self) -> None:
@@ -76,9 +80,34 @@ class ObsidianSubmissionTest(unittest.TestCase):
         workflow = read_text(RELEASE_WORKFLOW_PATH)
 
         self.assertIn(
+            '      - "paperglow-v*"',
+            workflow,
+            "Release workflow should only trigger for paperglow-v* tags",
+        )
+        self.assertIn(
             "cp theme.css manifest.json dist/obsidian/",
             workflow,
             "Release workflow should package the root Obsidian theme files",
+        )
+        self.assertIn(
+            "zip -q ../obsidian-paperglow.zip theme.css manifest.json",
+            workflow,
+            "Obsidian release package should only contain the two theme files",
+        )
+        self.assertIn(
+            "cp typora/paperglow.css typora/paperglow-dark.css dist/typora/",
+            workflow,
+            "Release workflow should package only the Typora theme CSS files",
+        )
+        self.assertIn(
+            "zip -q ../typora-paperglow.zip paperglow.css paperglow-dark.css",
+            workflow,
+            "Typora release package should only contain the two theme CSS files",
+        )
+        self.assertIn(
+            "name: Paperglow ${{ steps.build.outputs.version }}",
+            workflow,
+            "GitHub release names should keep the Paperglow project prefix",
         )
 
 
