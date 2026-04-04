@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -13,6 +14,13 @@ MANIFEST_PATH = ROOT_DIR / "manifest.json"
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
+
+
+def extract_rule_with_flexible_selector(css: str, selector_pattern: str) -> str:
+    match = re.search(rf"({selector_pattern})\s*\{{(?P<body>.*?)\}}", css, re.S)
+    if not match:
+        return ""
+    return match.group("body")
 
 
 def collect_missing_items() -> list[str]:
@@ -91,6 +99,33 @@ class ObsidianThemeTest(unittest.TestCase):
     def test_obsidian_theme_assets(self) -> None:
         missing = collect_missing_items()
         self.assertEqual(missing, [], "\n".join(missing))
+
+    def test_live_preview_base_typography_excludes_special_blocks(self) -> None:
+        css = read_text(THEME_PATH)
+
+        live_preview_body = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview \.cm-line:not\(\.HyperMD-codeblock\):"
+            r"not\(\.HyperMD-header\):not\(\.HyperMD-quote\):not\(\.HyperMD-hr\):not\(\.HyperMD-table-row\)",
+        )
+
+        self.assertIn("color: var(--text-normal);", live_preview_body)
+        self.assertIn("line-height: 1.5;", live_preview_body)
+
+    def test_h5_h6_headings_are_not_uppercased_in_obsidian(self) -> None:
+        css = read_text(THEME_PATH)
+
+        heading_body = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-rendered h5,\s*"
+            r"\.markdown-rendered h6,\s*"
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview \.HyperMD-header-5,\s*"
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview \.HyperMD-header-6",
+        )
+
+        self.assertIn("color: var(--text-normal);", heading_body)
+        self.assertIn("letter-spacing: normal;", heading_body)
+        self.assertIn("text-transform: none;", heading_body)
 
 
 if __name__ == "__main__":

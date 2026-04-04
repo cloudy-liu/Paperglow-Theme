@@ -314,9 +314,9 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 
 .markdown-rendered p,
 .markdown-rendered li,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line:not(.HyperMD-codeblock) {
+.markdown-source-view.mod-cm6.is-live-preview .cm-line:not(.HyperMD-codeblock):not(.HyperMD-header):not(.HyperMD-quote):not(.HyperMD-hr):not(.HyperMD-table-row) {
   color: var(--text-normal);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .markdown-rendered h1,
@@ -340,6 +340,15 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 .markdown-rendered h2 {
   border-bottom: 2px solid var(--table-border-color);
   padding-bottom: 8px;
+}
+
+.markdown-rendered h5,
+.markdown-rendered h6,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-header-5,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-header-6 {
+  color: var(--text-normal);
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .markdown-rendered strong,
