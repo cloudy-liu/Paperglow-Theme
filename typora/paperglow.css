@@ -176,7 +176,7 @@ h6 {
 }
 
 h1 {
-    font-size: 1.875rem;
+    font-size: 2rem;
     font-weight: 700;
     padding-bottom: 0.3em;
     border-bottom: none;
@@ -184,36 +184,30 @@ h1 {
 }
 
 h2 {
-    font-size: 1.625rem;
-    font-weight: 400;
+    font-size: 1.6875rem;
+    font-weight: 600;
     padding-bottom: 8px;
     border-bottom: 2px solid var(--border-color);
 }
 
 h3 {
-    font-size: 1.375rem;
-    font-weight: 400;
+    font-size: 1.4375rem;
+    font-weight: 500;
 }
 
 h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 
 h5 {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 1.125rem;
+    font-weight: 500;
 }
 
 h6 {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--meta-content-color);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 1.0625rem;
+    font-weight: 500;
 }
 
 /* Active heading highlight */

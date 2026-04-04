@@ -22,17 +22,17 @@ body {
   --border-width: 1px;
   --link-unresolved-decoration-style: solid;
   --h1-weight: 700;
-  --h2-weight: 400;
-  --h3-weight: 400;
-  --h4-weight: 600;
-  --h5-weight: 600;
-  --h6-weight: 600;
-  --h1-size: 1.875em;
-  --h2-size: 1.625em;
-  --h3-size: 1.375em;
-  --h4-size: 1.125em;
-  --h5-size: 0.95em;
-  --h6-size: 0.875em;
+  --h2-weight: 600;
+  --h3-weight: 500;
+  --h4-weight: 500;
+  --h5-weight: 500;
+  --h6-weight: 500;
+  --h1-size: 2em;
+  --h2-size: 1.6875em;
+  --h3-size: 1.4375em;
+  --h4-size: 1.25em;
+  --h5-size: 1.125em;
+  --h6-size: 1.0625em;
   --bold-weight: 700;
 }
 
@@ -312,6 +312,13 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
   letter-spacing: 0.01em;
 }
 
+.markdown-rendered p,
+.markdown-rendered li,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line:not(.HyperMD-codeblock) {
+  color: var(--text-normal);
+  line-height: 1.6;
+}
+
 .markdown-rendered h1,
 .markdown-rendered h2,
 .markdown-rendered h3,
@@ -320,7 +327,7 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 .markdown-rendered h6,
 .HyperMD-header {
   color: var(--text-normal);
-  font-family: var(--font-text);
+  font-family: var(--font-text, var(--font-text-theme));
   line-height: 1.4;
   letter-spacing: normal;
 }
@@ -335,28 +342,19 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
   padding-bottom: 8px;
 }
 
-.markdown-rendered h5,
-.markdown-rendered h6 {
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.markdown-rendered p,
-.markdown-rendered li {
-  color: var(--text-normal);
-  line-height: 1.6;
-}
-
-.markdown-rendered strong {
+.markdown-rendered strong,
+.markdown-source-view.mod-cm6.is-live-preview .cm-strong {
   color: var(--text-normal);
 }
 
-.markdown-rendered mark {
+.markdown-rendered mark,
+.markdown-source-view.mod-cm6.is-live-preview .cm-highlight {
   background: var(--text-highlight-bg);
   color: var(--text-normal);
   border-radius: 4px;
   padding: 2px 6px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 /* ========================================
@@ -531,6 +529,12 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 /* ========================================
    Blockquote
    ======================================== */
+.markdown-rendered blockquote,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
+  background: var(--blockquote-background-color);
+  color: var(--text-muted);
+}
+
 .markdown-rendered blockquote {
   background: var(--blockquote-background-color);
   border: none;
@@ -549,6 +553,31 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 
 .markdown-rendered blockquote p:last-child {
   margin-bottom: 0;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
+  border-left: 3px solid var(--blockquote-border-color);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 20px 0 17px;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .cm-line:not(.HyperMD-quote)+.HyperMD-quote,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote:first-child {
+  border-top-right-radius: 8px;
+  margin-top: 1.5em;
+  padding-top: 16px;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote:has(+ .cm-line:not(.HyperMD-quote)),
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote:last-child {
+  border-bottom-right-radius: 8px;
+  margin-bottom: 1.5em;
+  padding-bottom: 16px;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote .cm-formatting-quote {
+  opacity: 0.55;
 }
 
 .markdown-rendered blockquote blockquote {
@@ -642,10 +671,30 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 /* ========================================
    Horizontal Rule
    ======================================== */
+.markdown-rendered hr,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-hr {
+  margin: 2rem 0;
+}
+
 .markdown-rendered hr {
   border: none;
   border-top: 1px solid var(--table-border-color);
-  margin: 2rem 0;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-hr {
+  border: none;
+  color: transparent;
+  position: relative;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-hr::after {
+  border-top: 1px solid var(--table-border-color);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* ========================================
@@ -696,6 +745,24 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 
 .markdown-rendered table tbody tr:nth-child(2n) {
   background: transparent !important;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-table-row {
+  border-bottom: 0.5px solid rgba(var(--accent-rgb), 0.3);
+  color: var(--text-normal);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  padding: 8px 0 8px 1px;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-table-row:first-of-type {
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.6);
+  font-weight: 600;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-table-row .cm-hmd-table-sep {
+  color: var(--text-faint);
+  opacity: 0.55;
 }
 
 /* ========================================
@@ -825,6 +892,12 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 /* ========================================
    Text Selection
    ======================================== */
+.markdown-source-view.mod-cm6 .cm-selectionBackground,
+.markdown-source-view.mod-cm6.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
+  background-color: var(--text-selection) !important;
+  border-radius: 4px;
+}
+
 ::selection {
   background-color: var(--text-selection);
   color: var(--text-normal);
