@@ -41,6 +41,13 @@ def extract_rule_with_flexible_selector(css: str, selector_pattern: str) -> str:
     return match.group("body")
 
 
+def extract_rules_with_flexible_selector(css: str, selector_pattern: str) -> list[str]:
+    return [
+        match.group("body")
+        for match in re.finditer(rf"({selector_pattern})\s*\{{(?P<body>.*?)\}}", css, re.S)
+    ]
+
+
 def collect_missing_items() -> list[str]:
     missing: list[str] = []
 
@@ -144,6 +151,111 @@ class ObsidianThemeTest(unittest.TestCase):
         self.assertIn("color: var(--text-normal);", heading_body)
         self.assertIn("letter-spacing: normal;", heading_body)
         self.assertIn("text-transform: none;", heading_body)
+
+    def test_live_preview_blockquotes_match_reading_mode(self) -> None:
+        css = read_text(THEME_PATH)
+
+        live_quote_rules = extract_rules_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview \.HyperMD-quote",
+        )
+        self.assertGreaterEqual(len(live_quote_rules), 2)
+        live_quote_shared = next(
+            body for body in live_quote_rules if "background: var(--blockquote-background-color);" in body
+        )
+        live_quote_layout = next(body for body in live_quote_rules if "padding:" in body)
+        reading_quote_body = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-rendered blockquote p,\s*"
+            r"\.markdown-rendered blockquote li",
+        )
+        live_quote_border = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview \.HyperMD-quote:before",
+        )
+        nested_quote_border = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6 \.cm-blockquote-border:before",
+        )
+        blank_live_quote = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.HyperMD-quote:not\(:has\(\.cm-quote\)\)",
+        )
+        live_quote_start = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.cm-line:not\(\.HyperMD-quote\)\+\.HyperMD-quote,\s*"
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.HyperMD-quote:first-child",
+        )
+        live_quote_end = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.HyperMD-quote:has\(\+ \.cm-line:not\(\.HyperMD-quote\)\),\s*"
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.HyperMD-quote:last-child",
+        )
+        live_quote_code = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.HyperMD-quote \.cm-inline-code:not\(\.cm-formatting\)",
+        )
+
+        self.assertIn("background: var(--blockquote-background-color);", live_quote_shared)
+        self.assertIn("color: var(--text-muted);", live_quote_shared)
+        self.assertIn("font-style: normal;", live_quote_shared)
+        self.assertIn("line-height: 1.5;", live_quote_shared)
+        self.assertNotIn("border-left:", live_quote_shared)
+        self.assertIn("color: var(--text-muted);", reading_quote_body)
+        self.assertIn("padding: 0 20px 0 20px;", live_quote_layout)
+        self.assertIn("border-inline-start: 3px solid var(--blockquote-border-color);", live_quote_border)
+        self.assertIn(
+            "border-inline-start: 2px solid var(--background-modifier-border-hover);",
+            nested_quote_border,
+        )
+        self.assertIn("line-height: 0.85;", blank_live_quote)
+        self.assertIn("border-top-right-radius: 8px;", live_quote_start)
+        self.assertIn("margin-top: 1.5em;", live_quote_start)
+        self.assertIn("padding-top: 16px;", live_quote_start)
+        self.assertIn("border-bottom-right-radius: 8px;", live_quote_end)
+        self.assertIn("margin-bottom: 1.5em;", live_quote_end)
+        self.assertIn("padding-bottom: 16px;", live_quote_end)
+        self.assertIn("background: var(--quote-inline-code-bg);", live_quote_code)
+        self.assertIn("color: var(--quote-inline-code-color);", live_quote_code)
+        self.assertIn("border-color: transparent;", live_quote_code)
+
+    def test_live_preview_nested_blockquotes_keep_inner_panel(self) -> None:
+        css = read_text(THEME_PATH)
+
+        light_theme = extract_block(css, ".theme-light")
+        dark_theme = extract_block(css, ".theme-dark")
+        nested_border = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6 \.cm-blockquote-border",
+        )
+        nested_live_quote = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.HyperMD-quote:has\(\.cm-blockquote-border\)",
+        )
+        double_nested_live_quote = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-source-view\.mod-cm6\.is-live-preview "
+            r"\.HyperMD-quote:has\(\.cm-blockquote-border \+ \.cm-blockquote-border\)",
+        )
+
+        self.assertIn("--blockquote-nested-background: #ede5da;", light_theme)
+        self.assertIn("--blockquote-nested-background: #262320;", dark_theme)
+        self.assertIn("position: relative;", nested_border)
+        self.assertIn("width: 1px;", nested_border)
+        self.assertIn("margin-left: 0;", nested_border)
+        self.assertIn("margin-right: 20px;", nested_border)
+        self.assertIn("--pg-blockquote-nested-panel-start: 20px;", nested_live_quote)
+        self.assertIn("var(--blockquote-background-color) 0 var(--pg-blockquote-nested-panel-start)", nested_live_quote)
+        self.assertIn("var(--blockquote-nested-background) var(--pg-blockquote-nested-panel-start) 100%", nested_live_quote)
+        self.assertIn("--pg-blockquote-nested-panel-start: 41px;", double_nested_live_quote)
+        self.assertNotIn(".HyperMD-quote:has(.cm-blockquote-border)::after", css)
 
     def test_reading_view_lists_keep_obsidian_defaults_with_accent_markers(self) -> None:
         css = read_text(THEME_PATH)
