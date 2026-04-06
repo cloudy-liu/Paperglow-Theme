@@ -34,6 +34,9 @@ body {
   --h5-size: 1.125em;
   --h6-size: 1.0625em;
   --bold-weight: 700;
+  --pg-list-bullet-size-round: 0.3em;
+  --pg-list-bullet-size-square: 0.24em;
+  --pg-list-ordered-marker-size: 0.92em;
 }
 
 /* ========================================
@@ -781,6 +784,99 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 .markdown-preview-view img {
   border-radius: 16px;
   box-shadow: var(--card-shadow);
+}
+
+/* ========================================
+   Lists
+   ======================================== */
+.markdown-rendered,
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 {
+  --list-marker-color: rgba(var(--accent-rgb), 0.78);
+  --list-marker-color-hover: rgba(var(--accent-rgb), 0.9);
+  --list-marker-color-collapsed: rgba(var(--accent-rgb), 0.58);
+}
+
+.markdown-rendered ol > li::marker,
+.markdown-preview-view ol > li::marker {
+  color: var(--list-marker-color);
+  font-size: var(--pg-list-ordered-marker-size);
+  font-weight: 600;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line .cm-formatting-list-ol,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line .list-number {
+  color: var(--list-marker-color);
+  font-size: var(--pg-list-ordered-marker-size);
+  font-weight: 600;
+}
+
+.markdown-rendered .list-bullet::after {
+  box-shadow: none;
+}
+
+.markdown-rendered ul > li > .list-bullet::after,
+.markdown-rendered ul ul ul ul > li > .list-bullet::after,
+.markdown-rendered ul ul ul ul ul ul ul > li > .list-bullet::after {
+  background-color: var(--list-marker-color);
+  border: none;
+  border-radius: 999px;
+  height: var(--pg-list-bullet-size-round);
+  width: var(--pg-list-bullet-size-round);
+}
+
+.markdown-rendered ul ul > li > .list-bullet::after,
+.markdown-rendered ul ul ul ul ul > li > .list-bullet::after,
+.markdown-rendered ul ul ul ul ul ul ul ul > li > .list-bullet::after {
+  background-color: transparent;
+  border: 1.2px solid var(--list-marker-color);
+  border-radius: 999px;
+  height: var(--pg-list-bullet-size-round);
+  width: var(--pg-list-bullet-size-round);
+}
+
+.markdown-rendered ul ul ul > li > .list-bullet::after,
+.markdown-rendered ul ul ul ul ul ul > li > .list-bullet::after,
+.markdown-rendered ul ul ul ul ul ul ul ul ul > li > .list-bullet::after {
+  background-color: var(--list-marker-color);
+  border: none;
+  border-radius: 1px;
+  height: var(--pg-list-bullet-size-square);
+  width: var(--pg-list-bullet-size-square);
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line .list-bullet::after {
+  box-shadow: none;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-1 .list-bullet::after,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-4 .list-bullet::after,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-7 .list-bullet::after {
+  background-color: var(--list-marker-color);
+  border: none;
+  border-radius: 999px;
+  height: var(--pg-list-bullet-size-round);
+  width: var(--pg-list-bullet-size-round);
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-2 .list-bullet::after,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-5 .list-bullet::after,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-8 .list-bullet::after {
+  background-color: transparent;
+  border: 1.2px solid var(--list-marker-color);
+  border-radius: 999px;
+  height: var(--pg-list-bullet-size-round);
+  width: var(--pg-list-bullet-size-round);
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-3 .list-bullet::after,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-6 .list-bullet::after,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-list-line-9 .list-bullet::after {
+  background-color: var(--list-marker-color);
+  border: none;
+  border-radius: 1px;
+  height: var(--pg-list-bullet-size-square);
+  width: var(--pg-list-bullet-size-square);
 }
 
 /* ========================================

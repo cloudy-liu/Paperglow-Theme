@@ -199,6 +199,53 @@ class TyporaThemeTest(unittest.TestCase):
         missing = collect_missing_items()
         self.assertEqual(missing, [], "\n".join(missing))
 
+    def test_typora_lists_cycle_by_family_and_reset_mixed_contexts(self) -> None:
+        css = read_text(THEME_DIR / "paperglow.css")
+
+        unordered_root = extract_block(css, "ul")
+        unordered_nested = extract_block(css, "ul > li > ul")
+        unordered_deep = extract_block(css, "ul > li > ul > li > ul")
+        unordered_cycle = extract_block(css, "ul > li > ul > li > ul > li > ul")
+        ordered_root = extract_block(css, "ol")
+        ordered_nested = extract_block(css, "ol > li > ol")
+        ordered_deep = extract_block(css, "ol > li > ol > li > ol")
+        ordered_cycle = extract_block(css, "ol > li > ol > li > ol > li > ol")
+        mixed_ordered_reset = extract_block(css, "ul > li > ol")
+        mixed_unordered_reset = extract_block(css, "ol > li > ul")
+        unordered_marker = extract_block(css, "ul>li::marker")
+        ordered_marker = extract_block(css, "ol>li::marker")
+
+        self.assertIn("list-style-type: disc;", unordered_root)
+        self.assertIn("list-style-type: circle;", unordered_nested)
+        self.assertIn("list-style-type: square;", unordered_deep)
+        self.assertIn("list-style-type: disc;", unordered_cycle)
+        self.assertIn("list-style-type: decimal;", ordered_root)
+        self.assertIn("list-style-type: lower-alpha;", ordered_nested)
+        self.assertIn("list-style-type: lower-roman;", ordered_deep)
+        self.assertIn("list-style-type: decimal;", ordered_cycle)
+        self.assertIn("list-style-type: decimal;", mixed_ordered_reset)
+        self.assertIn("list-style-type: disc;", mixed_unordered_reset)
+        self.assertIn("font-size: 0.9em;", unordered_marker)
+        self.assertIn("font-size: 0.9em;", ordered_marker)
+        self.assertIn("font-weight: 600;", ordered_marker)
+
+    def test_sample_markdown_covers_cyclic_list_chains(self) -> None:
+        sample = read_text(TEST_DIR / "test-theme.md")
+
+        self.assertIn("七级", sample)
+        self.assertIn("八级", sample)
+        self.assertIn("九级", sample)
+        self.assertIn("二级有序列表项 A", sample)
+        self.assertIn("三级有序列表项 i", sample)
+        self.assertIn("四级有序列表项 1", sample)
+        self.assertIn("七级有序列表项 1", sample)
+        self.assertIn("八级有序列表项 A", sample)
+        self.assertIn("六级有序列表项 i", sample)
+        self.assertIn("九级有序列表项 i", sample)
+        self.assertIn("五级有序列表 B", sample)
+        self.assertIn("四级无序列表项", sample)
+        self.assertIn("六级无序列表项", sample)
+
 
 if __name__ == "__main__":
     unittest.main()
