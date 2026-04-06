@@ -260,6 +260,28 @@ class ObsidianThemeTest(unittest.TestCase):
         self.assertNotIn("padding-right: var(--pg-list-ordered-marker-gap);", ordered_body)
         self.assertNotIn("font-weight: var(--pg-list-ordered-marker-weight);", ordered_body)
 
+    def test_reading_view_nested_list_items_reduce_staircase_drift(self) -> None:
+        css = read_text(THEME_PATH)
+        body = extract_block(css, "body")
+        nested_list_items = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-rendered ul ul > li,\s*"
+            r"\.markdown-rendered ul ol > li,\s*"
+            r"\.markdown-rendered ol ul > li,\s*"
+            r"\.markdown-rendered ol ol > li,\s*"
+            r"\.markdown-preview-view ul ul > li,\s*"
+            r"\.markdown-preview-view ul ol > li,\s*"
+            r"\.markdown-preview-view ol ul > li,\s*"
+            r"\.markdown-preview-view ol ol > li",
+        )
+
+        self.assertIn("--pg-list-reading-nested-offset: 1.7em;", body)
+        self.assertIn(
+            "margin-inline-start: var(--pg-list-reading-nested-offset);",
+            nested_list_items,
+        )
+        self.assertNotIn(".markdown-rendered li > ul", css)
+
 
 if __name__ == "__main__":
     unittest.main()

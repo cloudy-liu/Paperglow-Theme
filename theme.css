@@ -37,6 +37,7 @@ body {
   --pg-list-bullet-size-round: 0.3em;
   --pg-list-bullet-size-square: 0.24em;
   --pg-list-ordered-marker-size: 0.92em;
+  --pg-list-reading-nested-offset: 1.7em;
 }
 
 /* ========================================
@@ -813,6 +814,17 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 
 .markdown-rendered .list-bullet::after {
   box-shadow: none;
+}
+
+.markdown-rendered ul ul > li,
+.markdown-rendered ul ol > li,
+.markdown-rendered ol ul > li,
+.markdown-rendered ol ol > li,
+.markdown-preview-view ul ul > li,
+.markdown-preview-view ul ol > li,
+.markdown-preview-view ol ul > li,
+.markdown-preview-view ol ol > li {
+  margin-inline-start: var(--pg-list-reading-nested-offset);
 }
 
 .markdown-rendered ul > li > .list-bullet::after,
