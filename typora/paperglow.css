@@ -1242,14 +1242,199 @@ a:focus-visible {
 .megamenu-menu {
     background-color: var(--window-bg-color);
     border: 1px solid var(--border-color);
+    box-shadow: none;
+    color: var(--control-text-color);
 }
 
 .megamenu-menu-header {
     border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
+#megamenu-menu-header-title,
+.megamenu-menu-header #megamenu-menu-header-title,
+#megamenu-back-btn {
+    color: var(--text-color);
+    font-family: var(--font-body);
+}
+
+#megamenu-back-btn {
+    border-color: var(--border-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+#megamenu-back-btn:hover {
+    background-color: var(--item-hover-bg-color);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    color: var(--text-color);
+}
+
+#megamenu-menu-list,
+.megamenu-menu-list {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#megamenu-menu-list li a {
+    color: var(--control-text-color);
+    border-bottom: none;
+    font-family: var(--font-body);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#megamenu-menu-list li a:hover,
 .megamenu-menu-list li a:hover {
     background-color: var(--item-hover-bg-color);
+    color: var(--item-hover-text-color);
+}
+
+#megamenu-menu-list li a.active,
+.megamenu-menu-list li a.active {
+    background-color: var(--active-file-bg-color);
+    color: var(--active-file-text-color);
+}
+
+#megamenu-menu-list li.disabled a,
+#megamenu-menu-list li a.disabled,
+.megamenu-menu-list li.disabled a,
+.megamenu-menu-list li a.disabled,
+.megamenu-menu-list .saved #m-saved {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+.megamenu-menu-list .saved #m-saved .fa {
+    color: var(--primary-color);
+}
+
+#megamenu-menu-list .divider,
+.megamenu-menu-list .divider {
+    background-color: var(--border-color);
+}
+
+#megamenu-content,
+.megamenu-content {
+    background-color: var(--bg-color);
+    background-image: none;
+    color: var(--text-color);
+}
+
+.megamenu-menu-panel {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border-color);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    color: var(--text-color);
+}
+
+.megamenu-menu-panel h1,
+.megamenu-menu-panel h2,
+.megamenu-menu-panel h3 {
+    color: var(--heading-color);
+}
+
+.megamenu-menu-panel p,
+.megamenu-menu-panel label,
+.megamenu-menu-panel td,
+.megamenu-menu-panel th,
+.megamenu-menu-panel .preference-item-hint,
+.megamenu-menu-panel .about-content-slogon {
+    color: var(--text-secondary);
+}
+
+.megamenu-menu-panel input[type="text"] {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-family: var(--font-body);
+}
+
+.megamenu-menu-panel input[type="text"]::placeholder {
+    color: var(--meta-content-color);
+}
+
+.megamenu-menu-panel input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--focus-ring-color);
+}
+
+.long-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: none;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.long-btn:hover {
+    background-color: var(--item-hover-bg-color);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    color: var(--text-color);
+}
+
+.megamenu-menu-panel .btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-family: var(--font-body);
+}
+
+.megamenu-menu-panel .btn:hover,
+.megamenu-menu-panel .btn:focus {
+    background-color: var(--item-hover-bg-color);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    color: var(--text-color);
+}
+
+#recent-file-panel-action-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+#recent-file-panel tbody tr {
+    color: var(--text-color);
+    background-color: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background-color: rgba(var(--primary-rgb), 0.035);
+}
+
+#recent-file-panel tbody tr:hover,
+.megamenu-menu-panel tbody tr:hover {
+    background-color: var(--item-hover-bg-color) !important;
+    color: var(--text-color);
+}
+
+.megamenu-menu-panel tbody tr:hover td,
+.megamenu-menu-panel tbody tr:hover td:nth-child(1),
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+    color: var(--text-color);
+}
+
+.megamenu-menu-panel .dropdown-menu {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+}
+
+.megamenu-menu-panel .dropdown-menu > li > a {
+    background-color: transparent;
+    border-bottom: none;
+    color: var(--text-color);
+}
+
+.megamenu-menu-panel .dropdown-menu > li > a:hover {
+    background-color: var(--item-hover-bg-color);
+    color: var(--text-color);
 }
 
 /* ========================================
