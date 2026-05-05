@@ -69,6 +69,17 @@ def collect_missing_items() -> list[str]:
         ".megamenu-opened header",
         ".toolbar-icon.btn",
         ".ty-app-title",
+        "#megamenu-content",
+        ".megamenu-content",
+        ".megamenu-menu-panel",
+        "#megamenu-menu-list li a",
+        "#megamenu-menu-list li a.active",
+        "#megamenu-back-btn",
+        "#megamenu-menu-header-title",
+        ".long-btn",
+        '.megamenu-menu-panel input[type="text"]',
+        "#recent-file-panel tbody tr",
+        ".megamenu-menu-panel .btn",
     ]
 
     for token in required_base_tokens:
@@ -94,6 +105,20 @@ def collect_missing_items() -> list[str]:
     sidebar_block = extract_block(css, "#typora-sidebar")
     sidebar_after_block = extract_block(css, "#typora-sidebar::after")
     checkbox_block = extract_block(css, '.task-list-item input[type="checkbox"]')
+    megamenu_menu_link_block = extract_block(css, "#megamenu-menu-list li a")
+    megamenu_panel_block = extract_block(css, ".megamenu-menu-panel")
+    megamenu_input_block = extract_block(css, '.megamenu-menu-panel input[type="text"]')
+    megamenu_button_block = extract_block(css, ".megamenu-menu-panel .btn")
+    megamenu_recent_file_block = extract_block(css, "#recent-file-panel tbody tr")
+    megamenu_content_block = extract_rule_with_flexible_selector(
+        css,
+        r'#megamenu-content\s*,\s*\.megamenu-content',
+    )
+    megamenu_menu_active_block = extract_rule_with_flexible_selector(
+        css,
+        r'#megamenu-menu-list li a\.active\s*,\s*'
+        r'\.megamenu-menu-list li a\.active',
+    )
     checked_task_block = extract_rule_with_flexible_selector(
         css,
         r'\.task-list-item input\[type="checkbox"\]:checked\s*\+\s*p,\s*'
@@ -119,6 +144,30 @@ def collect_missing_items() -> list[str]:
         missing.append("Checked task items should render with a strikethrough")
     if "accent-color: var(--primary-color);" not in checkbox_block:
         missing.append("Checkbox should use the theme accent color instead of browser default blue")
+    if "background-color: var(--bg-color);" not in megamenu_content_block:
+        missing.append("Megamenu content shell should use the theme paper background")
+    if "color: var(--text-color);" not in megamenu_content_block:
+        missing.append("Megamenu content shell should use the main theme text color")
+    if "color: var(--control-text-color);" not in megamenu_menu_link_block:
+        missing.append("Megamenu left menu links should use readable control text")
+    if "background-color: var(--active-file-bg-color);" not in megamenu_menu_active_block:
+        missing.append("Megamenu active menu item should use the active theme background")
+    if "color: var(--active-file-text-color);" not in megamenu_menu_active_block:
+        missing.append("Megamenu active menu item should use the active sidebar text color")
+    if "background-color: var(--card-bg);" not in megamenu_panel_block:
+        missing.append("Megamenu panel should use the theme card surface")
+    if "color: var(--text-color);" not in megamenu_panel_block:
+        missing.append("Megamenu panel should inherit readable theme text")
+    if "background-color: var(--card-bg);" not in megamenu_input_block:
+        missing.append("Megamenu text inputs should use the theme card surface")
+    if "color: var(--text-color);" not in megamenu_input_block:
+        missing.append("Megamenu text inputs should use readable theme text")
+    if "background-color: var(--card-bg);" not in megamenu_button_block:
+        missing.append("Megamenu buttons should use the theme card surface")
+    if "color: var(--text-color);" not in megamenu_button_block:
+        missing.append("Megamenu buttons should use readable theme text")
+    if "color: var(--text-color);" not in megamenu_recent_file_block:
+        missing.append("Megamenu recent-file rows should use readable theme text")
 
     if ".copy-btn" not in css:
         missing.append("Code block copy button selector missing (.copy-btn)")
