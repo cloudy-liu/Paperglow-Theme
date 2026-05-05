@@ -152,6 +152,21 @@ class ObsidianThemeTest(unittest.TestCase):
         self.assertIn("letter-spacing: normal;", heading_body)
         self.assertIn("text-transform: none;", heading_body)
 
+    def test_hovered_links_do_not_add_browser_underlines(self) -> None:
+        css = read_text(THEME_PATH)
+        body = extract_block(css, "body")
+        hover_body = extract_rule_with_flexible_selector(
+            css,
+            r"\.markdown-rendered a:hover,\s*"
+            r"\.cm-link:hover,\s*"
+            r"\.external-link:hover,\s*"
+            r"\.internal-link:hover",
+        )
+
+        self.assertIn("--link-decoration-hover: none;", body)
+        self.assertIn("--link-external-decoration-hover: none;", body)
+        self.assertIn("text-decoration: none;", hover_body)
+
     def test_live_preview_blockquotes_match_reading_mode(self) -> None:
         css = read_text(THEME_PATH)
 
