@@ -493,6 +493,209 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
   margin: 1em 0;
 }
 
+.markdown-rendered pre[class*="language-"],
+.markdown-rendered pre:has(> code[class*="language-"]) {
+  --pg-code-language-block-padding: 16px 20px;
+  padding: var(--pg-code-language-block-padding);
+  position: relative;
+}
+
+.markdown-rendered pre[class*="language-"]::before,
+.markdown-rendered pre:has(> code[class*="language-"])::before {
+  background: var(--background-primary);
+  border: 1px solid var(--code-border-color);
+  border-radius: 8px;
+  color: var(--text-muted);
+  content: var(--pg-code-language-label, none);
+  font-family: var(--font-interface-theme);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0;
+  padding: 4px 8px;
+  pointer-events: none;
+  position: absolute;
+  right: 64px;
+  top: 12px;
+  transition: opacity 0.15s ease;
+  z-index: 1;
+}
+
+.markdown-rendered pre[class*="language-"]:hover::before,
+.markdown-rendered pre[class*="language-"]:focus-within::before,
+.markdown-rendered pre:has(> code[class*="language-"]):hover::before,
+.markdown-rendered pre:has(> code[class*="language-"]):focus-within::before {
+  opacity: 0.82;
+}
+
+.markdown-rendered pre[class~="language-shell"],
+.markdown-rendered pre:has(> code[class~="language-shell"]),
+.markdown-rendered pre[class~="language-bash"],
+.markdown-rendered pre:has(> code[class~="language-bash"]),
+.markdown-rendered pre[class~="language-sh"],
+.markdown-rendered pre:has(> code[class~="language-sh"]),
+.markdown-rendered pre[class~="language-zsh"],
+.markdown-rendered pre:has(> code[class~="language-zsh"]) {
+  --pg-code-language-label: "Shell";
+}
+
+.markdown-rendered pre[class~="language-powershell"],
+.markdown-rendered pre:has(> code[class~="language-powershell"]),
+.markdown-rendered pre[class~="language-pwsh"],
+.markdown-rendered pre:has(> code[class~="language-pwsh"]),
+.markdown-rendered pre[class~="language-ps1"],
+.markdown-rendered pre:has(> code[class~="language-ps1"]) {
+  --pg-code-language-label: "PowerShell";
+}
+
+.markdown-rendered pre[class~="language-json"],
+.markdown-rendered pre:has(> code[class~="language-json"]) {
+  --pg-code-language-label: "JSON";
+}
+
+.markdown-rendered pre[class~="language-css"],
+.markdown-rendered pre:has(> code[class~="language-css"]) {
+  --pg-code-language-label: "CSS";
+}
+
+.markdown-rendered pre[class~="language-scss"],
+.markdown-rendered pre:has(> code[class~="language-scss"]) {
+  --pg-code-language-label: "SCSS";
+}
+
+.markdown-rendered pre[class~="language-sass"],
+.markdown-rendered pre:has(> code[class~="language-sass"]) {
+  --pg-code-language-label: "Sass";
+}
+
+.markdown-rendered pre[class~="language-javascript"],
+.markdown-rendered pre:has(> code[class~="language-javascript"]),
+.markdown-rendered pre[class~="language-js"],
+.markdown-rendered pre:has(> code[class~="language-js"]) {
+  --pg-code-language-label: "JS";
+}
+
+.markdown-rendered pre[class~="language-typescript"],
+.markdown-rendered pre:has(> code[class~="language-typescript"]),
+.markdown-rendered pre[class~="language-ts"],
+.markdown-rendered pre:has(> code[class~="language-ts"]) {
+  --pg-code-language-label: "TS";
+}
+
+.markdown-rendered pre[class~="language-jsx"],
+.markdown-rendered pre:has(> code[class~="language-jsx"]) {
+  --pg-code-language-label: "JSX";
+}
+
+.markdown-rendered pre[class~="language-tsx"],
+.markdown-rendered pre:has(> code[class~="language-tsx"]) {
+  --pg-code-language-label: "TSX";
+}
+
+.markdown-rendered pre[class~="language-python"],
+.markdown-rendered pre:has(> code[class~="language-python"]),
+.markdown-rendered pre[class~="language-py"],
+.markdown-rendered pre:has(> code[class~="language-py"]) {
+  --pg-code-language-label: "Python";
+}
+
+.markdown-rendered pre[class~="language-html"],
+.markdown-rendered pre:has(> code[class~="language-html"]) {
+  --pg-code-language-label: "HTML";
+}
+
+.markdown-rendered pre[class~="language-xml"],
+.markdown-rendered pre:has(> code[class~="language-xml"]) {
+  --pg-code-language-label: "XML";
+}
+
+.markdown-rendered pre[class~="language-svg"],
+.markdown-rendered pre:has(> code[class~="language-svg"]) {
+  --pg-code-language-label: "SVG";
+}
+
+.markdown-rendered pre[class~="language-markdown"],
+.markdown-rendered pre:has(> code[class~="language-markdown"]),
+.markdown-rendered pre[class~="language-md"],
+.markdown-rendered pre:has(> code[class~="language-md"]) {
+  --pg-code-language-label: "Markdown";
+}
+
+.markdown-rendered pre[class~="language-yaml"],
+.markdown-rendered pre:has(> code[class~="language-yaml"]),
+.markdown-rendered pre[class~="language-yml"],
+.markdown-rendered pre:has(> code[class~="language-yml"]) {
+  --pg-code-language-label: "YAML";
+}
+
+.markdown-rendered pre[class~="language-toml"],
+.markdown-rendered pre:has(> code[class~="language-toml"]) {
+  --pg-code-language-label: "TOML";
+}
+
+.markdown-rendered pre[class~="language-sql"],
+.markdown-rendered pre:has(> code[class~="language-sql"]) {
+  --pg-code-language-label: "SQL";
+}
+
+.markdown-rendered pre[class~="language-dockerfile"],
+.markdown-rendered pre:has(> code[class~="language-dockerfile"]) {
+  --pg-code-language-label: "Dockerfile";
+}
+
+.markdown-rendered pre[class~="language-ini"],
+.markdown-rendered pre:has(> code[class~="language-ini"]) {
+  --pg-code-language-label: "INI";
+}
+
+.markdown-rendered pre[class~="language-java"],
+.markdown-rendered pre:has(> code[class~="language-java"]) {
+  --pg-code-language-label: "Java";
+}
+
+.markdown-rendered pre[class~="language-c"],
+.markdown-rendered pre:has(> code[class~="language-c"]) {
+  --pg-code-language-label: "C";
+}
+
+.markdown-rendered pre[class~="language-cpp"],
+.markdown-rendered pre:has(> code[class~="language-cpp"]),
+.markdown-rendered pre[class~="language-cxx"],
+.markdown-rendered pre:has(> code[class~="language-cxx"]) {
+  --pg-code-language-label: "C++";
+}
+
+.markdown-rendered pre[class~="language-csharp"],
+.markdown-rendered pre:has(> code[class~="language-csharp"]),
+.markdown-rendered pre[class~="language-cs"],
+.markdown-rendered pre:has(> code[class~="language-cs"]) {
+  --pg-code-language-label: "C#";
+}
+
+.markdown-rendered pre[class~="language-go"],
+.markdown-rendered pre:has(> code[class~="language-go"]) {
+  --pg-code-language-label: "Go";
+}
+
+.markdown-rendered pre[class~="language-rust"],
+.markdown-rendered pre:has(> code[class~="language-rust"]),
+.markdown-rendered pre[class~="language-rs"],
+.markdown-rendered pre:has(> code[class~="language-rs"]) {
+  --pg-code-language-label: "Rust";
+}
+
+.markdown-rendered pre[class~="language-ruby"],
+.markdown-rendered pre:has(> code[class~="language-ruby"]),
+.markdown-rendered pre[class~="language-rb"],
+.markdown-rendered pre:has(> code[class~="language-rb"]) {
+  --pg-code-language-label: "Ruby";
+}
+
+.markdown-rendered pre[class~="language-php"],
+.markdown-rendered pre:has(> code[class~="language-php"]) {
+  --pg-code-language-label: "PHP";
+}
+
 .markdown-rendered pre code {
   background: transparent !important;
   border: none !important;

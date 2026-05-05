@@ -137,6 +137,32 @@ class ObsidianThemeTest(unittest.TestCase):
         self.assertIn("color: var(--text-normal);", live_preview_body)
         self.assertIn("line-height: 1.5;", live_preview_body)
 
+    def test_reading_mode_code_blocks_show_language_labels(self) -> None:
+        css = read_text(THEME_PATH)
+
+        self.assertIn('.markdown-rendered pre[class*="language-"]::before', css)
+        self.assertIn(
+            '.markdown-rendered pre:has(> code[class*="language-"])::before',
+            css,
+        )
+        self.assertIn("--pg-code-language-block-padding: 16px 20px;", css)
+        self.assertIn("content: var(--pg-code-language-label, none);", css)
+        self.assertIn("opacity: 0;", css)
+        self.assertIn("transition: opacity 0.15s ease;", css)
+        self.assertIn('.markdown-rendered pre[class*="language-"]:hover::before', css)
+        self.assertIn(
+            '.markdown-rendered pre:has(> code[class*="language-"]):focus-within::before',
+            css,
+        )
+        self.assertIn(
+            '.markdown-rendered pre:has(> code[class~="language-shell"])',
+            css,
+        )
+        self.assertNotIn('--pg-code-language-block-padding: 42px', css)
+        self.assertIn('--pg-code-language-label: "Shell";', css)
+        self.assertIn('--pg-code-language-label: "JSON";', css)
+        self.assertIn('--pg-code-language-label: "CSS";', css)
+
     def test_h5_h6_headings_are_not_uppercased_in_obsidian(self) -> None:
         css = read_text(THEME_PATH)
 
