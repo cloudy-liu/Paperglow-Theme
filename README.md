@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Apps-Obsidian%20%2B%20Typora-bc6a3a?style=flat-square" alt="支持应用：Obsidian 和 Typora" />
-  <img src="https://img.shields.io/badge/Version-0.2.2-d59567?style=flat-square" alt="版本：0.2.2" />
+  <img src="https://img.shields.io/badge/Version-0.2.3-d59567?style=flat-square" alt="版本：0.2.3" />
   <img src="https://img.shields.io/badge/License-Apache%202.0-6f5b4b?style=flat-square" alt="许可证：Apache 2.0" />
 </p>
 

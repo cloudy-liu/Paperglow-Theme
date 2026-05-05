@@ -43,7 +43,7 @@ jobs:
           cat > dist/release-notes.md <<EOF
           This release ships updated Paperglow theme packages for Typora and Obsidian.
 
-          - Fixes Typora Windows Unibody megamenu contrast in light and dark themes.
+          - Refreshes Obsidian reading-mode code block interactions and link hover polish.
           - typora-paperglow.zip includes paperglow.css and paperglow-dark.css.
           - obsidian-paperglow.zip includes theme.css and manifest.json.
           EOF
