@@ -114,6 +114,27 @@ Paperglow styles the editor, sidebar, search panel, and part of Typora's HTML UI
 - Card-like reading surfaces in both editing and reading views
 - 16px code blocks, warm-gray blockquotes, clay-toned links, and aligned callouts
 
+## Project Structure
+
+```text
+paperglow/
+├── install.py                 # Installer script for Obsidian / Typora
+├── manifest.json              # Obsidian theme manifest
+├── screenshot.png             # Obsidian community-theme preview image
+├── theme.css                  # Obsidian theme entry file
+├── versions.json              # Obsidian theme version compatibility map
+├── typora/                    # Typora theme files
+│   ├── paperglow.css          # Typora light theme
+│   └── paperglow-dark.css     # Typora dark theme, imports paperglow.css
+├── docs/
+│   ├── logo.svg               # Project logo
+│   ├── typora/                # Typora preview images
+│   └── obsidian/              # Obsidian preview images
+├── tests/                     # Installer, docs, Obsidian, and Typora style checks
+├── README.md                  # Simplified Chinese documentation
+└── README.en.md               # English documentation
+```
+
 ## License
 
 Apache License 2.0

@@ -140,21 +140,21 @@ Typora 主题 CSS 可以覆盖正文区、侧栏、搜索面板和部分 HTML UI
 
 ```text
 paperglow/
-├── install.py
-├── manifest.json
-├── screenshot.png
-├── theme.css
-├── versions.json
-├── typora/
-│   ├── paperglow.css
-│   └── paperglow-dark.css
+├── install.py                 # 安装脚本：支持 Obsidian / Typora
+├── manifest.json              # Obsidian 主题清单
+├── screenshot.png             # Obsidian 社区主题预览图
+├── theme.css                  # Obsidian 主题入口文件
+├── versions.json              # Obsidian 主题版本兼容映射
+├── typora/                    # Typora 主题文件
+│   ├── paperglow.css          # Typora 浅色主题
+│   └── paperglow-dark.css     # Typora 深色主题，会 import paperglow.css
 ├── docs/
-│   ├── logo.svg
-│   ├── typora/
-│   └── obsidian/
-├── tests/
-├── README.md
-└── README.en.md
+│   ├── logo.svg               # 项目 logo
+│   ├── typora/                # Typora 预览图
+│   └── obsidian/              # Obsidian 预览图
+├── tests/                     # 安装、文档、Obsidian 与 Typora 样式检查
+├── README.md                  # 中文文档
+└── README.en.md               # English documentation
 ```
 
 ## 🧪 验证
