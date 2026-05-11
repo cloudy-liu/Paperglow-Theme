@@ -1,0 +1,60 @@
+{
+  "name": "paperglow-markdown-preview",
+  "displayName": "Paperglow Markdown Preview",
+  "description": "A single-tab Paperglow Markdown preview with a compact Preview | Markdown switch.",
+  "version": "0.1.0",
+  "publisher": "cloudy-liu",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudy-liu/Paperglow-Theme.git",
+    "directory": "vscode"
+  },
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown",
+    "onCommand:paperglow.openPreview"
+  ],
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "paperglow.openPreview",
+        "title": "Open Paperglow Preview",
+        "category": "Paperglow",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "paperglow.openPreview",
+          "when": "resourceLangId == markdown",
+          "group": "navigation@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "test": "npm run compile && node --test \"out/test/*.test.js\"",
+    "package:vsix": "vsce package --out paperglow-markdown-preview.vsix"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "markdown-it-task-lists": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^20.12.12",
+    "@types/vscode": "^1.89.0",
+    "@vscode/vsce": "^3.2.2",
+    "typescript": "^5.6.3"
+  }
+}
