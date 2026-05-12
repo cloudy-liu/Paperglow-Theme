@@ -38,7 +38,7 @@ const value = 1;
   assert.match(html, /src="safe-image:\.\/docs\/light\.png"/);
   assert.match(html, /href="safe-link:https:\/\/example\.com"/);
   assert.match(html, /data-href="https:\/\/example\.com"/);
-  assert.match(html, /<hr>/);
+  assert.match(html, /<hr\s*\/?>/);
 });
 
 test("escapes raw HTML by default", () => {
@@ -46,6 +46,41 @@ test("escapes raw HTML by default", () => {
 
   const html = renderer.render("<script>alert(1)</script>");
 
-  assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
   assert.doesNotMatch(html, /<script>alert/);
+});
+
+test("renders safe inline HTML used by project README files", () => {
+  const renderer = createMarkdownRenderer({
+    resolveImageSrc: (src: string) => `safe-image:${src}`,
+  });
+
+  const html = renderer.render(`<p align="center">
+  <img src="docs/logo.svg" alt="Paperglow logo" width="680" />
+</p>
+
+<table>
+  <tr>
+    <td><img src="docs/typora/light-1.png" alt="Typora preview 1" width="480" /></td>
+    <td>Preview</td>
+  </tr>
+</table>`);
+
+  assert.match(html, /<p align="center">/);
+  assert.match(html, /<img src="safe-image:docs\/logo\.svg" alt="Paperglow logo" width="680" \/>/);
+  assert.match(html, /<table>/);
+  assert.match(html, /<td><img src="safe-image:docs\/typora\/light-1\.png" alt="Typora preview 1" width="480" \/><\/td>/);
+});
+
+test("strips unsafe HTML while preserving readable text", () => {
+  const renderer = createMarkdownRenderer();
+
+  const html = renderer.render(
+    '<p onclick="alert(1)">Keep me</p><img src="javascript:alert(1)" onerror="alert(1)"><script>alert(1)</script>',
+  );
+
+  assert.match(html, /<p>Keep me<\/p>/);
+  assert.doesNotMatch(html, /onclick/);
+  assert.doesNotMatch(html, /onerror/);
+  assert.doesNotMatch(html, /javascript:/);
+  assert.doesNotMatch(html, /<script>/);
 });
