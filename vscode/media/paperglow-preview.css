@@ -141,6 +141,10 @@ body {
   padding: 46px 32px 88px;
 }
 
+.pg-mode-panel[hidden] {
+  display: none !important;
+}
+
 .pg-reading-card {
   width: min(100%, var(--pg-content-width));
   margin: 0 auto;
@@ -158,6 +162,38 @@ body {
 
 .pg-reading-card > :last-child {
   margin-bottom: 0;
+}
+
+.pg-markdown-panel {
+  width: min(100%, var(--pg-content-width));
+  margin: 0 auto;
+}
+
+.pg-markdown-source {
+  width: 100%;
+  min-height: calc(100vh - var(--pg-header-height) - 120px);
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  color: var(--pg-text);
+  background: transparent;
+  border: 0;
+  outline: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+  font-family: var(--pg-font-code);
+  font-size: 13px;
+  line-height: 1.72;
+}
+
+.pg-markdown-source code {
+  display: block;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border-radius: 0;
+  font: inherit;
 }
 
 h1,

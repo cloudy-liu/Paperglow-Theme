@@ -148,6 +148,7 @@ class PaperglowPreviewManager implements vscode.Disposable {
     entry.panel.webview.html = buildWebviewHtml({
       fileName: baseName(entry.document.fileName),
       bodyHtml,
+      markdownText: entry.document.getText(),
       styleUri: styleUri.toString(),
       cspSource: entry.panel.webview.cspSource,
       nonce: createNonce(),
@@ -159,15 +160,6 @@ class PaperglowPreviewManager implements vscode.Disposable {
     message: unknown,
   ): Promise<void> {
     if (!isRecord(message) || typeof message.type !== "string") {
-      return;
-    }
-
-    if (message.type === "openSource") {
-      await vscode.window.showTextDocument(entry.document, {
-        viewColumn: entry.panel.viewColumn ?? vscode.ViewColumn.Active,
-        preview: false,
-      });
-      entry.panel.dispose();
       return;
     }
 
