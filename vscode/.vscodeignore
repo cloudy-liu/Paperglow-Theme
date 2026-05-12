@@ -1,5 +1,7 @@
 src/**
 test/**
+node_modules/**
+out/src/**
 out/test/**
 node_modules/.cache/**
 *.vsix
