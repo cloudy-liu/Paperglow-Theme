@@ -1,6 +1,7 @@
 export interface WebviewHtmlOptions {
   fileName: string;
   bodyHtml: string;
+  markdownText: string;
   styleUri: string;
   cspSource: string;
   nonce: string;
@@ -8,6 +9,7 @@ export interface WebviewHtmlOptions {
 
 export function buildWebviewHtml(options: WebviewHtmlOptions): string {
   const fileName = escapeHtml(options.fileName);
+  const markdownText = escapeHtml(options.markdownText);
   const csp = [
     "default-src 'none'",
     `img-src ${options.cspSource} https: data:`,
@@ -32,17 +34,42 @@ export function buildWebviewHtml(options: WebviewHtmlOptions): string {
       <span class="pg-file-name">${fileName}</span>
     </div>
     <nav class="pg-mode-switch" aria-label="Markdown view mode">
-      <span class="pg-mode is-active" aria-current="page">Preview</span>
-      <button class="pg-mode pg-mode-button" type="button" data-command="openSource">Markdown</button>
+      <button class="pg-mode pg-mode-button is-active" type="button" data-command="setMode" data-mode-target="preview" aria-pressed="true">Preview</button>
+      <button class="pg-mode pg-mode-button" type="button" data-command="setMode" data-mode-target="markdown" aria-pressed="false">Markdown</button>
     </nav>
   </header>
   <main class="pg-preview-shell">
-    <article class="pg-reading-card">
+    <section class="pg-mode-panel pg-preview-panel" data-mode-panel="preview">
+      <article class="pg-reading-card">
 ${options.bodyHtml}
-    </article>
+      </article>
+    </section>
+    <section class="pg-mode-panel pg-markdown-panel" data-mode-panel="markdown" hidden>
+      <pre class="pg-markdown-source" tabindex="0"><code>${markdownText}</code></pre>
+    </section>
   </main>
   <script nonce="${escapeAttribute(options.nonce)}">
     const vscode = acquireVsCodeApi();
+    const modeButtons = Array.from(document.querySelectorAll("[data-mode-target]"));
+    const modePanels = Array.from(document.querySelectorAll("[data-mode-panel]"));
+
+    function setMode(nextMode) {
+      const mode = nextMode === "markdown" ? "markdown" : "preview";
+      document.body.dataset.viewMode = mode;
+      for (const button of modeButtons) {
+        const active = button.dataset.modeTarget === mode;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      }
+      for (const panel of modePanels) {
+        panel.hidden = panel.dataset.modePanel !== mode;
+      }
+      vscode.setState({ mode });
+    }
+
+    const previousState = vscode.getState();
+    setMode(previousState && previousState.mode === "markdown" ? "markdown" : "preview");
+
     document.addEventListener("click", (event) => {
       const target = event.target instanceof Element
         ? event.target.closest("[data-command], a[data-href]")
@@ -50,9 +77,9 @@ ${options.bodyHtml}
       if (!target) {
         return;
       }
-      if (target instanceof HTMLButtonElement && target.dataset.command === "openSource") {
+      if (target instanceof HTMLButtonElement && target.dataset.command === "setMode") {
         event.preventDefault();
-        vscode.postMessage({ type: "openSource" });
+        setMode(target.dataset.modeTarget);
         return;
       }
       if (target instanceof HTMLAnchorElement && target.dataset.href) {
