@@ -1,0 +1,345 @@
+:root {
+  --pg-font-body: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC", sans-serif;
+  --pg-font-code: "JetBrains Mono", "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] {
+  --pg-window-bg: #f3ede5;
+  --pg-text: #2b2621;
+  --pg-heading: #1e1915;
+  --pg-muted: #61574f;
+  --pg-accent: #bc6a3a;
+  --pg-link: #8f4b28;
+  --pg-link-hover: #743b1f;
+  --pg-link-border: rgba(143, 75, 40, 0.32);
+  --pg-border: #ddd5ca;
+  --pg-code-bg: #fcfbf8;
+  --pg-code-text: #1c1815;
+  --pg-inline-code-bg: #f2ede7;
+  --pg-inline-code-text: #a3493f;
+  --pg-inline-code-border: #d8cec3;
+  --pg-quote-bg: #f3ede5;
+  --pg-quote-border: #c58c64;
+  --pg-quote-text: #4a4039;
+  --pg-selection: rgba(188, 106, 58, 0.18);
+}
+
+body[data-vscode-theme-id="Paperglow Dark"] {
+  --pg-window-bg: #1e1d1b;
+  --pg-text: #bdb1a4;
+  --pg-heading: #d8cdc0;
+  --pg-muted: #9e9489;
+  --pg-accent: #d59567;
+  --pg-link: #e3a57a;
+  --pg-link-hover: #efbb95;
+  --pg-link-border: rgba(227, 165, 122, 0.34);
+  --pg-border: #3d3936;
+  --pg-code-bg: #2a2725;
+  --pg-code-text: #ede4da;
+  --pg-inline-code-bg: #332e2b;
+  --pg-inline-code-text: #e7a989;
+  --pg-inline-code-border: #4a413b;
+  --pg-quote-bg: #2c2926;
+  --pg-quote-border: #6b5d50;
+  --pg-quote-text: #b6aa9e;
+  --pg-selection: rgba(213, 149, 103, 0.22);
+}
+
+body[data-vscode-theme-id="Paperglow Light"],
+body[data-vscode-theme-id="Paperglow Dark"] {
+  margin: 0;
+  color: var(--pg-text);
+  background: var(--pg-window-bg);
+  font-family: var(--pg-font-body);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] .markdown-body,
+body[data-vscode-theme-id="Paperglow Dark"] .markdown-body {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 64px 64px 100px;
+  color: var(--pg-text);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] ::selection,
+body[data-vscode-theme-id="Paperglow Dark"] ::selection {
+  color: var(--pg-text);
+  background: var(--pg-selection);
+}
+
+body[data-vscode-theme-id="Paperglow Light"] h1,
+body[data-vscode-theme-id="Paperglow Light"] h2,
+body[data-vscode-theme-id="Paperglow Light"] h3,
+body[data-vscode-theme-id="Paperglow Light"] h4,
+body[data-vscode-theme-id="Paperglow Light"] h5,
+body[data-vscode-theme-id="Paperglow Light"] h6,
+body[data-vscode-theme-id="Paperglow Dark"] h1,
+body[data-vscode-theme-id="Paperglow Dark"] h2,
+body[data-vscode-theme-id="Paperglow Dark"] h3,
+body[data-vscode-theme-id="Paperglow Dark"] h4,
+body[data-vscode-theme-id="Paperglow Dark"] h5,
+body[data-vscode-theme-id="Paperglow Dark"] h6 {
+  margin: 1.6em 0 0.5em;
+  color: var(--pg-heading);
+  font-family: var(--pg-font-body);
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] h1,
+body[data-vscode-theme-id="Paperglow Dark"] h1 {
+  margin-top: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] h2,
+body[data-vscode-theme-id="Paperglow Dark"] h2 {
+  padding-bottom: 8px;
+  font-size: 1.6875rem;
+  font-weight: 600;
+  border-bottom: 2px solid var(--pg-border);
+}
+
+body[data-vscode-theme-id="Paperglow Light"] h3,
+body[data-vscode-theme-id="Paperglow Dark"] h3 {
+  font-size: 1.4375rem;
+  font-weight: 500;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] h4,
+body[data-vscode-theme-id="Paperglow Dark"] h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] h5,
+body[data-vscode-theme-id="Paperglow Dark"] h5 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] h6,
+body[data-vscode-theme-id="Paperglow Dark"] h6 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] p,
+body[data-vscode-theme-id="Paperglow Light"] ul,
+body[data-vscode-theme-id="Paperglow Light"] ol,
+body[data-vscode-theme-id="Paperglow Dark"] p,
+body[data-vscode-theme-id="Paperglow Dark"] ul,
+body[data-vscode-theme-id="Paperglow Dark"] ol {
+  margin: 0 0 1em;
+  line-height: 1.5;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] ul,
+body[data-vscode-theme-id="Paperglow Light"] ol,
+body[data-vscode-theme-id="Paperglow Dark"] ul,
+body[data-vscode-theme-id="Paperglow Dark"] ol {
+  padding-left: 1.55em;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] li,
+body[data-vscode-theme-id="Paperglow Dark"] li {
+  margin: 0.34em 0;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] li::marker {
+  color: rgba(188, 106, 58, 0.82);
+}
+
+body[data-vscode-theme-id="Paperglow Dark"] li::marker {
+  color: rgba(213, 149, 103, 0.82);
+}
+
+body[data-vscode-theme-id="Paperglow Light"] a,
+body[data-vscode-theme-id="Paperglow Dark"] a {
+  color: var(--pg-link);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--pg-link-border);
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] a:hover,
+body[data-vscode-theme-id="Paperglow Dark"] a:hover {
+  color: var(--pg-link-hover);
+  border-bottom-color: currentColor;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] a:has(> code:only-child),
+body[data-vscode-theme-id="Paperglow Dark"] a:has(> code:only-child) {
+  border-bottom: 0;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] a:has(> code:only-child):hover code,
+body[data-vscode-theme-id="Paperglow Dark"] a:has(> code:only-child):hover code {
+  color: var(--pg-link-hover);
+  border-color: currentColor;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] strong,
+body[data-vscode-theme-id="Paperglow Dark"] strong {
+  color: var(--pg-heading);
+  font-weight: 700;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] blockquote,
+body[data-vscode-theme-id="Paperglow Dark"] blockquote {
+  margin: 1.5em 0;
+  padding: 16px 20px;
+  color: var(--pg-quote-text);
+  background: var(--pg-quote-bg);
+  border: 0;
+  border-left: 3px solid var(--pg-quote-border);
+  border-radius: 0 8px 8px 0;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] blockquote p,
+body[data-vscode-theme-id="Paperglow Dark"] blockquote p {
+  color: var(--pg-quote-text);
+}
+
+body[data-vscode-theme-id="Paperglow Light"] code,
+body[data-vscode-theme-id="Paperglow Dark"] code {
+  padding: 2px 10px;
+  color: var(--pg-inline-code-text);
+  background-color: var(--pg-inline-code-bg);
+  border: 1px solid var(--pg-inline-code-border);
+  border-radius: 999px;
+  font-family: var(--pg-font-code);
+  font-size: 0.85em;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] code::before,
+body[data-vscode-theme-id="Paperglow Light"] code::after,
+body[data-vscode-theme-id="Paperglow Dark"] code::before,
+body[data-vscode-theme-id="Paperglow Dark"] code::after {
+  content: none;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] pre,
+body[data-vscode-theme-id="Paperglow Dark"] pre {
+  margin: 1em 0;
+  padding: 16px 20px;
+  overflow-x: auto;
+  color: var(--pg-code-text);
+  background: var(--pg-code-bg);
+  border: 1px solid var(--pg-border);
+  border-radius: 16px;
+  font-family: var(--pg-font-code);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] pre code,
+body[data-vscode-theme-id="Paperglow Dark"] pre code {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font: inherit;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] table,
+body[data-vscode-theme-id="Paperglow Dark"] table {
+  width: 100%;
+  margin: 1.5em 0;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] thead tr,
+body[data-vscode-theme-id="Paperglow Light"] tbody tr,
+body[data-vscode-theme-id="Paperglow Light"] tr:nth-child(2n),
+body[data-vscode-theme-id="Paperglow Dark"] thead tr,
+body[data-vscode-theme-id="Paperglow Dark"] tbody tr,
+body[data-vscode-theme-id="Paperglow Dark"] tr:nth-child(2n) {
+  border: 0;
+  background: transparent;
+  background-color: transparent;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] th,
+body[data-vscode-theme-id="Paperglow Light"] td,
+body[data-vscode-theme-id="Paperglow Dark"] th,
+body[data-vscode-theme-id="Paperglow Dark"] td {
+  padding: 8px 16px 8px 1px;
+  text-align: left;
+  vertical-align: top;
+  font-size: inherit;
+  line-height: 1.7;
+  color: var(--pg-text);
+  border: 0;
+  border-bottom: 0.5px solid var(--pg-link-border);
+}
+
+body[data-vscode-theme-id="Paperglow Light"] th,
+body[data-vscode-theme-id="Paperglow Dark"] th {
+  font-weight: 600;
+  border-bottom-width: 1px;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] table code,
+body[data-vscode-theme-id="Paperglow Dark"] table code {
+  background-color: var(--pg-inline-code-bg);
+  border-radius: 999px;
+  border: 1px solid var(--pg-inline-code-border);
+  padding: 2px 10px;
+  font-size: 0.85em;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] table tr::before,
+body[data-vscode-theme-id="Paperglow Dark"] table tr::before {
+  content: none;
+  display: none;
+  border: 0;
+  box-shadow: none;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] img,
+body[data-vscode-theme-id="Paperglow Dark"] img {
+  max-width: 100%;
+  height: auto;
+  margin: 1em 0;
+  border-radius: 12px;
+}
+
+body[data-vscode-theme-id="Paperglow Light"] hr,
+body[data-vscode-theme-id="Paperglow Dark"] hr {
+  height: 1px;
+  margin: 2.5em 0;
+  background: var(--pg-border);
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  body[data-vscode-theme-id="Paperglow Light"],
+  body[data-vscode-theme-id="Paperglow Dark"] {
+    font-size: 1rem;
+  }
+
+  body[data-vscode-theme-id="Paperglow Light"] .markdown-body,
+  body[data-vscode-theme-id="Paperglow Dark"] .markdown-body {
+    margin: 0;
+    padding: 32px 20px 64px;
+    border-width: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
