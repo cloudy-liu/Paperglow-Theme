@@ -17,6 +17,13 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: vscode/package-lock.json
+
       - name: Build release packages
         id: build
         env:
@@ -24,7 +31,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          version="${TAG_NAME#paperglow-}"
+          version="${TAG_NAME#paperglow-v}"
 
           mkdir -p dist/typora dist/obsidian
 
@@ -40,6 +47,14 @@ jobs:
             zip -q ../obsidian-paperglow.zip theme.css manifest.json
           )
 
+          (
+            cd vscode
+            npm ci
+            npm version "${version}" --no-git-tag-version --allow-same-version
+            npm run package:vsix
+            mv paperglow-theme.vsix "../dist/paperglow-vscode-${version}.vsix"
+          )
+
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub release
@@ -50,3 +65,4 @@ jobs:
           files: |
             dist/typora-paperglow.zip
             dist/obsidian-paperglow.zip
+            dist/paperglow-vscode-${{ steps.build.outputs.version }}.vsix
