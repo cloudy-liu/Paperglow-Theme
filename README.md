@@ -72,6 +72,19 @@
   </tr>
 </table>
 
+### VS Code / Cursor
+
+<table>
+  <tr>
+    <td><img src="docs/vscode/preview-light1.png" alt="VS Code 亮色预览 1" width="480"/></td>
+    <td><img src="docs/vscode/preview-light2.png" alt="VS Code 亮色预览 2" width="480"/></td>
+  </tr>
+  <tr>
+    <td><img src="docs/vscode/dark1.png" alt="VS Code 深色预览 1" width="480"/></td>
+    <td><img src="docs/vscode/dark2.png" alt="VS Code 深色预览 2" width="480"/></td>
+  </tr>
+</table>
+
 ## 📦 支持的应用
 
 | 应用 | 主题 | 状态 | 路径 |

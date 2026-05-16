@@ -51,6 +51,19 @@ Paperglow is a warm paper-inspired theme for Typora, Obsidian, and VS Code / Cur
   </tr>
 </table>
 
+### VS Code / Cursor
+
+<table>
+  <tr>
+    <td><img src="docs/vscode/preview-light1.png" alt="VS Code light preview 1" width="480"/></td>
+    <td><img src="docs/vscode/preview-light2.png" alt="VS Code light preview 2" width="480"/></td>
+  </tr>
+  <tr>
+    <td><img src="docs/vscode/dark1.png" alt="VS Code dark preview 1" width="480"/></td>
+    <td><img src="docs/vscode/dark2.png" alt="VS Code dark preview 2" width="480"/></td>
+  </tr>
+</table>
+
 ## Supported Apps
 
 | App | Theme | Status | Path |
