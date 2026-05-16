@@ -3,3 +3,12 @@ diff
 __pycache__/
 .pytest_cache/
 *.pyc
+node_modules/
+*.vsix
+vscode/out/
+vscode/node_modules/
+
+# Local product/design drafts; GitHub Issues are the source of truth for tracking.
+docs/prd/
+docs/issues/
+docs/vscode-technical-assessment.md

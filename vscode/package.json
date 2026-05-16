@@ -1,0 +1,57 @@
+{
+  "name": "paperglow-theme",
+  "displayName": "Paperglow Theme",
+  "description": "A complete Paperglow VS Code theme with cohesive light/dark workbench colors, syntax colors, and native Markdown preview styling.",
+  "version": "0.1.0",
+  "publisher": "cloudy-liu",
+  "license": "Apache-2.0",
+  "icon": "media/paperglow-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudy-liu/Paperglow-Theme.git",
+    "directory": "vscode"
+  },
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "paperglow",
+    "theme",
+    "color-theme",
+    "markdown-preview",
+    "markdown"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Paperglow Light",
+        "uiTheme": "vs",
+        "path": "./themes/paperglow-light-color-theme.json"
+      },
+      {
+        "label": "Paperglow Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/paperglow-dark-color-theme.json"
+      }
+    ],
+    "markdown.previewStyles": [
+      "./media/paperglow-markdown-preview.css"
+    ]
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('out',{recursive:true,force:true})\"",
+    "compile": "npm run clean && tsc -p .",
+    "test": "npm run compile && node --test \"out/test/*.test.js\"",
+    "package:vsix": "vsce package --out paperglow-theme.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/pngjs": "^6.0.5",
+    "@vscode/vsce": "^3.2.2",
+    "pngjs": "^7.0.0",
+    "typescript": "^5.6.3"
+  }
+}
