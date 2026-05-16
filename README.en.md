@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Apps-Obsidian%20%2B%20Typora-bc6a3a?style=flat-square" alt="Apps: Obsidian and Typora" />
-  <img src="https://img.shields.io/badge/Version-0.2.3-d59567?style=flat-square" alt="Version: 0.2.3" />
+  <img src="https://img.shields.io/badge/Apps-Obsidian%20%2B%20Typora%20%2B%20VS%20Code-bc6a3a?style=flat-square" alt="Apps: Obsidian, Typora and VS Code" />
+  <img src="https://img.shields.io/badge/Version-0.3.0-d59567?style=flat-square" alt="Version: 0.3.0" />
   <img src="https://img.shields.io/badge/License-Apache%202.0-6f5b4b?style=flat-square" alt="License: Apache 2.0" />
 </p>
 
@@ -12,7 +12,7 @@
 
 # Paperglow Theme
 
-Paperglow is a warm paper-inspired theme for Typora and Obsidian. It replaces flat white canvases with sunlit paper tones, quiet burnt-clay accents, and a softer dark palette that feels closer to a late-night study than a terminal.
+Paperglow is a warm paper-inspired theme for Typora, Obsidian, and VS Code / Cursor. It replaces flat white canvases with sunlit paper tones, quiet burnt-clay accents, and a softer dark palette that feels closer to a late-night study than a terminal.
 
 ## Highlights
 
@@ -20,6 +20,7 @@ Paperglow is a warm paper-inspired theme for Typora and Obsidian. It replaces fl
 - Rounded reading-card surfaces for both writing and preview areas
 - Unified Montserrat / Noto Sans SC / JetBrains Mono typography
 - Soft quote blocks, 16px code blocks, clay-toned links, and consistent callouts
+- VS Code workbench + native Markdown preview share the same Paperglow palette
 
 ## Preview
 
@@ -56,6 +57,7 @@ Paperglow is a warm paper-inspired theme for Typora and Obsidian. It replaces fl
 |-----|-------|--------|------|
 | Obsidian | Paperglow | ✅ Maintained | [`theme.css`](theme.css) + [`manifest.json`](manifest.json) |
 | Typora | Paperglow | ✅ Maintained | [`typora/`](typora/) |
+| VS Code / Cursor | Paperglow Light + Dark | ✅ Maintained | [`vscode/`](vscode/) |
 
 ## Install
 
@@ -85,6 +87,20 @@ Install to a custom theme directory:
 python install.py typora --target-dir "C:\path\to\Typora\themes"
 ```
 
+### VS Code / Cursor
+
+Download `paperglow-vscode.vsix` from the latest [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest) and install it with either:
+
+```bash
+code --install-extension paperglow-vscode.vsix
+# Cursor users
+cursor --install-extension paperglow-vscode.vsix
+```
+
+Or open **Extensions → ⋯ → Install from VSIX...** in VS Code and pick the file.
+
+Once installed, open the Command Palette and run **Preferences: Color Theme** (`Ctrl+K Ctrl+T`), then choose **Paperglow Light** or **Paperglow Dark**. Open any Markdown file and use VS Code's built-in **Open Preview** (`Ctrl+Shift+V`) — the preview automatically picks up the matching Paperglow reading style.
+
 ## Manual Install
 
 ### Obsidian
@@ -101,6 +117,19 @@ Copy [`paperglow.css`](typora/paperglow.css) and [`paperglow-dark.css`](typora/p
 | macOS | `~/Library/Application Support/abnerworks.Typora/themes/` |
 | Linux | `~/.config/Typora/themes/` |
 
+### VS Code / Cursor
+
+To build from source:
+
+```bash
+cd vscode
+npm ci
+npm run package:vsix
+code --install-extension paperglow-theme.vsix
+```
+
+You can also open the built `paperglow-theme.vsix` via **Extensions → Install from VSIX...** without going through the CLI.
+
 ## Notes
 
 ### Typora Windows Unibody Title Bar
@@ -114,6 +143,12 @@ Paperglow styles the editor, sidebar, search panel, and part of Typora's HTML UI
 - Card-like reading surfaces in both editing and reading views
 - 16px code blocks, warm-gray blockquotes, clay-toned links, and aligned callouts
 
+### VS Code / Cursor Highlights
+
+- Complete **Paperglow Light** and **Paperglow Dark** workbench and syntax palettes — activity bar to status bar follow the same clay-warm semantics
+- VS Code's built-in Markdown preview is styled via `markdown.previewStyles` so headings, blockquotes, code blocks, tables, and callouts mirror the Paperglow reading layout
+- Cursor compatible — theme selection works exactly like VS Code
+
 ## Project Structure
 
 ```text
@@ -126,11 +161,17 @@ paperglow/
 ├── typora/                    # Typora theme files
 │   ├── paperglow.css          # Typora light theme
 │   └── paperglow-dark.css     # Typora dark theme, imports paperglow.css
+├── vscode/                    # VS Code / Cursor extension source
+│   ├── package.json           # Extension manifest (themes + markdown.previewStyles)
+│   ├── themes/                # Paperglow Light / Dark color JSON
+│   ├── media/                 # Markdown preview CSS, extension icon
+│   └── src/                   # TypeScript entry and build scripts
 ├── docs/
 │   ├── logo.svg               # Project logo
 │   ├── typora/                # Typora preview images
 │   └── obsidian/              # Obsidian preview images
 ├── tests/                     # Installer, docs, Obsidian, and Typora style checks
+├── CHANGELOG.md               # Release notes
 ├── README.md                  # Simplified Chinese documentation
 └── README.en.md               # English documentation
 ```

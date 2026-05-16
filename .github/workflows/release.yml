@@ -52,17 +52,49 @@ jobs:
             npm ci
             npm version "${version}" --no-git-tag-version --allow-same-version
             npm run package:vsix
-            mv paperglow-theme.vsix "../dist/paperglow-vscode-${version}.vsix"
+            mv paperglow-theme.vsix ../dist/paperglow-vscode.vsix
           )
 
           echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Extract release notes from CHANGELOG.md
+        id: notes
+        env:
+          VERSION: ${{ steps.build.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          if [ ! -f CHANGELOG.md ]; then
+            echo "No CHANGELOG.md found." >&2
+            exit 1
+          fi
+
+          notes=$(awk -v v="${VERSION}" '
+            BEGIN { capture = 0 }
+            /^## \[/ {
+              if (capture) { exit }
+              if (index($0, "[" v "]") > 0) { capture = 1; next }
+            }
+            capture { print }
+          ' CHANGELOG.md)
+
+          if [ -z "${notes// /}" ]; then
+            echo "No CHANGELOG.md section found for version ${VERSION}." >&2
+            exit 1
+          fi
+
+          {
+            echo "body<<EOF"
+            echo "${notes}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
           name: Paperglow ${{ steps.build.outputs.version }}
-          generate_release_notes: true
+          body: ${{ steps.notes.outputs.body }}
           files: |
             dist/typora-paperglow.zip
             dist/obsidian-paperglow.zip
-            dist/paperglow-vscode-${{ steps.build.outputs.version }}.vsix
+            dist/paperglow-vscode.vsix

@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Apps-Obsidian%20%2B%20Typora-bc6a3a?style=flat-square" alt="支持应用：Obsidian 和 Typora" />
-  <img src="https://img.shields.io/badge/Version-0.2.3-d59567?style=flat-square" alt="版本：0.2.3" />
+  <img src="https://img.shields.io/badge/Apps-Obsidian%20%2B%20Typora%20%2B%20VS%20Code-bc6a3a?style=flat-square" alt="支持应用：Obsidian、Typora 和 VS Code" />
+  <img src="https://img.shields.io/badge/Version-0.3.0-d59567?style=flat-square" alt="版本：0.3.0" />
   <img src="https://img.shields.io/badge/License-Apache%202.0-6f5b4b?style=flat-square" alt="许可证：Apache 2.0" />
 </p>
 
@@ -78,6 +78,7 @@
 |------|------|------|------|
 | Obsidian | Paperglow | ✅ 主线维护 | [`theme.css`](theme.css) + [`manifest.json`](manifest.json) |
 | Typora | Paperglow | ✅ 主线维护 | [`typora/`](typora/) |
+| VS Code / Cursor | Paperglow Light + Dark | ✅ 主线维护 | [`vscode/`](vscode/) |
 
 ## 🚀 安装
 
@@ -107,6 +108,20 @@ python install.py typora
 python install.py typora --target-dir "C:\path\to\Typora\themes"
 ```
 
+### VS Code / Cursor
+
+从最新 [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest) 下载 `paperglow-vscode.vsix`，然后任选一种方式安装：
+
+```bash
+code --install-extension paperglow-vscode.vsix
+# Cursor 用户
+cursor --install-extension paperglow-vscode.vsix
+```
+
+或在 VS Code 中打开 **Extensions → ⋯ → Install from VSIX...** 选择该文件。
+
+安装完成后，按 `Ctrl+K Ctrl+T` 打开 **Color Theme**，选择 **Paperglow Light** 或 **Paperglow Dark**。打开任意 Markdown 文件，使用 VS Code 自带的 **Open Preview** (`Ctrl+Shift+V`)，预览会自动套用同名 Paperglow 样式。
+
 ## 🔧 手动安装
 
 ### Obsidian
@@ -123,6 +138,19 @@ python install.py typora --target-dir "C:\path\to\Typora\themes"
 | macOS | `~/Library/Application Support/abnerworks.Typora/themes/` |
 | Linux | `~/.config/Typora/themes/` |
 
+### VS Code / Cursor
+
+从仓库源码本地构建：
+
+```bash
+cd vscode
+npm ci
+npm run package:vsix
+code --install-extension paperglow-theme.vsix
+```
+
+如果只想试用而不打包，可以直接在 VS Code 中通过 **Extensions → Install from VSIX...** 选择已构建的 `paperglow-theme.vsix`。
+
 ## 💡 补充说明
 
 ### Typora Windows Unibody 标题栏
@@ -136,6 +164,12 @@ Typora 主题 CSS 可以覆盖正文区、侧栏、搜索面板和部分 HTML UI
 - 阅读区与编辑区都使用更贴近纸面稿件的卡片式阅读容器
 - 16px 圆角代码块、暖灰引用块、陶土色链接与统一 callout 视觉
 
+### VS Code / Cursor 特性
+
+- **Paperglow Light** 与 **Paperglow Dark** 两套完整 workbench 与语法配色，从活动栏到状态栏都遵循同一套陶土暖色语义
+- 通过 `markdown.previewStyles` 让 VS Code 内置 Markdown 预览自动套用 Paperglow 排版（标题、引用块、代码块、表格、callout）
+- 兼容 Cursor，主题选择路径与 VS Code 一致
+
 ## 🏗️ 项目结构
 
 ```text
@@ -148,11 +182,17 @@ paperglow/
 ├── typora/                    # Typora 主题文件
 │   ├── paperglow.css          # Typora 浅色主题
 │   └── paperglow-dark.css     # Typora 深色主题，会 import paperglow.css
+├── vscode/                    # VS Code / Cursor 扩展源码
+│   ├── package.json           # 扩展清单（themes + markdown.previewStyles）
+│   ├── themes/                # Paperglow Light / Dark 配色 JSON
+│   ├── media/                 # Markdown preview CSS、扩展图标
+│   └── src/                   # TypeScript 入口与构建脚本
 ├── docs/
 │   ├── logo.svg               # 项目 logo
 │   ├── typora/                # Typora 预览图
 │   └── obsidian/              # Obsidian 预览图
 ├── tests/                     # 安装、文档、Obsidian 与 Typora 样式检查
+├── CHANGELOG.md               # 版本变更记录
 ├── README.md                  # 中文文档
 └── README.en.md               # English documentation
 ```
