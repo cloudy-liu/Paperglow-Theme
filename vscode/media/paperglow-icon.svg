@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="paperglow-icon-title paperglow-icon-desc">
+  <title id="paperglow-icon-title">Paperglow icon</title>
+  <desc id="paperglow-icon-desc">A warm paper sheet with a folded corner and quiet reading lines.</desc>
+  <defs>
+    <linearGradient id="icon-paper" x1="18" y1="8" x2="116" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#f4ece3"/>
+    </linearGradient>
+    <linearGradient id="icon-accent" x1="38" y1="35" x2="38" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d58b57"/>
+      <stop offset="1" stop-color="#bc6a3a"/>
+    </linearGradient>
+  </defs>
+
+  <g id="paperglow-paper-mark">
+    <path d="M27 8H82L114 40V99C114 110.598 104.598 120 93 120H27C15.402 120 6 110.598 6 99V29C6 17.402 15.402 8 27 8Z" fill="url(#icon-paper)" stroke="#ded2c7" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M82 8V30C82 36.627 87.373 42 94 42H114" fill="#f9f2ea" stroke="#ded2c7" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M16 104C38 114 72 116 104 108" fill="none" stroke="#eaded2" stroke-width="2.6" stroke-linecap="round" opacity="0.75"/>
+    <rect x="31" y="35" width="13" height="61" rx="6.5" fill="url(#icon-accent)"/>
+    <path d="M57 43H92" stroke="#dbc8b7" stroke-width="9" stroke-linecap="round"/>
+    <path d="M57 61H98" stroke="#a99d91" stroke-width="7.5" stroke-linecap="round"/>
+    <path d="M57 78H92" stroke="#bfb3a7" stroke-width="7.5" stroke-linecap="round"/>
+    <path d="M57 96H84" stroke="#ead8c9" stroke-width="10" stroke-linecap="round"/>
+    <path d="M57 112H99" stroke="#e2c8b4" stroke-width="6.5" stroke-linecap="round" opacity="0.7"/>
+  </g>
+</svg>

@@ -1,8 +1,7 @@
 src/**
 test/**
 node_modules/**
-out/src/**
-out/test/**
+out/**
 node_modules/.cache/**
 *.vsix
 tsconfig.json

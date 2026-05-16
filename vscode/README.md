@@ -1,25 +1,31 @@
-# Paperglow Markdown Preview
+# Paperglow Theme
 
-Paperglow Markdown Preview adds a single-tab Markdown preview workflow to VS Code.
-It is designed for users who want a Cursor-like `Preview | Markdown` switch
-without replacing VS Code's native Markdown editor.
+Paperglow Theme brings the Paperglow reading palette to VS Code and Cursor. It
+includes full light and dark workbench themes, syntax colors, and matching
+styling for VS Code's built-in Markdown preview.
 
-## Usage
+## Select a Theme
 
-1. Open a Markdown file.
-2. Run **Paperglow: Open Paperglow Preview** from the Command Palette, or click
-   the Paperglow preview action in the editor title area.
-3. Read the document in the Paperglow preview.
-4. Click **Markdown** in the preview header to return to the source editor.
+1. Run **Preferences: Color Theme** from the Command Palette.
+2. Select **Paperglow Light** or **Paperglow Dark**.
+3. Open Explorer, Outline, editor tabs, panels, and Markdown preview in the same
+   Paperglow color system.
 
-The preview opens in the current editor group. It does not default to a split
-view.
+## Markdown Preview
 
-## Product Boundary
+Open a Markdown file and use VS Code's built-in Markdown preview button or
+command. When **Paperglow Light** or **Paperglow Dark** is active, the native
+preview uses the matching Paperglow reading style.
 
-This extension does not provide Typora-style WYSIWYG editing. Markdown source is
-still edited by VS Code's native editor. Paperglow owns only the preview Webview
-and its compact document header.
+Source and preview switching remains VS Code's native workflow.
+
+## Scope
+
+Paperglow contributes VS Code color themes for the workbench and syntax tokens,
+and styles VS Code's built-in Markdown preview to match the selected Paperglow
+theme. Markdown source is still edited by VS Code's native editor, and the
+extension does not provide Typora-style WYSIWYG editing or a custom Markdown
+preview Webview.
 
 ## v1 Markdown Scope
 
@@ -40,6 +46,6 @@ and its compact document header.
 
 Screenshots should be added before Marketplace publication:
 
-- Light Paperglow preview
-- Dark Paperglow preview
+- Paperglow Light workbench and preview
+- Paperglow Dark workbench and preview
 - Narrow editor width with a long file name

@@ -1,10 +1,11 @@
 {
-  "name": "paperglow-markdown-preview",
-  "displayName": "Paperglow Markdown Preview",
-  "description": "A single-tab Paperglow Markdown preview with a compact Preview | Markdown switch.",
+  "name": "paperglow-theme",
+  "displayName": "Paperglow Theme",
+  "description": "A complete Paperglow VS Code theme with cohesive light/dark workbench colors, syntax colors, and native Markdown preview styling.",
   "version": "0.1.0",
   "publisher": "cloudy-liu",
   "license": "Apache-2.0",
+  "icon": "media/paperglow-icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/cloudy-liu/Paperglow-Theme.git",
@@ -14,51 +15,43 @@
     "vscode": "^1.89.0"
   },
   "categories": [
-    "Visualization",
-    "Other"
+    "Themes"
   ],
-  "activationEvents": [
-    "onLanguage:markdown",
-    "onCommand:paperglow.openPreview"
+  "keywords": [
+    "paperglow",
+    "theme",
+    "color-theme",
+    "markdown-preview",
+    "markdown"
   ],
-  "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "themes": [
       {
-        "command": "paperglow.openPreview",
-        "title": "Open Paperglow Preview",
-        "category": "Paperglow",
-        "icon": "$(open-preview)"
+        "label": "Paperglow Light",
+        "uiTheme": "vs",
+        "path": "./themes/paperglow-light-color-theme.json"
+      },
+      {
+        "label": "Paperglow Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/paperglow-dark-color-theme.json"
       }
     ],
-    "menus": {
-      "editor/title": [
-        {
-          "command": "paperglow.openPreview",
-          "when": "resourceLangId == markdown",
-          "group": "navigation@1"
-        }
-      ]
-    }
+    "markdown.previewStyles": [
+      "./media/paperglow-markdown-preview.css"
+    ]
   },
   "scripts": {
-    "build:bundle": "esbuild src/extension.ts --bundle --platform=node --target=node18 --format=cjs --external:vscode --outfile=out/extension.js",
-    "compile": "tsc -p .",
+    "clean": "node -e \"require('node:fs').rmSync('out',{recursive:true,force:true})\"",
+    "compile": "npm run clean && tsc -p .",
     "test": "npm run compile && node --test \"out/test/*.test.js\"",
-    "package:vsix": "npm run build:bundle && vsce package --out paperglow-markdown-preview.vsix"
-  },
-  "dependencies": {
-    "markdown-it": "^14.1.0",
-    "markdown-it-task-lists": "^2.1.1",
-    "sanitize-html": "^2.17.3"
+    "package:vsix": "vsce package --out paperglow-theme.vsix"
   },
   "devDependencies": {
-    "@types/markdown-it": "^14.1.2",
     "@types/node": "^20.12.12",
-    "@types/sanitize-html": "^2.16.1",
-    "@types/vscode": "^1.89.0",
+    "@types/pngjs": "^6.0.5",
     "@vscode/vsce": "^3.2.2",
-    "esbuild": "^0.28.0",
+    "pngjs": "^7.0.0",
     "typescript": "^5.6.3"
   }
 }
