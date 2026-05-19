@@ -123,17 +123,35 @@ python install.py typora --target-dir "C:\path\to\Typora\themes"
 
 ### VS Code / Cursor
 
-从最新 [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest) 下载 `paperglow-vscode.vsix`，然后任选一种方式安装：
+#### 方式一：命令行安装
+
+1. 从最新 [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest) 下载 `paperglow-vscode.vsix` 到本地（点击 Assets 展开，找到 `.vsix` 文件点击下载）
+2. 打开终端，进入 `.vsix` 文件所在目录
+3. 执行安装命令：
 
 ```bash
+# VS Code
 code --install-extension paperglow-vscode.vsix
 # Cursor 用户
 cursor --install-extension paperglow-vscode.vsix
 ```
 
-或在 VS Code 中打开 **Extensions → ⋯ → Install from VSIX...** 选择该文件。
+> 如果提示 `code` 或 `cursor` 命令未找到，需要在编辑器中按 `Ctrl+Shift+P` 打开命令面板，输入 **Shell Command: Install 'code' command in PATH** 并执行，然后重启终端。
 
-安装完成后，按 `Ctrl+K Ctrl+T` 打开 **Color Theme**，选择 **Paperglow Light** 或 **Paperglow Dark**。打开任意 Markdown 文件，使用 VS Code 自带的 **Open Preview** (`Ctrl+Shift+V`)，预览会自动套用同名 Paperglow 样式。
+#### 方式二：VS Code 界面安装（推荐新手使用）
+
+1. 从最新 [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest) 下载 `paperglow-vscode.vsix` 到本地
+2. 打开 VS Code / Cursor
+3. 点击左侧活动栏的 **扩展** 图标（或按 `Ctrl+Shift+X`）打开扩展面板
+4. 点击扩展面板右上角的 **⋯** 按钮，选择 **从 VSIX 安装...**（Install from VSIX...）
+5. 在文件选择器中找到下载的 `paperglow-vscode.vsix`，点击确定
+6. 安装完成后点击 **重新加载**（Reload）使主题生效
+
+#### 启用主题
+
+1. 按 `Ctrl+K Ctrl+T` 打开颜色主题选择器
+2. 选择 **Paperglow Light**（亮色）或 **Paperglow Dark**（深色）
+3. 打开任意 Markdown 文件，按 `Ctrl+Shift+V` 使用 VS Code 自带的预览，预览会自动套用 Paperglow 样式
 
 ## 🔧 手动安装
 
@@ -159,10 +177,9 @@ cursor --install-extension paperglow-vscode.vsix
 cd vscode
 npm ci
 npm run package:vsix
-code --install-extension paperglow-theme.vsix
 ```
 
-如果只想试用而不打包，可以直接在 VS Code 中通过 **Extensions → Install from VSIX...** 选择已构建的 `paperglow-theme.vsix`。
+构建完成后会在 `vscode/` 目录下生成 `paperglow-theme.vsix`，安装方式同上（命令行或界面安装均可）。
 
 ## 💡 补充说明
 

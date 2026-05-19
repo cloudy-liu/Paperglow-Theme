@@ -102,17 +102,35 @@ python install.py typora --target-dir "C:\path\to\Typora\themes"
 
 ### VS Code / Cursor
 
-Download `paperglow-vscode.vsix` from the latest [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest) and install it with either:
+#### Option 1: Command-line install
+
+1. Download `paperglow-vscode.vsix` from the latest [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest) (click **Assets** to expand, then click the `.vsix` file to download)
+2. Open a terminal and navigate to the directory where the `.vsix` file was saved
+3. Run the install command:
 
 ```bash
+# VS Code
 code --install-extension paperglow-vscode.vsix
 # Cursor users
 cursor --install-extension paperglow-vscode.vsix
 ```
 
-Or open **Extensions → ⋯ → Install from VSIX...** in VS Code and pick the file.
+> If you get a "command not found" error for `code` or `cursor`, open the editor, press `Ctrl+Shift+P` to open the Command Palette, run **Shell Command: Install 'code' command in PATH**, then restart your terminal.
 
-Once installed, open the Command Palette and run **Preferences: Color Theme** (`Ctrl+K Ctrl+T`), then choose **Paperglow Light** or **Paperglow Dark**. Open any Markdown file and use VS Code's built-in **Open Preview** (`Ctrl+Shift+V`) — the preview automatically picks up the matching Paperglow reading style.
+#### Option 2: Install from VS Code UI (recommended for new users)
+
+1. Download `paperglow-vscode.vsix` from the latest [Release](https://github.com/cloudy-liu/Paperglow-Theme/releases/latest)
+2. Open VS Code / Cursor
+3. Click the **Extensions** icon in the left activity bar (or press `Ctrl+Shift+X`) to open the Extensions panel
+4. Click the **⋯** button in the top-right corner of the Extensions panel, then select **Install from VSIX...**
+5. In the file picker, locate the downloaded `paperglow-vscode.vsix` and confirm
+6. After installation completes, click **Reload** to activate the theme
+
+#### Activate the theme
+
+1. Press `Ctrl+K Ctrl+T` to open the Color Theme picker
+2. Select **Paperglow Light** or **Paperglow Dark**
+3. Open any Markdown file and press `Ctrl+Shift+V` to use VS Code's built-in preview — it automatically picks up the Paperglow style
 
 ## Manual Install
 
@@ -138,10 +156,9 @@ To build from source:
 cd vscode
 npm ci
 npm run package:vsix
-code --install-extension paperglow-theme.vsix
 ```
 
-You can also open the built `paperglow-theme.vsix` via **Extensions → Install from VSIX...** without going through the CLI.
+This produces `paperglow-theme.vsix` in the `vscode/` directory. Install it using either method described above (command line or UI).
 
 ## Notes
 
