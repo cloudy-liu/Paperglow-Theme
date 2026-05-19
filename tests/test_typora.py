@@ -248,6 +248,27 @@ class TyporaThemeTest(unittest.TestCase):
         missing = collect_missing_items()
         self.assertEqual(missing, [], "\n".join(missing))
 
+    def test_dark_mermaid_sequence_actor_boxes_target_rects_not_all_actors(self) -> None:
+        dark_css = read_text(THEME_DIR / "paperglow-dark.css")
+
+        actor_box_rule = extract_rule_with_flexible_selector(
+            dark_css,
+            r'\.md-diagram-panel rect\.actor\s*,\s*'
+            r'\.md-diagram-panel \.actor rect\s*,\s*'
+            r'\.md-diagram-panel \.actor-line',
+        )
+        actor_text_rule = extract_rule_with_flexible_selector(
+            dark_css,
+            r'\.md-diagram-panel text\.actor\s*,\s*'
+            r'\.md-diagram-panel text\.actor tspan\s*,\s*'
+            r'\.md-diagram-panel \.actor span',
+        )
+
+        self.assertIn("fill: #3a3430 !important;", actor_box_rule)
+        self.assertIn("stroke: #d59567 !important;", actor_box_rule)
+        self.assertIn("fill: #faf8f3 !important;", actor_text_rule)
+        self.assertNotRegex(dark_css, r"\.md-diagram-panel \.actor\s*,")
+
     def test_typora_lists_cycle_by_family_and_reset_mixed_contexts(self) -> None:
         css = read_text(THEME_DIR / "paperglow.css")
 

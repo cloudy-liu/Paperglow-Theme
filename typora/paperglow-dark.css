@@ -119,14 +119,17 @@
 .md-diagram-panel .node circle,
 .md-diagram-panel .node ellipse,
 .md-diagram-panel .node polygon,
-.md-diagram-panel .node path {
+.md-diagram-panel .node path,
+.md-diagram-panel .node .label-container,
+.md-diagram-panel .label-container rect {
     fill: #3a3430 !important;
     stroke: #d59567 !important;
     stroke-width: 1.5px !important;
 }
 
 .md-diagram-panel .nodeLabel,
-.md-diagram-panel .label {
+.md-diagram-panel .label,
+.md-diagram-panel .label-container span {
     color: #faf8f3 !important;
     fill: #faf8f3 !important;
 }
@@ -162,8 +165,46 @@
     color: #d5cdc0 !important;
 }
 
-/* Sequence diagrams — warm tone nudge on top of --mermaid-theme: dark */
+/* Sequence diagrams — warm accent overrides on top of --mermaid-theme: dark */
+.md-diagram-panel rect.actor,
+.md-diagram-panel .actor rect,
+.md-diagram-panel .actor-line {
+    fill: #3a3430 !important;
+    stroke: #d59567 !important;
+    stroke-width: 1.5px !important;
+}
+
+.md-diagram-panel text.actor,
+.md-diagram-panel text.actor tspan,
+.md-diagram-panel .actor span {
+    color: #faf8f3 !important;
+    fill: #faf8f3 !important;
+}
+
+.md-diagram-panel line[class*="messageLine"],
+.md-diagram-panel .messageLine0,
+.md-diagram-panel .messageLine1 {
+    stroke: #b3a799 !important;
+    stroke-width: 1.5px !important;
+}
+
+.md-diagram-panel .messageText,
+.md-diagram-panel .messageText span {
+    fill: #d5cdc0 !important;
+    color: #d5cdc0 !important;
+}
+
 .md-diagram-panel .loopText,
 .md-diagram-panel .loopText tspan {
     fill: #d5cdc0 !important;
+}
+
+.md-diagram-panel .label-box {
+    fill: #3a3430 !important;
+    stroke: #d59567 !important;
+}
+
+.md-diagram-panel .label-text {
+    fill: #faf8f3 !important;
+    color: #faf8f3 !important;
 }
