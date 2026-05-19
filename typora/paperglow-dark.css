@@ -14,6 +14,8 @@
 @import url("./paperglow.css");
 
 :root {
+    --mermaid-theme: dark;
+
     /* --- Surface palette (deeper than official #262624 for card elevation) --- */
     --bg-color: #222120;
     --window-bg-color: #1e1d1b;
@@ -116,7 +118,8 @@
 .md-diagram-panel .node rect,
 .md-diagram-panel .node circle,
 .md-diagram-panel .node ellipse,
-.md-diagram-panel .node polygon {
+.md-diagram-panel .node polygon,
+.md-diagram-panel .node path {
     fill: #3a3430 !important;
     stroke: #d59567 !important;
     stroke-width: 1.5px !important;
@@ -157,4 +160,10 @@
 
 .md-diagram-panel .cluster span {
     color: #d5cdc0 !important;
+}
+
+/* Sequence diagrams — warm tone nudge on top of --mermaid-theme: dark */
+.md-diagram-panel .loopText,
+.md-diagram-panel .loopText tspan {
+    fill: #d5cdc0 !important;
 }

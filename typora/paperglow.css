@@ -995,7 +995,6 @@ pre.md-meta-block {
    ======================================== */
 #typora-sidebar {
     background-color: var(--side-bar-bg-color);
-    position: relative;
     border-right: none;
     box-shadow: inset -1px 0 0 var(--sidebar-divider-highlight);
 }
