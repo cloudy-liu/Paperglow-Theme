@@ -33,6 +33,24 @@ def read_png_size(path: Path) -> tuple[int, int]:
     return width, height
 
 
+def extract_rule_body(css: str, selector: str) -> str:
+    marker = f"{selector} {{"
+    start = css.find(marker)
+    if start == -1:
+        return ""
+
+    index = start + len(marker)
+    depth = 1
+    while index < len(css) and depth > 0:
+        if css[index] == "{":
+            depth += 1
+        elif css[index] == "}":
+            depth -= 1
+        index += 1
+
+    return css[start:index]
+
+
 class ObsidianSubmissionTest(unittest.TestCase):
     def test_root_obsidian_release_files_exist(self) -> None:
         self.assertTrue(ROOT_THEME_PATH.exists(), f"Missing root theme.css: {ROOT_THEME_PATH}")
@@ -75,6 +93,30 @@ class ObsidianSubmissionTest(unittest.TestCase):
             (512, 288),
             "Theme gallery screenshot should use the recommended 512x288 size",
         )
+
+    def test_obsidian_notices_are_readable_over_workspace_content(self) -> None:
+        css = read_text(ROOT_THEME_PATH)
+
+        notice_container = extract_rule_body(css, ".notice-container")
+        notice = extract_rule_body(css, ".notice")
+        dark_notice = extract_rule_body(css, ".theme-dark .notice")
+        notice_message = extract_rule_body(css, ".notice .notice-message")
+
+        self.assertIn("z-index: 9999;", notice_container)
+        self.assertIn("background: var(--background-primary) !important;", notice)
+        self.assertIn("color: var(--text-normal) !important;", notice)
+        self.assertIn("border: 1px solid var(--background-modifier-border);", notice)
+        self.assertIn("border-radius: 12px;", notice)
+        self.assertIn("box-shadow:", notice)
+        self.assertIn("font-family: var(--font-interface-theme);", notice)
+        self.assertIn("font-size: 0.95rem;", notice)
+        self.assertIn("font-weight: 500;", notice)
+        self.assertIn("line-height: 1.45;", notice)
+        self.assertIn("max-width: min(520px, calc(100vw - 32px));", notice)
+        self.assertIn("overflow-wrap: anywhere;", notice)
+        self.assertIn("padding: 12px 18px;", notice)
+        self.assertIn("box-shadow: var(--card-shadow), 0 18px 40px rgba(0, 0, 0, 0.42);", dark_notice)
+        self.assertIn("color: inherit;", notice_message)
 
     def test_release_workflow_packages_root_obsidian_files(self) -> None:
         workflow = read_text(RELEASE_WORKFLOW_PATH)
