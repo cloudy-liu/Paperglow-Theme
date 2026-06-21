@@ -124,7 +124,27 @@ class ObsidianSubmissionTest(unittest.TestCase):
         self.assertIn(
             '      - "paperglow-v*"',
             workflow,
-            "Release workflow should only trigger for paperglow-v* tags",
+            "Release workflow should still support historical paperglow-v* tags",
+        )
+        self.assertIn(
+            '      - "*.*.*"',
+            workflow,
+            "Release workflow should support semver tags that match Obsidian manifest versions",
+        )
+        self.assertIn(
+            'paperglow-v*) version="${TAG_NAME#paperglow-v}"',
+            workflow,
+            "Release workflow should derive versions from historical prefixed tags",
+        )
+        self.assertIn(
+            '*) version="${TAG_NAME}"',
+            workflow,
+            "Release workflow should derive versions from bare semver tags",
+        )
+        self.assertIn(
+            "grep -Eq '^[0-9]+\\.[0-9]+\\.[0-9]+$'",
+            workflow,
+            "Release workflow should reject tags that do not resolve to a semver version",
         )
         self.assertIn(
             "cp theme.css manifest.json dist/obsidian/",
@@ -135,6 +155,16 @@ class ObsidianSubmissionTest(unittest.TestCase):
             "zip -q ../obsidian-paperglow.zip theme.css manifest.json",
             workflow,
             "Obsidian release package should only contain the two theme files",
+        )
+        self.assertIn(
+            "dist/obsidian/manifest.json",
+            workflow,
+            "Obsidian releases should attach manifest.json directly for the community directory",
+        )
+        self.assertIn(
+            "dist/obsidian/theme.css",
+            workflow,
+            "Obsidian releases should attach theme.css directly for the community directory",
         )
         self.assertIn(
             "cp typora/paperglow.css typora/paperglow-dark.css dist/typora/",
