@@ -106,6 +106,4 @@ jobs:
           files: |
             dist/typora-paperglow.zip
             dist/obsidian-paperglow.zip
-            dist/obsidian/manifest.json
-            dist/obsidian/theme.css
             dist/paperglow-vscode.vsix
