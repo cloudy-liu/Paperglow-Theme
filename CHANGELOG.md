@@ -4,11 +4,10 @@ All notable changes to Paperglow are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.3.2] - 2026-06-22
+## [0.3.2] - 2026-06-24
 
-### Changed
-- Align Obsidian theme metadata with the current community directory submission flow.
-- Publish Obsidian releases with semver tags that match `manifest.json`, plus direct `manifest.json` and `theme.css` assets.
+### Fixed
+- **Typora PDF export**: Preserve warm paper background, terracotta accents, and code block styling when exporting to PDF. Added `print-color-adjust: exact` and hardcoded color values in `@media print` rules to work around browser print engines blocking external fonts and CSS variables.
 
 ## [0.3.1] - 2026-05-20
 
