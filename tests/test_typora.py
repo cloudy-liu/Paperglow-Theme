@@ -269,6 +269,33 @@ class TyporaThemeTest(unittest.TestCase):
         self.assertIn("fill: #faf8f3 !important;", actor_text_rule)
         self.assertNotRegex(dark_css, r"\.md-diagram-panel \.actor\s*,")
 
+    def test_dark_print_export_preserves_dark_theme_tokens(self) -> None:
+        dark_css = read_text(THEME_DIR / "paperglow-dark.css")
+        print_block = extract_block(dark_css, "@media print")
+
+        self.assertIn("@media print", print_block)
+        for light_token in [
+            "background-color: #f7f2eb;",
+            "background-color: #fcfaf6;",
+            "background-color: #fcfbf8;",
+            "color: #2b2621;",
+            "color: #1e1915;",
+        ]:
+            self.assertNotIn(light_token, print_block)
+
+        for dark_token in [
+            "background-color: var(--bg-color);",
+            "color: var(--text-color);",
+            "background-color: var(--card-bg);",
+            "background-color: var(--code-bg-color);",
+            "color: var(--code-text-color);",
+            "background-color: var(--quote-bg-color);",
+            "color: var(--quote-text-color);",
+            "background-color: var(--callout-bg);",
+            "color: var(--callout-text) !important;",
+        ]:
+            self.assertIn(dark_token, print_block)
+
     def test_typora_lists_cycle_by_family_and_reset_mixed_contexts(self) -> None:
         css = read_text(THEME_DIR / "paperglow.css")
 
