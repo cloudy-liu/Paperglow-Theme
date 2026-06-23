@@ -101,7 +101,7 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          name: Paperglow ${{ steps.build.outputs.version }}
+          name: Paperglow v${{ steps.build.outputs.version }}
           body: ${{ steps.notes.outputs.body }}
           files: |
             dist/typora-paperglow.zip
