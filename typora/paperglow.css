@@ -1141,39 +1141,77 @@ a:focus-visible {
 }
 
 /* ========================================
-   Print
+   Print / PDF Export
    ======================================== */
 @media print {
-
-    html,
-    body {
-        background-color: white;
+    /* Force browsers to preserve colors and backgrounds in print/PDF */
+    html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
     }
 
+    /* Preserve warm paper background */
+    html,
+    body {
+        background-color: #f7f2eb;
+        color: #2b2621;
+    }
+
+    /* Main content area */
     #write {
         max-width: 100%;
         padding: 20px;
         box-shadow: none;
         border: none;
+        background-color: #fcfaf6;
     }
 
+    /* Preserve code block styling */
     pre,
     .md-fences {
+        background-color: #fcfbf8;
+        border: 1px solid #e7ddd2;
+        border-radius: 16px;
         page-break-inside: avoid;
-        border: 1px solid var(--border-color);
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    /* Preserve inline code styling */
+    code {
+        background-color: #f2ede7;
+        color: #a3493f;
+        border: 1px solid #d8cec3;
+    }
+
+    /* Preserve blockquote styling */
+    blockquote {
+        background-color: #f3ede5;
+        border-left: 4px solid #c58c64;
+        color: #4a4039;
+    }
+
+    /* Preserve link colors */
+    a {
+        color: #8f4b28;
+        border-bottom: 1px solid rgba(143, 75, 40, 0.28);
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        color: #1e1915;
         page-break-after: avoid;
     }
 
+    /* Tables - keep original behavior, no modifications */
     table {
         page-break-inside: avoid;
+    }
+
+    /* Hide UI elements */
+    #typora-sidebar,
+    .sidebar-content,
+    #md-searchpanel {
+        display: none;
     }
 }
 

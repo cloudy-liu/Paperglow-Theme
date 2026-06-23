@@ -208,3 +208,138 @@
     fill: #faf8f3 !important;
     color: #faf8f3 !important;
 }
+
+/* ========================================
+   Print / PDF Export - preserve the dark theme
+   ======================================== */
+@media print {
+    /* Force browsers to preserve colors and backgrounds in print/PDF */
+    html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+
+    /* Override the base light-theme print colors imported from paperglow.css. */
+    html,
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+
+    /* Main content area */
+    #write {
+        max-width: 100%;
+        padding: 20px;
+        box-shadow: none;
+        border: none;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+    }
+
+    /* Keep code surfaces dark instead of mixing dark blocks into a light page. */
+    pre,
+    .md-fences {
+        background-color: var(--code-bg-color);
+        border: 1px solid var(--code-border-color);
+        border-radius: 16px;
+        page-break-inside: avoid;
+    }
+
+    pre code,
+    .md-fences code {
+        background: transparent;
+        border: none;
+        color: var(--code-text-color);
+    }
+
+    /* Inline code */
+    code {
+        background-color: var(--inline-code-bg-color);
+        color: var(--inline-code-text-color);
+        border: 1px solid var(--inline-code-border-color);
+    }
+
+    /* Blockquotes */
+    blockquote {
+        background-color: var(--quote-bg-color);
+        border-left: 3px solid var(--quote-border-color);
+        color: var(--quote-text-color);
+    }
+
+    blockquote p,
+    blockquote li {
+        color: var(--quote-text-color);
+    }
+
+    blockquote strong {
+        color: var(--heading-color);
+    }
+
+    blockquote code,
+    .md-alert code {
+        background-color: var(--quote-inline-code-bg-color);
+        color: var(--quote-inline-code-color);
+        border-color: transparent;
+    }
+
+    /* Preserve link colors */
+    a {
+        color: var(--link-color);
+        border-bottom: 1px solid var(--link-border-color);
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--heading-color);
+        page-break-after: avoid;
+    }
+
+    /* Body text and tables */
+    p,
+    li,
+    #write th,
+    #write td {
+        color: var(--text-color);
+    }
+
+    /* Callouts use !important in the base theme, so match that priority here. */
+    .md-alert,
+    .md-alert-note,
+    .md-alert-tip,
+    .md-alert-important,
+    .md-alert-warning,
+    .md-alert-caution {
+        background-color: var(--callout-bg);
+        border: 1px solid var(--callout-border);
+        color: var(--callout-text);
+    }
+
+    .md-alert,
+    .md-alert p,
+    .md-alert span,
+    .md-alert strong,
+    .md-alert em,
+    .md-alert li {
+        color: var(--callout-text) !important;
+    }
+
+    .md-alert a {
+        color: var(--callout-link-color) !important;
+        border-bottom-color: var(--callout-link-border-color) !important;
+    }
+
+    /* Tables - keep original behavior, no modifications */
+    table {
+        page-break-inside: avoid;
+    }
+
+    /* Hide UI elements */
+    #typora-sidebar,
+    .sidebar-content,
+    #md-searchpanel {
+        display: none;
+    }
+}
