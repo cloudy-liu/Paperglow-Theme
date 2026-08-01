@@ -979,7 +979,7 @@ body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-content
 .callout[data-callout="example"],
 .callout[data-callout="quote"],
 .callout[data-callout="cite"] {
-  --callout-color: 197, 140, 100;
+  --callout-color: rgb(197, 140, 100);
   background: var(--blockquote-background-color) !important;
   border-color: var(--blockquote-border-color) !important;
 }
